@@ -1,0 +1,5 @@
+es:
+  admin:
+    budget_headings:
+      form:
+        required_support_info: "Si la propuesta obtiene este número de apoyos se avisará a los usuarios que ya no necesita más para poder pasar a la siguiente fase."
