@@ -15,17 +15,21 @@ async def migrate(id_maps):
         if old_vote.voter_type != "User":
             print(f"Unkonwn vote voter_type: {old_vote.voter_type}")
             continue
+        user_id = id_maps["users"].get(str(old_vote.voter_id))
+        if user_id is None:
+            print(f"Missing user. Old id: {old_vote.voter_id}")
+            continue
         new_vote = new_votes.get(
             (
-                id_maps["budget_investments"][old_vote.votable_id],
-                id_maps["users"][old_vote.voter_id],
+                id_maps["budget_investments"][str(old_vote.votable_id)],
+                user_id,
             )
         )
         if new_vote is None:
             new_vote = NewVote(
-                votable_id=id_maps["budget_investments"][old_vote.votable_id],
+                votable_id=id_maps["budget_investments"][str(old_vote.votable_id)],
                 votable_type=old_vote.votable_type,
-                voter_id=id_maps["users"][old_vote.voter_id],
+                voter_id=id_maps["users"][str(old_vote.voter_id)],
                 voter_type=old_vote.voter_type,
             )
 
@@ -37,4 +41,4 @@ async def migrate(id_maps):
         new_vote.signature_id = old_vote.signature_id
 
         await new_vote.save()
-        id_maps["votes"][old_vote.id] = new_vote.id
+        id_maps["votes"][str(old_vote.id)] = new_vote.id

@@ -42,12 +42,16 @@ async def migrate(id_maps):
             ]
 
         new_budget_investment.author_id = id_maps["users"][
-            old_budget_investment.author_id
+            str(old_budget_investment.author_id)
         ]
         if old_budget_investment.administrator_id:
-            new_budget_investment.administrator_id = id_maps["administrators"][
-                old_budget_investment.administrator_id
-            ]
+            admin_id = id_maps["administrators"].get(
+                str(old_budget_investment.administrator_id)
+            )
+            if admin_id is None:
+                print(f"missing admin old id: {old_budget_investment.administrator_id}")
+            else:
+                new_budget_investment.administrator_id = admin_id
         new_budget_investment.external_url = old_budget_investment.external_url
         new_budget_investment.price = old_budget_investment.price
         new_budget_investment.feasibility = old_budget_investment.feasibility
@@ -71,14 +75,14 @@ async def migrate(id_maps):
         new_budget_investment.created_at = old_budget_investment.created_at
         new_budget_investment.updated_at = old_budget_investment.updated_at
         new_budget_investment.heading_id = id_maps["budget_headings"][
-            old_budget_investment.heading_id
+            str(old_budget_investment.heading_id)
         ]
         new_budget_investment.responsible_name = old_budget_investment.responsible_name
         new_budget_investment.budget_id = id_maps["budgets"][
-            old_budget_investment.budget_id
+            str(old_budget_investment.budget_id)
         ]
         new_budget_investment.group_id = id_maps["budget_groups"][
-            old_budget_investment.group_id
+            str(old_budget_investment.group_id)
         ]
         new_budget_investment.selected = old_budget_investment.selected
         new_budget_investment.location = old_budget_investment.location
@@ -92,13 +96,16 @@ async def migrate(id_maps):
             old_budget_investment.ballot_lines_count
         )
         new_budget_investment.previous_heading_id = id_maps["budget_headings"][
-            old_budget_investment.heading_id
+            str(old_budget_investment.heading_id)
         ]
         new_budget_investment.winner = old_budget_investment.winner
         new_budget_investment.incompatible = old_budget_investment.incompatible
-        new_budget_investment.community_id = id_maps["communities"][
-            old_budget_investment.community_id
-        ]
+        if old_budget_investment.community_id is not None:
+            new_budget_investment.community_id = id_maps["communities"][
+                str(old_budget_investment.community_id)
+            ]
+        else:
+            new_budget_investment.community_id = None
         new_budget_investment.visible_to_valuators = (
             old_budget_investment.visible_to_valuators
         )
@@ -124,7 +131,7 @@ async def migrate(id_maps):
         new_budget_investment_translation.updated_at = datetime.now()
         await new_budget_investment_translation.save()
 
-        id_maps["budget_investments"][old_budget_investment.id] = (
+        id_maps["budget_investments"][str(old_budget_investment.id)] = (
             new_budget_investment.id
         )
 

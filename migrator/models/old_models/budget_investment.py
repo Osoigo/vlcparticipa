@@ -15,7 +15,7 @@ class OldBudgetInvestment(Model):
     # t.integer "administrator_id"
     administrator_id = fields.IntField(null=True)
     # t.string "title"
-    title = fields.CharField(max_length=255, null=True)
+    title = fields.CharField(max_length=512, null=True)
     # t.text "description"
     description = fields.TextField(null=True)
     # t.string "external_url"
@@ -63,7 +63,7 @@ class OldBudgetInvestment(Model):
     # t.boolean "selected", default: false
     selected = fields.BooleanField(default=False)
     # t.string "location"
-    location = fields.CharField(max_length=255, null=True)
+    location = fields.CharField(max_length=512, null=True)
     # t.string "organization_name"
     organization_name = fields.CharField(max_length=255, null=True)
     # t.datetime "unfeasible_email_sent_at"

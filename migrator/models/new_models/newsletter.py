@@ -11,7 +11,7 @@ class NewNewsletter(Model):
 
     id = fields.IntField(primary_key=True)
     # t.string   "subject"
-    subject = fields.CharField(max_length=255, null=True)
+    subject = fields.CharField(max_length=512, null=True)
     # t.string   "segment_recipient", null: false
     segment_recipient = fields.CharField(max_length=255)
     # t.string   "from"
@@ -19,7 +19,7 @@ class NewNewsletter(Model):
     # t.text     "body"
     body = fields.TextField(null=True)
     # t.date     "sent_at"
-    sent_at = NaiveDatetimeField(null=True)
+    sent_at = fields.DateField(null=True)
     # t.datetime "created_at",        null: false
     created_at = NaiveDatetimeField()
     # t.datetime "updated_at",        null: false

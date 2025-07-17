@@ -17,4 +17,4 @@ async def migrate(id_maps):
                 created_at=old_community.created_at, updated_at=old_community.updated_at
             )
         await new_community.save()
-        id_maps["communities"][old_community.id] = new_community.id
+        id_maps["communities"][str(old_community.id)] = new_community.id

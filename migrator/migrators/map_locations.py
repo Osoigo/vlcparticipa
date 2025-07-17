@@ -13,7 +13,7 @@ async def migrate(id_maps):
         if new_map_location is None:
             new_map_location = NewMapLocation(
                 investment_id=id_maps["budget_investments"][
-                    old_map_location.investment_id
+                    str(old_map_location.investment_id)
                 ]
             )
         new_map_location.latitude = old_map_location.latitude
@@ -22,4 +22,4 @@ async def migrate(id_maps):
 
         await new_map_location.save()
 
-        id_maps["map_locations"][old_map_location.id] = new_map_location.id
+        id_maps["map_locations"][str(old_map_location.id)] = new_map_location.id

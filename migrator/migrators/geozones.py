@@ -25,4 +25,4 @@ async def migrate(id_maps):
 
         await new_geozone.save()
 
-        id_maps["geozones"][old_geozone.id] = new_geozone.id
+        id_maps["geozones"][str(old_geozone.id)] = new_geozone.id

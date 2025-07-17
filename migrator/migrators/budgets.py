@@ -57,7 +57,7 @@ async def migrate(id_maps):
         new_budget_translation.updated_at = old_budget.updated_at
         await new_budget_translation.save()
 
-        id_maps["budgets"][old_budget.id] = new_budget.id
+        id_maps["budgets"][str(old_budget.id)] = new_budget.id
 
     # rebuild budgets_id_seq
     connection = connections.get("new")

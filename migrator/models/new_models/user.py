@@ -11,7 +11,7 @@ class NewUser(Model):
 
     id = fields.IntField(primary_key=True)
     # t.string "email", default: ""
-    email = fields.CharField(max_length=255, unique=True)
+    email = fields.CharField(max_length=255, unique=True, null=True)
     # t.string "encrypted_password", default: "", null: false
     encrypted_password = fields.CharField(max_length=255)
     # t.string "reset_password_token"

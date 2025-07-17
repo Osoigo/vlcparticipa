@@ -27,7 +27,10 @@ async def migrate(id_maps):
         new_visit.referrer = old_visit.referrer
         new_visit.landing_page = old_visit.landing_page
         if old_visit.user_id is not None:
-            new_visit.user_id = id_maps["users"][old_visit.user_id]
+            user_id = id_maps["users"].get(str(old_visit.user_id))
+            if user_id is None:
+                print(f"Missing user. Old id: {old_visit.user_id}")
+            new_visit.user_id = user_id
         new_visit.referring_domain = old_visit.referring_domain
         new_visit.browser = old_visit.browser
         new_visit.os = old_visit.os
@@ -50,4 +53,4 @@ async def migrate(id_maps):
 
         await new_visit.save()
 
-        id_maps["visits"][old_visit.id] = new_visit.id
+        id_maps["visits"][str(old_visit.id)] = str(new_visit.id)

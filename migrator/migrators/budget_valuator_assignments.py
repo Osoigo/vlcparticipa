@@ -10,24 +10,33 @@ async def migrate(id_maps):
         for a in await NewBudgetValuatorAssignment.all()
     }
     for old_assignment in old_assignments:
-        new_valuator_id = id_maps["valuators"].get(old_assignment.valuator_id)
+        new_valuator_id = id_maps["valuators"].get(str(old_assignment.valuator_id))
         if new_valuator_id is None:
             continue  # This valuator no longer exists, ignore valuator assignment
+        investment_id = id_maps["budget_investments"].get(
+            str(old_assignment.investment_id)
+        )
+        if investment_id is None:
+            print(f"missing investment, old_id: {old_assignment.investment_id}")
+            continue
         new_assignment = new_assignments.get(
             (
                 new_valuator_id,
-                id_maps["budget_investments"][old_assignment.investment_id],
+                investment_id,
             )
         )
         if new_assignment is None:
+            valuator_id = id_maps["valuators"][str(old_assignment.valuator_id)]
             new_assignment = NewBudgetValuatorAssignment(
-                valuator_id=id_maps["valuators"][old_assignment.valuator_id],
+                valuator_id=valuator_id,
                 investment_id=id_maps["budget_investments"][
-                    old_assignment.investment_id
+                    str(old_assignment.investment_id)
                 ],
             )
 
         new_assignment.created_at = old_assignment.created_at
         new_assignment.updated_at = old_assignment.updated_at
         await new_assignment.save()
-        id_maps["budget_valuator_assignments"][old_assignment.id] = new_assignment.id
+        id_maps["budget_valuator_assignments"][str(old_assignment.id)] = (
+            new_assignment.id
+        )

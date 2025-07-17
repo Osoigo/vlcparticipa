@@ -57,11 +57,17 @@ async def migrate(id_maps):
     #   new_user.unlock_token
     id_maps["users"] = {}
     old_users = await OldUser.all()
-    new_users = {u.email: u for u in await NewUser.all()}
-    for old_user in old_users:
-        new_user = new_users.get(old_user.email)
+    new_users = {(u.email, u.created_at, u.erased_at): u for u in await NewUser.all()}
+    for idx, old_user in enumerate(old_users):
+        new_user = new_users.get(
+            (old_user.email, old_user.created_at, old_user.erased_at)
+        )
         if new_user is None:
-            new_user = NewUser(email=old_user.email)
+            new_user = NewUser(
+                email=old_user.email,
+                created_at=old_user.created_at,
+                erased_at=old_user.erased_at,
+            )
         new_user.encrypted_password = old_user.encrypted_password
         new_user.reset_password_token = old_user.reset_password_token
         new_user.reset_password_sent_at = old_user.reset_password_sent_at
@@ -69,7 +75,6 @@ async def migrate(id_maps):
         new_user.sign_in_count = old_user.sign_in_count
         new_user.current_sign_in_at = old_user.current_sign_in_at
         new_user.last_sign_in_at = old_user.last_sign_in_at
-        new_user.created_at = old_user.created_at
         new_user.updated_at = old_user.updated_at
         new_user.confirmation_token = old_user.confirmation_token
         new_user.confirmed_at = old_user.confirmed_at
@@ -95,7 +100,6 @@ async def migrate(id_maps):
         new_user.failed_census_calls_count = old_user.failed_census_calls_count
         new_user.level_two_verified_at = old_user.level_two_verified_at
         new_user.erase_reason = old_user.erase_reason
-        new_user.erased_at = old_user.erased_at
         new_user.public_activity = old_user.public_activity
         new_user.newsletter = old_user.newsletter
         new_user.notifications_count = old_user.notifications_count
@@ -114,5 +118,10 @@ async def migrate(id_maps):
         new_user.public_interests = old_user.public_interests
         new_user.recommended_debates = old_user.recommended_debates
         new_user.recommended_proposals = old_user.recommended_proposals
-        await new_user.save()
-        id_maps["users"][old_user.id] = new_user.id
+        try:
+            await new_user.save()
+            id_maps["users"][str(old_user.id)] = new_user.id
+            print(idx, end="\r")
+        except Exception as e:
+            print("X")
+    print("")

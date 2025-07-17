@@ -24,7 +24,7 @@ async def migrate(id_maps):
 
         await new_tag.save()
 
-        id_maps["tags"][old_tag.id] = new_tag.id
+        id_maps["tags"][str(old_tag.id)] = new_tag.id
 
     id_maps["taggings"] = {}
     old_taggings = await OldTaggings.all()
@@ -35,13 +35,13 @@ async def migrate(id_maps):
             continue
         new_tagging = new_taggings.get(
             (
-                id_maps["tags"][old_tagging.tag_id],
+                id_maps["tags"][str(old_tagging.tag_id)],
                 old_tagging.taggable_id,
             )
         )
         if new_tagging is None:
             new_tagging = NewTaggings(
-                tag_id=id_maps["tags"][old_tagging.tag_id],
+                tag_id=id_maps["tags"][str(old_tagging.tag_id)],
                 taggable_type=old_tagging.taggable_type,
             )
 
@@ -56,4 +56,4 @@ async def migrate(id_maps):
 
         await new_tagging.save()
 
-        id_maps["taggings"][old_tagging.id] = new_tagging.id
+        id_maps["taggings"][str(old_tagging.id)] = new_tagging.id

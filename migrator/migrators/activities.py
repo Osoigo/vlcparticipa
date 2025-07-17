@@ -21,11 +21,19 @@ async def migrate(id_maps):
         )
         if new_activity is None:
             if old_activity.actionable_type == "Budget::Investment":
-                actionable_id = id_maps["budget_investments"][
+                actionable_id = id_maps["budget_investments"].get(
                     old_activity.actionable_id
-                ]
+                )
+                if actionable_id is None:
+                    print(
+                        f"Missing budget investment. Old id: {old_activity.actionable_id}"
+                    )
+                    continue
             elif old_activity.actionable_type == "Newsletter":
-                actionable_id = id_maps["newsletters"][old_activity.actionable_id]
+                actionable_id = id_maps["newsletters"].get(old_activity.actionable_id)
+                if actionable_id is None:
+                    print(f"Missing newsletter. Old id: {old_activity.actionable_id}")
+                    continue
             else:
                 print(f"Actividad en tipo no soportado: {old_activity.actionable_type}")
                 continue
@@ -41,4 +49,4 @@ async def migrate(id_maps):
 
         await new_activity.save()
 
-        id_maps["activities"][old_activity.id] = new_activity.id
+        id_maps["activities"][str(old_activity.id)] = new_activity.id

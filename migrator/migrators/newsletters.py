@@ -22,8 +22,9 @@ async def migrate(id_maps):
         new_newsletter._from = old_newsletter._from
         new_newsletter.body = old_newsletter.body
         new_newsletter.sent_at = old_newsletter.sent_at
+        new_newsletter.updated_at = old_newsletter.updated_at
         new_newsletter.hidden_at = old_newsletter.hidden_at
 
         await new_newsletter.save()
 
-        id_maps["newsletters"][old_newsletter.id] = new_newsletter.id
+        id_maps["newsletters"][str(old_newsletter.id)] = new_newsletter.id

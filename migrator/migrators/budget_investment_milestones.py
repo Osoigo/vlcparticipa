@@ -25,7 +25,9 @@ async def migrate(id_maps):
         new_milestone_status.created_at = old_milestone_status.created_at
         new_milestone_status.updated_at = old_milestone_status.updated_at
         await new_milestone_status.save()
-        id_maps["milestone_statuses"][old_milestone_status.id] = new_milestone_status.id
+        id_maps["milestone_statuses"][str(old_milestone_status.id)] = (
+            new_milestone_status.id
+        )
 
     id_maps["milestones"] = {}
     old_milestones = await OldBudgetInvestmentMilestone.all()
@@ -40,10 +42,13 @@ async def migrate(id_maps):
         t.milestone_id: t for t in await NewMilestoneTranslation.all()
     }
     for old_milestone in old_milestones:
-        old_milestone_translation = old_milestone_translations[old_milestone.id]
+        old_milestone_translation = old_milestone_translations.get(old_milestone.id)
+        if old_milestone_translation is None:
+            print(f"missing translation for milestone {old_milestone.id}")
+            continue
         new_milestone = new_milestones.get(
             (
-                id_maps["budget_investments"][old_milestone.investment_id],
+                id_maps["budget_investments"][str(old_milestone.investment_id)],
                 old_milestone.created_at,
             )
         )
@@ -51,7 +56,7 @@ async def migrate(id_maps):
             new_milestone = NewMilestone(
                 milestoneable_type="Budget::Investment",
                 milestoneable_id=id_maps["budget_investments"][
-                    old_milestone.investment_id
+                    str(old_milestone.investment_id)
                 ],
                 created_at=old_milestone.created_at,
             )
@@ -62,7 +67,7 @@ async def migrate(id_maps):
         new_milestone.publication_date = old_milestone.publication_date
         if old_milestone.status_id is not None:
             new_milestone.status_id = id_maps["milestone_statuses"][
-                old_milestone.status_id
+                str(old_milestone.status_id)
             ]
         else:
             new_milestone.status_id = None
@@ -77,4 +82,4 @@ async def migrate(id_maps):
         new_milestone_translation.description = old_milestone_translation.description
         await new_milestone_translation.save()
 
-        id_maps["milestones"][old_milestone.id] = new_milestone.id
+        id_maps["milestones"][str(old_milestone.id)] = new_milestone.id

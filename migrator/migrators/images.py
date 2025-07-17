@@ -2,6 +2,7 @@ import hashlib
 import shutil
 from uuid import uuid4
 from base64 import b64encode
+from pathlib import Path
 from PIL import Image
 from ..models.new_models.image import NewImage
 from ..models.new_models.active_storage import (
@@ -16,7 +17,8 @@ from .. import settings
 def get_old_image_path(old_image):
     id_str = f"{old_image.id:09}"
     id_partition = "/".join(id_str[i : i + 3] for i in range(0, len(id_str), 3))
-    hash = "60570d0e6aa151fd2dae36190583d356e455fd23"
+    # hash = "60570d0e6aa151fd2dae36190583d356e455fd23"  # dev_seed
+    hash = "f23035fa8edfd5a3ad1da3dabc634d17bed8a6c0"  # production
     extension = old_image.attachment_file_name.rsplit(".", 1)[1]
     return f"system/images/attachments/{id_partition}/original/{hash}.{extension}"
 
@@ -35,12 +37,16 @@ async def migrate(id_maps):
     }
     new_active_storage_blobs = {a.id: a for a in await NewActiveStorageBlob.all()}
     for old_image in old_images:
+        old_image_path = Path(settings.OLD_STORAGE_PATH / get_old_image_path(old_image))
+        if not old_image_path.exists():
+            print(f"Missing image file: {get_old_image_path(old_image)}")
+            continue
         if old_image.imageable_type == "Budget":
-            imageable_id = id_maps["budgets"][old_image.imageable_id]
+            imageable_id = id_maps["budgets"][str(old_image.imageable_id)]
         elif old_image.imageable_type == "Budget::Investment":
-            imageable_id = id_maps["budget_investments"][old_image.imageable_id]
+            imageable_id = id_maps["budget_investments"][str(old_image.imageable_id)]
         # TODO: elif old_image.imageable_type == "Budget::Investment::Milestone":
-        #   imageable_id = id_maps["budget_investment_milestones"][old_image.imageable_id]
+        #   imageable_id = id_maps["budget_investment_milestones"][str(old_image.imageable_id)]
         else:
             continue
         new_image = new_images.get(
@@ -68,11 +74,10 @@ async def migrate(id_maps):
         new_image.title = old_image.title
         new_image.created_at = old_image.created_at
         new_image.updated_at = old_image.updated_at
-        new_image.user_id = id_maps["users"][old_image.user_id]
+        new_image.user_id = id_maps["users"][str(old_image.user_id)]
 
         await new_image.save()
 
-        old_image_path = settings.OLD_STORAGE_PATH / get_old_image_path(old_image)
         old_image_file = Image.open(old_image_path)
         img_width, img_height = old_image_file.size
         active_storage_blob.filename = old_image.attachment_file_name
@@ -97,11 +102,11 @@ async def migrate(id_maps):
         )
         if not new_image_path.parent.exists():
             new_image_path.parent.mkdir(parents=True)
-        print(f"Copy {old_image_path} to {new_image_path}")
+        # print(f"Copy {old_image_path} to {new_image_path}")
         shutil.copy(old_image_path, new_image_path)
 
-        id_maps["images"][old_image.id] = new_image.id
-        id_maps["active_storage_attachments"][old_image.id] = (
+        id_maps["images"][str(old_image.id)] = new_image.id
+        id_maps["active_storage_attachments"][str(old_image.id)] = (
             active_storage_attachment.id
         )
-        id_maps["active_storage_blobs"][old_image.id] = active_storage_blob.id
+        id_maps["active_storage_blobs"][str(old_image.id)] = active_storage_blob.id

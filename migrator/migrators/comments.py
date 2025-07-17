@@ -18,7 +18,9 @@ async def migrate(id_maps):
     }
     for old_comment in old_comments:
         if old_comment.commentable_type == "Budget::Investment":
-            commentable_id = id_maps["budget_investments"][old_comment.commentable_id]
+            commentable_id = id_maps["budget_investments"][
+                str(old_comment.commentable_id)
+            ]
         else:
             print(f"Comentario en elemento desconocido: {old_comment.commentable_type}")
             continue
@@ -36,16 +38,19 @@ async def migrate(id_maps):
             new_comment_translation = new_comment_translations[new_comment.id]
 
         new_comment.subject = old_comment.subject
-        new_comment.user_id = id_maps["users"][old_comment.user_id]
+        new_comment.user_id = id_maps["users"][str(old_comment.user_id)]
         new_comment.updated_at = old_comment.updated_at
         new_comment.hidden_at = old_comment.hidden_at
         new_comment.flags_count = old_comment.flags_count
         new_comment.ignored_flag_at = old_comment.ignored_flag_at
         new_comment.moderator_id = None  # Es null siempre en producción
         if old_comment.administrator_id is not None:
-            new_comment.administrator_id = id_maps["administrators"][
-                old_comment.administrator_id
-            ]
+            administrator_id = id_maps["administrators"].get(
+                str(old_comment.administrator_id)
+            )
+            if administrator_id is None:
+                print(f"Missing administrator. Old id: {old_comment.administrator_id}")
+            new_comment.administrator_id = administrator_id
         else:
             new_comment.administrator_id = None
         new_comment.cached_votes_total = old_comment.cached_votes_total
@@ -58,7 +63,7 @@ async def migrate(id_maps):
         ancestors = []
         if old_comment.ancestry is not None:
             ancestors = [
-                str(id_maps["comments"][int(comment_id)])
+                str(id_maps["comments"][comment_id])
                 for comment_id in old_comment.ancestry.split("/")
             ]
 
@@ -75,4 +80,4 @@ async def migrate(id_maps):
         new_comment_translation.body = old_comment.body
         await new_comment_translation.save()
 
-        id_maps["comments"][old_comment.id] = new_comment.id
+        id_maps["comments"][str(old_comment.id)] = new_comment.id

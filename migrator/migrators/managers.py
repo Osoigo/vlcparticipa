@@ -12,4 +12,4 @@ async def migrate(id_maps):
         if new_manager is None:
             new_manager = NewManager(user_id=user_map[old_manager.user_id])
         await new_manager.save()
-        id_maps["managers"][old_manager.id] = new_manager.id
+        id_maps["managers"][str(old_manager.id)] = new_manager.id

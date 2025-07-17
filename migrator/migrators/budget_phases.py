@@ -35,11 +35,14 @@ async def migrate(id_maps):
         if old_budget_phase.kind == "drafting":
             continue
         new_budget_phase = new_budget_phases.get(
-            (id_maps["budgets"][old_budget_phase.budget_id], old_budget_phase.starts_at)
+            (
+                id_maps["budgets"][str(old_budget_phase.budget_id)],
+                old_budget_phase.starts_at,
+            )
         )
         if new_budget_phase is None:
             new_budget_phase = NewBudgetPhase(
-                budget_id=id_maps["budgets"][old_budget_phase.budget_id],
+                budget_id=id_maps["budgets"][str(old_budget_phase.budget_id)],
                 starts_at=old_budget_phase.starts_at,
             )
             new_budget_phase_translation = NewBudgetPhaseTranslation(locale="es")
@@ -48,7 +51,7 @@ async def migrate(id_maps):
                 new_budget_phase.id
             ]
 
-        new_budget_phase.budget_id = id_maps["budgets"][old_budget_phase.budget_id]
+        new_budget_phase.budget_id = id_maps["budgets"][str(old_budget_phase.budget_id)]
         new_budget_phase.kind = old_budget_phase.kind
         new_budget_phase.ends_at = old_budget_phase.ends_at
         new_budget_phase.enabled = old_budget_phase.enabled
@@ -65,11 +68,11 @@ async def migrate(id_maps):
         new_budget_phase_translation.updated_at = datetime.now()
         await new_budget_phase_translation.save()
 
-        id_maps["budget_phases"][old_budget_phase.id] = new_budget_phase.id
+        id_maps["budget_phases"][str(old_budget_phase.id)] = new_budget_phase.id
         old_phase_transitions[new_budget_phase.id] = old_budget_phase.next_phase_id
 
     for phase in new_phases:
         old_next_phase = old_phase_transitions[phase.id]
         if old_next_phase is not None:
-            phase.next_phase_id = id_maps["budget_phases"][old_next_phase]
+            phase.next_phase_id = id_maps["budget_phases"][str(old_next_phase)]
             await phase.save()

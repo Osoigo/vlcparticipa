@@ -33,7 +33,7 @@ async def migrate(id_maps):
             ]
 
         new_budget_heading.group_id = id_maps["budget_groups"][
-            old_budget_heading.group_id
+            str(old_budget_heading.group_id)
         ]
         new_budget_heading.price = old_budget_heading.price
         new_budget_heading.population = old_budget_heading.population
@@ -47,4 +47,4 @@ async def migrate(id_maps):
         new_budget_heading_translation.updated_at = datetime.now()
         await new_budget_heading_translation.save()
 
-        id_maps["budget_headings"][old_budget_heading.id] = new_budget_heading.id
+        id_maps["budget_headings"][str(old_budget_heading.id)] = new_budget_heading.id
