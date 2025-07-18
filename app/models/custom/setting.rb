@@ -57,7 +57,7 @@ class Setting
           proposal_code_prefix: "VLCParticipa",
           votes_for_proposal_success: 10000,
           org_name: "VLCParticipa",
-          postal_codes: "46001:46026,46035,46112,46131,46135,28013",
+          postal_codes: "46001:46026,46035,46112,46131,46135",
           "sdg.process.debates": false,
           "sdg.process.proposals": false,
           "sdg.process.polls": false,
