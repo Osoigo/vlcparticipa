@@ -7,7 +7,7 @@
     <div class="user-permissions small-12">
       <p><%= t("verification.user_permission_info") %></p>
 
-      <%= render Account::PermissionsListComponent.new(User.new(level_two_verified_at: Time.current)) %>
+      <%= render Account::PermissionsListComponent.new(User.new(level_two_verified_at: Time.current, verified_at: Time.current)) %>
     </div>
 
     <%= form_for @residence, as: "residence", url: residence_path do |f| %>
