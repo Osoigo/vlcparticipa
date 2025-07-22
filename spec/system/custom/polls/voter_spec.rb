@@ -28,7 +28,6 @@ describe "Voter" do
       click_link "Verify my account"
 
       verify_residence
-      confirm_phone(code: "1357")
 
       visit poll_path(poll)
 
