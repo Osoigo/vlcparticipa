@@ -5,7 +5,7 @@ from ..models.new_models.budget_investment import NewBudgetInvestment
 from ..models.old_models.budget_ballot import OldBudgetBallot, OldBudgetBallotLine
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_budget_ballot.ballot_old
     #
@@ -18,11 +18,22 @@ async def migrate(id_maps):
     #   new_budget_ballot_line.group_id
     #   new_budget_ballot_line.heading_id
     id_maps["budget_ballots"] = {}
+    stats = {
+        "ballots": {
+            "total": 0,
+            "migrated": 0,
+        },
+        "lines": {
+            "total": 0,
+            "migrated": 0,
+        },
+    }
     old_budget_ballots = await OldBudgetBallot.all()
     new_budget_ballots = {
         (b.user_id, b.budget_id, b.created_at): b for b in await NewBudgetBallot.all()
     }
     for old_budget_ballot in old_budget_ballots:
+        stats["ballots"]["total"] += 1
         user_id = id_maps["users"].get(str(old_budget_ballot.user_id))
         if user_id is None:
             print(
@@ -44,6 +55,7 @@ async def migrate(id_maps):
             )
         new_budget_ballot.updated_at = old_budget_ballot.updated_at
         await new_budget_ballot.save()
+        stats["ballots"]["migrated"] += 1
         id_maps["budget_ballots"][str(old_budget_ballot.id)] = new_budget_ballot.id
 
     investment_data_map = {
@@ -56,6 +68,7 @@ async def migrate(id_maps):
         (b.ballot_id, b.investment_id): b for b in await NewBudgetBallotLine.all()
     }
     for old_budget_ballot_line in old_budget_ballot_lines:
+        stats["lines"]["total"] += 1
         ballot_id = id_maps["budget_ballots"].get(str(old_budget_ballot_line.ballot_id))
         if ballot_id is None:
             print(f"Missing ballot. Old id: {old_budget_ballot_line.ballot_id}")
@@ -86,6 +99,7 @@ async def migrate(id_maps):
         new_budget_ballot_line.group_id = group_id
         new_budget_ballot_line.heading_id = heading_id
         await new_budget_ballot_line.save()
+        stats["lines"]["migrated"] += 1
         id_maps["budget_ballot_lines"][str(old_budget_ballot_line.id)] = (
             new_budget_ballot_line.id
         )
@@ -97,6 +111,8 @@ async def migrate(id_maps):
         .values("ballot_id", "count")
     )
     for entry in ballot_lines_count:
-        await NewBudgetBallotLine.filter(id=entry["ballot_id"]).update(
+        await NewBudgetBallot.filter(id=entry["ballot_id"]).update(
             ballot_lines_count=entry["count"]
         )
+
+    migration_stats["budget_ballots"] = stats

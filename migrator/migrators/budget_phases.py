@@ -4,7 +4,7 @@ from ..models.new_models.budget_phase import NewBudgetPhase, NewBudgetPhaseTrans
 from ..models.old_models.budget_phase import OldBudgetPhase
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # new fields:
     #   new_budget_phase_translation.name
     #   new_budget_phase_translation.main_link_text
@@ -22,6 +22,10 @@ async def migrate(id_maps):
         "waiting": "En proceso de publicación de resultados",
     }
     id_maps["budget_phases"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_budget_phases = await OldBudgetPhase.all()
     new_budget_phases = {
         (b.budget_id, b.starts_at): b for b in await NewBudgetPhase.all()
@@ -32,6 +36,7 @@ async def migrate(id_maps):
     new_phases = []
     old_phase_transitions = {}
     for old_budget_phase in old_budget_phases:
+        stats["total"] += 1
         if old_budget_phase.kind == "drafting":
             continue
         new_budget_phase = new_budget_phases.get(
@@ -66,8 +71,9 @@ async def migrate(id_maps):
         new_budget_phase_translation.summary = old_budget_phase.summary
         new_budget_phase_translation.created_at = datetime.now()
         new_budget_phase_translation.updated_at = datetime.now()
-        await new_budget_phase_translation.save()
 
+        await new_budget_phase_translation.save()
+        stats["migrated"] += 1
         id_maps["budget_phases"][str(old_budget_phase.id)] = new_budget_phase.id
         old_phase_transitions[new_budget_phase.id] = old_budget_phase.next_phase_id
 
@@ -76,3 +82,5 @@ async def migrate(id_maps):
         if old_next_phase is not None:
             phase.next_phase_id = id_maps["budget_phases"][str(old_next_phase)]
             await phase.save()
+
+    migration_stats["budget_phases"] = stats

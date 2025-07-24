@@ -2,7 +2,7 @@ from ..models.new_models.user import NewUser
 from ..models.old_models.user import OldUser
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_user.redeemable_code
     #   old_user.email_on_proposal_notification
@@ -56,9 +56,14 @@ async def migrate(id_maps):
     #   new_user.locked_at
     #   new_user.unlock_token
     id_maps["users"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_users = await OldUser.all()
     new_users = {(u.email, u.created_at, u.erased_at): u for u in await NewUser.all()}
     for idx, old_user in enumerate(old_users):
+        stats["total"] += 1
         new_user = new_users.get(
             (old_user.email, old_user.created_at, old_user.erased_at)
         )
@@ -120,8 +125,10 @@ async def migrate(id_maps):
         new_user.recommended_proposals = old_user.recommended_proposals
         try:
             await new_user.save()
+            stats["migrated"] += 1
             id_maps["users"][str(old_user.id)] = new_user.id
             print(idx, end="\r")
         except Exception as e:
             print("X")
     print("")
+    migration_stats["users"] = stats

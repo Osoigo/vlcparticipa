@@ -23,10 +23,14 @@ def get_old_image_path(old_image):
     return f"system/images/attachments/{id_partition}/original/{hash}.{extension}"
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     id_maps["images"] = {}
     id_maps["active_storage_attachments"] = {}
     id_maps["active_storage_blobs"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_images = await OldImage.all()
     new_images = {
         (i.imageable_id, i.imageable_type, i.title): i for i in await NewImage.all()
@@ -37,6 +41,7 @@ async def migrate(id_maps):
     }
     new_active_storage_blobs = {a.id: a for a in await NewActiveStorageBlob.all()}
     for old_image in old_images:
+        stats["total"] += 1
         old_image_path = Path(settings.OLD_STORAGE_PATH / get_old_image_path(old_image))
         if not old_image_path.exists():
             print(f"Missing image file: {get_old_image_path(old_image)}")
@@ -105,8 +110,11 @@ async def migrate(id_maps):
         # print(f"Copy {old_image_path} to {new_image_path}")
         shutil.copy(old_image_path, new_image_path)
 
+        stats["migrated"] += 1
         id_maps["images"][str(old_image.id)] = new_image.id
         id_maps["active_storage_attachments"][str(old_image.id)] = (
             active_storage_attachment.id
         )
         id_maps["active_storage_blobs"][str(old_image.id)] = active_storage_blob.id
+
+    migration_stats["images"] = stats

@@ -4,14 +4,19 @@ from ..models.new_models.budget_group import NewBudgetGroup, NewBudgetGroupTrans
 from ..models.old_models.budget_group import OldBudgetGroup
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     id_maps["budget_groups"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_budget_groups = await OldBudgetGroup.all()
     new_budget_groups = {b.slug: b for b in await NewBudgetGroup.all()}
     new_budget_group_translations = {
         t.budget_group_id: t for t in await NewBudgetGroupTranslation.all()
     }
     for old_budget_group in old_budget_groups:
+        stats["total"] += 1
         new_budget_group = new_budget_groups.get(old_budget_group.slug)
         if new_budget_group is None:
             new_budget_group = NewBudgetGroup(slug=old_budget_group.slug)
@@ -30,6 +35,9 @@ async def migrate(id_maps):
         new_budget_group_translation.name = old_budget_group.name
         new_budget_group_translation.created_at = datetime.now()
         new_budget_group_translation.updated_at = datetime.now()
-        await new_budget_group_translation.save()
 
+        await new_budget_group_translation.save()
+        stats["migrated"] += 1
         id_maps["budget_groups"][str(old_budget_group.id)] = new_budget_group.id
+
+    migration_stats["budget_groups"] = stats

@@ -3,7 +3,7 @@ from ..models.new_models.visit import NewVisit
 from ..models.old_models.visit import OldVisit
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_visit.search_keyword
     #
@@ -11,6 +11,10 @@ async def migrate(id_maps):
     #   new_visit.visit_token
     #   new_visit.visitor_token
     id_maps["visits"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_visits = await OldVisit.all()
     new_visits = {(v.visitor_id, v.started_at): v for v in await NewVisit.all()}
     for old_visit in old_visits:
@@ -52,5 +56,7 @@ async def migrate(id_maps):
         new_visit.started_at = old_visit.started_at
 
         await new_visit.save()
-
+        stats["migrated"] += 1
         id_maps["visits"][str(old_visit.id)] = str(new_visit.id)
+
+    migration_stats["visits"] = stats

@@ -9,7 +9,7 @@ from ..models.new_models.budget_investment import (
 from ..models.old_models.budget_investment import OldBudgetInvestment
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_budget_investment.unidad
     #   old_budget_investment.proposed_service
@@ -24,12 +24,17 @@ async def migrate(id_maps):
 
     # Investments must keep their previous id, but keep id_map to track investment migrations
     id_maps["budget_investments"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_budget_investments = await OldBudgetInvestment.all()
     new_budget_investments = {b.id: b for b in await NewBudgetInvestment.all()}
     new_budget_investment_translations = {
         t.budget_investment_id: t for t in await NewBudgetInvestmentTranslation.all()
     }
     for old_budget_investment in old_budget_investments:
+        stats["total"] += 1
         new_budget_investment = new_budget_investments.get(old_budget_investment.id)
         if new_budget_investment is None:
             new_budget_investment = NewBudgetInvestment(id=old_budget_investment.id)
@@ -129,8 +134,9 @@ async def migrate(id_maps):
         )
         new_budget_investment_translation.created_at = datetime.now()
         new_budget_investment_translation.updated_at = datetime.now()
-        await new_budget_investment_translation.save()
 
+        await new_budget_investment_translation.save()
+        stats["migrated"] += 1
         id_maps["budget_investments"][str(old_budget_investment.id)] = (
             new_budget_investment.id
         )
@@ -140,3 +146,5 @@ async def migrate(id_maps):
     await connection.execute_query(
         """SELECT SETVAL('public."budget_investments_id_seq"', COALESCE(MAX(id), 1)) FROM public."budget_investments";"""
     )
+
+    migration_stats["budget_investments"] = stats

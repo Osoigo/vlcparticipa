@@ -4,8 +4,12 @@ from ..models.new_models.comment import NewComment, NewCommentTranslation
 from ..models.old_models.comment import OldComment
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     id_maps["comments"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_root_comments = await OldComment.filter(ancestry=None)
     old_nonroot_comments = await OldComment.exclude(ancestry=None).order_by("ancestry")
     old_comments = old_root_comments + old_nonroot_comments
@@ -17,6 +21,7 @@ async def migrate(id_maps):
         t.comment_id: t for t in await NewCommentTranslation.all()
     }
     for old_comment in old_comments:
+        stats["total"] += 1
         if old_comment.commentable_type == "Budget::Investment":
             commentable_id = id_maps["budget_investments"][
                 str(old_comment.commentable_id)
@@ -78,6 +83,9 @@ async def migrate(id_maps):
         new_comment_translation.created_at = datetime.now()
         new_comment_translation.updated_at = datetime.now()
         new_comment_translation.body = old_comment.body
-        await new_comment_translation.save()
 
+        await new_comment_translation.save()
+        stats["migrated"] += 1
         id_maps["comments"][str(old_comment.id)] = new_comment.id
+
+    migration_stats["comments"] = stats

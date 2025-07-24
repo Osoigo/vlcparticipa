@@ -4,7 +4,7 @@ from ..models.new_models.budget import NewBudget, NewBudgetTranslation
 from ..models.old_models.budget import OldBudget
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_budget.vote_types  ('all' en todos los buckets de producción)
     #   old_budget.description_waiting
@@ -16,10 +16,15 @@ async def migrate(id_maps):
     #   new_budget_translations.main_link_text
     #   new_budget_translations.main_link_url
     id_maps["budgets"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_budgets = await OldBudget.all()
     new_budgets = {b.slug: b for b in await NewBudget.all()}
     new_budget_translations = {t.budget_id: t for t in await NewBudgetTranslation.all()}
     for old_budget in old_budgets:
+        stats["total"] += 1
         new_budget = new_budgets.get(old_budget.slug)
         if new_budget is None:
             new_budget = NewBudget(slug=old_budget.slug)
@@ -55,8 +60,9 @@ async def migrate(id_maps):
         new_budget_translation.name = old_budget.name
         new_budget_translation.created_at = old_budget.created_at
         new_budget_translation.updated_at = old_budget.updated_at
-        await new_budget_translation.save()
 
+        await new_budget_translation.save()
+        stats["migrated"] += 1
         id_maps["budgets"][str(old_budget.id)] = new_budget.id
 
     # rebuild budgets_id_seq
@@ -64,3 +70,5 @@ async def migrate(id_maps):
     await connection.execute_query(
         """SELECT SETVAL('public."budgets_id_seq"', COALESCE(MAX(id), 1)) FROM public."budgets";"""
     )
+
+    migration_stats["budgets"] = stats

@@ -10,12 +10,23 @@ from ..models.old_models.budget_investment_milestone import (
 )
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # new fields:
     id_maps["milestone_statuses"] = {}
+    stats = {
+        "statuses": {
+            "total": 0,
+            "migrated": 0,
+        },
+        "milestones": {
+            "total": 0,
+            "migrated": 0,
+        },
+    }
     old_milestone_statuses = await OldBudgetInvestmentStatus.all()
     new_milestone_statuses = {b.name: b for b in await NewMilestoneStatus.all()}
     for old_milestone_status in old_milestone_statuses:
+        stats["statuses"]["total"] += 1
         new_milestone_status = new_milestone_statuses.get(old_milestone_status.name)
         if new_milestone_status is None:
             new_milestone_status = NewMilestoneStatus(name=old_milestone_status.name)
@@ -25,6 +36,7 @@ async def migrate(id_maps):
         new_milestone_status.created_at = old_milestone_status.created_at
         new_milestone_status.updated_at = old_milestone_status.updated_at
         await new_milestone_status.save()
+        stats["statuses"]["migrated"] += 1
         id_maps["milestone_statuses"][str(old_milestone_status.id)] = (
             new_milestone_status.id
         )
@@ -42,6 +54,7 @@ async def migrate(id_maps):
         t.milestone_id: t for t in await NewMilestoneTranslation.all()
     }
     for old_milestone in old_milestones:
+        stats["milestones"]["total"] += 1
         old_milestone_translation = old_milestone_translations.get(old_milestone.id)
         if old_milestone_translation is None:
             print(f"missing translation for milestone {old_milestone.id}")
@@ -80,6 +93,9 @@ async def migrate(id_maps):
         new_milestone_translation.updated_at = old_milestone_translation.updated_at
         new_milestone_translation.title = old_milestone_translation.title
         new_milestone_translation.description = old_milestone_translation.description
-        await new_milestone_translation.save()
 
+        await new_milestone_translation.save()
+        stats["milestones"]["migrated"] += 1
         id_maps["milestones"][str(old_milestone.id)] = new_milestone.id
+
+    migration_stats["budget_investment_milestones"] = stats

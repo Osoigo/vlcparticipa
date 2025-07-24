@@ -2,13 +2,18 @@ from ..models.new_models.vote import NewVote
 from ..models.old_models.vote import OldVote
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_vote.refunded_at
     id_maps["votes"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_votes = await OldVote.all()
     new_votes = {(v.votable_id, v.voter_id): v for v in await NewVote.all()}
     for old_vote in old_votes:
+        stats["total"] += 1
         if old_vote.votable_type != "Budget::Investment":
             print(f"Unkonwn vote votable_type: {old_vote.votable_type}")
             continue
@@ -41,4 +46,7 @@ async def migrate(id_maps):
         new_vote.signature_id = old_vote.signature_id
 
         await new_vote.save()
+        stats["migrated"] += 1
         id_maps["votes"][str(old_vote.id)] = new_vote.id
+
+    migration_stats["votes"] = stats

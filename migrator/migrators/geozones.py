@@ -2,7 +2,7 @@ from ..models.new_models.geozone import NewGeozone
 from ..models.old_models.geozone import OldGeozone
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_geozone.parent_id  ('all' en todos los buckets de producción)
     #
@@ -10,9 +10,14 @@ async def migrate(id_maps):
     #   new_geozone.geojson
     #   new_geozone.color
     id_maps["geozones"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_geozones = await OldGeozone.all()
     new_geozones = {g.name: g for g in await NewGeozone.all()}
     for old_geozone in old_geozones:
+        stats["total"] += 1
         new_geozone = new_geozones.get(old_geozone.name)
         if new_geozone is None:
             new_geozone = NewGeozone(name=old_geozone.name)
@@ -24,5 +29,7 @@ async def migrate(id_maps):
         new_geozone.census_code = old_geozone.census_code
 
         await new_geozone.save()
-
+        stats["migrated"] += 1
         id_maps["geozones"][str(old_geozone.id)] = new_geozone.id
+
+    migration_stats["geozones"] = stats

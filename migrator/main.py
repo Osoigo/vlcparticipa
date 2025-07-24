@@ -1,6 +1,7 @@
 import json
 import traceback
 from pathlib import Path
+from pprint import pp
 from tortoise import Tortoise, run_async
 
 from . import settings
@@ -51,51 +52,57 @@ async def run():
             id_maps = json.load(f)
     else:
         id_maps = {}
+    stats_file = Path("stats.json")
+    if stats_file.exists():
+        with stats_file.open() as f:
+            stats = json.load(f)
+    else:
+        stats = {}
     try:
         print("Migrate geozones")
-        await migrators.geozones.migrate(id_maps)
+        await migrators.geozones.migrate(id_maps, stats)
         print("Migrate newsletters")
-        await migrators.newsletters.migrate(id_maps)
+        await migrators.newsletters.migrate(id_maps, stats)
         print("Migrate users")
-        await migrators.users.migrate(id_maps)
+        await migrators.users.migrate(id_maps, stats)
         print("Migrate managers")
-        await migrators.managers.migrate(id_maps)
+        await migrators.managers.migrate(id_maps, stats)
         print("Migrate valuators")
-        await migrators.valuators.migrate(id_maps)
+        await migrators.valuators.migrate(id_maps, stats)
         print("Migrate administrators")
-        await migrators.administrators.migrate(id_maps)
+        await migrators.administrators.migrate(id_maps, stats)
         print("Migrate communities")
-        await migrators.communities.migrate(id_maps)
+        await migrators.communities.migrate(id_maps, stats)
         print("Migrate budgets")
-        await migrators.budgets.migrate(id_maps)
+        await migrators.budgets.migrate(id_maps, stats)
         print("Migrate budget_phases")
-        await migrators.budget_phases.migrate(id_maps)
+        await migrators.budget_phases.migrate(id_maps, stats)
         print("Migrate budget_groups")
-        await migrators.budget_groups.migrate(id_maps)
+        await migrators.budget_groups.migrate(id_maps, stats)
         print("Migrate budget_headings")
-        await migrators.budget_headings.migrate(id_maps)
+        await migrators.budget_headings.migrate(id_maps, stats)
         print("Migrate budget_investments")
-        await migrators.budget_investments.migrate(id_maps)
+        await migrators.budget_investments.migrate(id_maps, stats)
         print("Migrate budget_valuator_assignments")
-        await migrators.budget_valuator_assignments.migrate(id_maps)
+        await migrators.budget_valuator_assignments.migrate(id_maps, stats)
         print("Migrate budget_ballots")
-        await migrators.budget_ballots.migrate(id_maps)
+        await migrators.budget_ballots.migrate(id_maps, stats)
         print("Migrate budget_investment_milestones")
-        await migrators.budget_investment_milestones.migrate(id_maps)
+        await migrators.budget_investment_milestones.migrate(id_maps, stats)
         print("Migrate tags")
-        await migrators.tags.migrate(id_maps)
+        await migrators.tags.migrate(id_maps, stats)
         print("Migrate votes")
-        await migrators.votes.migrate(id_maps)
+        await migrators.votes.migrate(id_maps, stats)
         print("Migrate images")
-        await migrators.images.migrate(id_maps)
+        await migrators.images.migrate(id_maps, stats)
         print("Migrate map_locations")
-        await migrators.map_locations.migrate(id_maps)
+        await migrators.map_locations.migrate(id_maps, stats)
         print("Migrate comments")
-        await migrators.comments.migrate(id_maps)
+        await migrators.comments.migrate(id_maps, stats)
         print("Migrate activities")
-        await migrators.activities.migrate(id_maps)
+        await migrators.activities.migrate(id_maps, stats)
         print("Migrate visits")
-        await migrators.visits.migrate(id_maps)
+        await migrators.visits.migrate(id_maps, stats)
     except Exception as e:
         print(e)
         traceback.print_exc()
@@ -103,7 +110,11 @@ async def run():
     with id_maps_file.open("w") as f:
         json.dump(indent=2, fp=f, obj=id_maps)
 
+    with stats_file.open("w") as f:
+        json.dump(indent=2, fp=f, obj=stats)
+
     await Tortoise.close_connections()
+    pp(stats)
 
 
 if __name__ == "__main__":

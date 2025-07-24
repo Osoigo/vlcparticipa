@@ -2,7 +2,7 @@ from ..models.new_models.valuator import NewValuator
 from ..models.old_models.valuator import OldValuator
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_valuator.spending_proposals_count
     #
@@ -10,9 +10,14 @@ async def migrate(id_maps):
     #   new_valuator.can_comment
     #   new_valuator.can_edit_dossier
     id_maps["valuators"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_valuators = await OldValuator.all()
     new_valuators = {v.user_id: v for v in await NewValuator.all()}
     for old_valuator in old_valuators:
+        stats["total"] += 1
         new_valuator = new_valuators.get(id_maps["users"][str(old_valuator.user_id)])
         if new_valuator is None:
             new_valuator = NewValuator(
@@ -22,5 +27,9 @@ async def migrate(id_maps):
         new_valuator.description = old_valuator.description
         new_valuator.budget_investments_count = old_valuator.budget_investments_count
         new_valuator.valuator_group_id = old_valuator.valuator_group_id
+
         await new_valuator.save()
+        stats["migrated"] += 1
         id_maps["valuators"][str(old_valuator.id)] = new_valuator.id
+
+    migration_stats["valuators"] = stats

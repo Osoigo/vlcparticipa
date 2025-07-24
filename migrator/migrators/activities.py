@@ -2,14 +2,19 @@ from ..models.new_models.activity import NewActivity
 from ..models.old_models.activity import OldActivity
 
 
-async def migrate(id_maps):
+async def migrate(id_maps, migration_stats):
     id_maps["activities"] = {}
+    stats = {
+        "total": 0,
+        "migrated": 0,
+    }
     old_activities = await OldActivity.all()
     new_activities = {
         (a.user_id, a.action, a.actionable_id, a.actionable_type, a.created_at): a
         for a in await NewActivity.all()
     }
     for old_activity in old_activities:
+        stats["total"] += 1
         new_activity = new_activities.get(
             (
                 old_activity.user_id,
@@ -48,5 +53,7 @@ async def migrate(id_maps):
         new_activity.updated_at = old_activity.updated_at
 
         await new_activity.save()
-
+        stats["migrated"] += 1
         id_maps["activities"][str(old_activity.id)] = new_activity.id
+
+    migration_stats["activities"] = stats
