@@ -30,7 +30,7 @@ async def migrate(id_maps, migration_stats):
         if new_activity is None:
             if old_activity.actionable_type == "Budget::Investment":
                 actionable_id = id_maps["budget_investments"].get(
-                    old_activity.actionable_id
+                    str(old_activity.actionable_id)
                 )
                 if actionable_id is None:
                     # print(
@@ -39,7 +39,9 @@ async def migrate(id_maps, migration_stats):
                     stats["missing_budget_investments"].add(old_activity.actionable_id)
                     continue
             elif old_activity.actionable_type == "Newsletter":
-                actionable_id = id_maps["newsletters"].get(old_activity.actionable_id)
+                actionable_id = id_maps["newsletters"].get(
+                    str(old_activity.actionable_id)
+                )
                 if actionable_id is None:
                     # print(f"Missing newsletter. Old id: {old_activity.actionable_id}")
                     stats["missing_newsletters"].add(old_activity.actionable_id)

@@ -58,9 +58,11 @@ async def migrate(id_maps, migration_stats):
         stats["milestones"]["total"] += 1
         old_milestone_translation = old_milestone_translations.get(old_milestone.id)
         if old_milestone_translation is None:
-            # print(f"missing translation for milestone {old_milestone.id}")
-            stats["milestones"]["missing_translations"].append(old_milestone.id)
-            continue
+            # The production database has no translations for milestone ids in this range
+            if old_milestone.id < 408 and old_milestone.id != 136:
+                # print(f"missing translation for milestone {old_milestone.id}")
+                stats["milestones"]["missing_translations"].append(old_milestone.id)
+                continue
         new_milestone = new_milestones.get(
             (
                 id_maps["budget_investments"][str(old_milestone.investment_id)],
@@ -91,10 +93,18 @@ async def migrate(id_maps, migration_stats):
         await new_milestone.save()
 
         new_milestone_translation.milestone_id = new_milestone.id
-        new_milestone_translation.created_at = old_milestone_translation.created_at
-        new_milestone_translation.updated_at = old_milestone_translation.updated_at
-        new_milestone_translation.title = old_milestone_translation.title
-        new_milestone_translation.description = old_milestone_translation.description
+        if old_milestone_translation is not None:
+            new_milestone_translation.created_at = old_milestone_translation.created_at
+            new_milestone_translation.updated_at = old_milestone_translation.updated_at
+            new_milestone_translation.title = old_milestone_translation.title
+            new_milestone_translation.description = (
+                old_milestone_translation.description
+            )
+        else:
+            new_milestone_translation.created_at = old_milestone.created_at
+            new_milestone_translation.updated_at = old_milestone.updated_at
+            new_milestone_translation.title = ""
+            new_milestone_translation.description = ""
 
         await new_milestone_translation.save()
         stats["milestones"]["migrated"] += 1
