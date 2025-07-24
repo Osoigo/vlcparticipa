@@ -15,6 +15,7 @@ async def migrate(id_maps, migration_stats):
         "taggings": {
             "total": 0,
             "migrated": 0,
+            "unkonwn_taggable_types": set(),
         },
     }
     old_tags = await OldTag.all()
@@ -43,7 +44,8 @@ async def migrate(id_maps, migration_stats):
     for old_tagging in old_taggings:
         stats["taggings"]["total"] += 1
         if old_tagging.taggable_type != "Budget::Investment":
-            print(f"Unkonwn tagging: {old_tagging.taggable_type}")
+            # print(f"Unkonwn tagging: {old_tagging.taggable_type}")
+            stats["taggings"]["unkonwn_taggable_types"].add(old_tagging.taggable_type)
             continue
         new_tagging = new_taggings.get(
             (
@@ -70,4 +72,7 @@ async def migrate(id_maps, migration_stats):
         stats["taggings"]["migrated"] += 1
         id_maps["taggings"][str(old_tagging.id)] = new_tagging.id
 
+    stats["taggings"]["unkonwn_taggable_types"] = list(
+        stats["taggings"]["unkonwn_taggable_types"]
+    )
     migration_stats["tags"] = stats

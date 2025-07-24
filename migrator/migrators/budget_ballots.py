@@ -22,10 +22,13 @@ async def migrate(id_maps, migration_stats):
         "ballots": {
             "total": 0,
             "migrated": 0,
+            "missing_users": set(),
+            "not_migrated_ballots": set(),
         },
         "lines": {
             "total": 0,
             "migrated": 0,
+            "missing_ballots": set(),
         },
     }
     old_budget_ballots = await OldBudgetBallot.all()
@@ -36,9 +39,11 @@ async def migrate(id_maps, migration_stats):
         stats["ballots"]["total"] += 1
         user_id = id_maps["users"].get(str(old_budget_ballot.user_id))
         if user_id is None:
-            print(
-                f"Missing user, old_ballot_id: {old_budget_ballot.id} old user_id: {old_budget_ballot.user_id}"
-            )
+            # print(
+            #     f"Missing user, old_ballot_id: {old_budget_ballot.id} old user_id: {old_budget_ballot.user_id}"
+            # )
+            stats["ballots"]["not_migrated_ballots"].add(old_budget_ballot.id)
+            stats["ballots"]["missing_users"].add(old_budget_ballot.user_id)
             continue
         new_budget_ballot = new_budget_ballots.get(
             (
@@ -71,7 +76,8 @@ async def migrate(id_maps, migration_stats):
         stats["lines"]["total"] += 1
         ballot_id = id_maps["budget_ballots"].get(str(old_budget_ballot_line.ballot_id))
         if ballot_id is None:
-            print(f"Missing ballot. Old id: {old_budget_ballot_line.ballot_id}")
+            # print(f"Missing ballot. Old id: {old_budget_ballot_line.ballot_id}")
+            stats["lines"]["missing_ballots"].add(old_budget_ballot_line.ballot_id)
             continue
         new_budget_ballot_line = new_budget_ballot_lines.get(
             (
@@ -115,4 +121,9 @@ async def migrate(id_maps, migration_stats):
             ballot_lines_count=entry["count"]
         )
 
+    stats["ballots"]["missing_users"] = list(stats["ballots"]["missing_users"])
+    stats["ballots"]["not_migrated_ballots"] = list(
+        stats["ballots"]["not_migrated_ballots"]
+    )
+    stats["lines"]["missing_ballots"] = list(stats["lines"]["missing_ballots"])
     migration_stats["budget_ballots"] = stats

@@ -7,6 +7,7 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "missing_investments": set(),
     }
     old_assignments = await OldBudgetValuatorAssignment.all()
     new_assignments = {
@@ -22,7 +23,8 @@ async def migrate(id_maps, migration_stats):
             str(old_assignment.investment_id)
         )
         if investment_id is None:
-            print(f"missing investment, old_id: {old_assignment.investment_id}")
+            # print(f"missing investment, old_id: {old_assignment.investment_id}")
+            stats["missing_investments"].add(old_assignment.investment_id)
             continue
         new_assignment = new_assignments.get(
             (
@@ -48,4 +50,5 @@ async def migrate(id_maps, migration_stats):
             new_assignment.id
         )
 
+    stats["missing_investments"] = list(stats["missing_investments"])
     migration_stats["budget_valuator_assignments"] = stats

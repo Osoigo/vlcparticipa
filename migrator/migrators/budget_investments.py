@@ -27,6 +27,7 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "missing_admins": set(),
     }
     old_budget_investments = await OldBudgetInvestment.all()
     new_budget_investments = {b.id: b for b in await NewBudgetInvestment.all()}
@@ -54,7 +55,8 @@ async def migrate(id_maps, migration_stats):
                 str(old_budget_investment.administrator_id)
             )
             if admin_id is None:
-                print(f"missing admin old id: {old_budget_investment.administrator_id}")
+                # print(f"missing admin old id: {old_budget_investment.administrator_id}")
+                stats["missing_admins"].add(old_budget_investment.administrator_id)
             else:
                 new_budget_investment.administrator_id = admin_id
         new_budget_investment.external_url = old_budget_investment.external_url
@@ -147,4 +149,5 @@ async def migrate(id_maps, migration_stats):
         """SELECT SETVAL('public."budget_investments_id_seq"', COALESCE(MAX(id), 1)) FROM public."budget_investments";"""
     )
 
+    stats["missing_admins"] = list(stats["missing_admins"])
     migration_stats["budget_investments"] = stats

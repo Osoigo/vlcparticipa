@@ -14,10 +14,12 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "missing_users": set(),
     }
     old_visits = await OldVisit.all()
     new_visits = {(v.visitor_id, v.started_at): v for v in await NewVisit.all()}
     for old_visit in old_visits:
+        stats["total"] += 1
         new_visit = new_visits.get((old_visit.visitor_id, old_visit.started_at))
         if new_visit is None:
             new_visit = NewVisit(
@@ -33,7 +35,8 @@ async def migrate(id_maps, migration_stats):
         if old_visit.user_id is not None:
             user_id = id_maps["users"].get(str(old_visit.user_id))
             if user_id is None:
-                print(f"Missing user. Old id: {old_visit.user_id}")
+                # print(f"Missing user. Old id: {old_visit.user_id}")
+                stats["missing_users"].add(old_visit.user_id)
             new_visit.user_id = user_id
         new_visit.referring_domain = old_visit.referring_domain
         new_visit.browser = old_visit.browser
@@ -59,4 +62,5 @@ async def migrate(id_maps, migration_stats):
         stats["migrated"] += 1
         id_maps["visits"][str(old_visit.id)] = str(new_visit.id)
 
+    stats["missing_users"] = list(stats["missing_users"])
     migration_stats["visits"] = stats

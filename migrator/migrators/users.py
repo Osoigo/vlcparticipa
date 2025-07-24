@@ -59,6 +59,7 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "not_migrated_users": list(),
     }
     old_users = await OldUser.all()
     new_users = {(u.email, u.created_at, u.erased_at): u for u in await NewUser.all()}
@@ -129,6 +130,7 @@ async def migrate(id_maps, migration_stats):
             id_maps["users"][str(old_user.id)] = new_user.id
             print(idx, end="\r")
         except Exception as e:
+            stats["not_migrated_users"].append(old_user.id)
             print("X")
     print("")
     migration_stats["users"] = stats

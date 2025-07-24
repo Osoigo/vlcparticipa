@@ -21,6 +21,7 @@ async def migrate(id_maps, migration_stats):
         "milestones": {
             "total": 0,
             "migrated": 0,
+            "missing_translations": list(),
         },
     }
     old_milestone_statuses = await OldBudgetInvestmentStatus.all()
@@ -57,7 +58,8 @@ async def migrate(id_maps, migration_stats):
         stats["milestones"]["total"] += 1
         old_milestone_translation = old_milestone_translations.get(old_milestone.id)
         if old_milestone_translation is None:
-            print(f"missing translation for milestone {old_milestone.id}")
+            # print(f"missing translation for milestone {old_milestone.id}")
+            stats["milestones"]["missing_translations"].append(old_milestone.id)
             continue
         new_milestone = new_milestones.get(
             (

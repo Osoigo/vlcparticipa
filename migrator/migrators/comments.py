@@ -9,6 +9,8 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "unknown_commentable_types": set(),
+        "missing_administrators": set(),
     }
     old_root_comments = await OldComment.filter(ancestry=None)
     old_nonroot_comments = await OldComment.exclude(ancestry=None).order_by("ancestry")
@@ -27,7 +29,8 @@ async def migrate(id_maps, migration_stats):
                 str(old_comment.commentable_id)
             ]
         else:
-            print(f"Comentario en elemento desconocido: {old_comment.commentable_type}")
+            # print(f"Comentario en elemento desconocido: {old_comment.commentable_type}")
+            stats["unknown_commentable_types"].add(old_comment.commentable_type)
             continue
         new_comment = new_comments.get(
             (commentable_id, old_comment.commentable_type, old_comment.created_at)
@@ -54,7 +57,8 @@ async def migrate(id_maps, migration_stats):
                 str(old_comment.administrator_id)
             )
             if administrator_id is None:
-                print(f"Missing administrator. Old id: {old_comment.administrator_id}")
+                # print(f"Missing administrator. Old id: {old_comment.administrator_id}")
+                stats["missing_administrators"].add(old_comment.administrator_id)
             new_comment.administrator_id = administrator_id
         else:
             new_comment.administrator_id = None
@@ -88,4 +92,6 @@ async def migrate(id_maps, migration_stats):
         stats["migrated"] += 1
         id_maps["comments"][str(old_comment.id)] = new_comment.id
 
+    stats["unknown_commentable_types"] = list(stats["unknown_commentable_types"])
+    stats["missing_administrators"] = list(stats["missing_administrators"])
     migration_stats["comments"] = stats

@@ -7,6 +7,9 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "missing_budget_investments": set(),
+        "missing_newsletters": set(),
+        "unsupported_actionable_type": set(),
     }
     old_activities = await OldActivity.all()
     new_activities = {
@@ -30,17 +33,20 @@ async def migrate(id_maps, migration_stats):
                     old_activity.actionable_id
                 )
                 if actionable_id is None:
-                    print(
-                        f"Missing budget investment. Old id: {old_activity.actionable_id}"
-                    )
+                    # print(
+                    #     f"Missing budget investment. Old id: {old_activity.actionable_id}"
+                    # )
+                    stats["missing_budget_investments"].add(old_activity.actionable_id)
                     continue
             elif old_activity.actionable_type == "Newsletter":
                 actionable_id = id_maps["newsletters"].get(old_activity.actionable_id)
                 if actionable_id is None:
-                    print(f"Missing newsletter. Old id: {old_activity.actionable_id}")
+                    # print(f"Missing newsletter. Old id: {old_activity.actionable_id}")
+                    stats["missing_newsletters"].add(old_activity.actionable_id)
                     continue
             else:
-                print(f"Actividad en tipo no soportado: {old_activity.actionable_type}")
+                # print(f"Actividad en tipo no soportado: {old_activity.actionable_type}")
+                stats["unsupported_actionable_type"].add(old_activity.actionable_type)
                 continue
             new_activity = NewActivity(
                 user_id=id_maps["users"][old_activity.user_id],
@@ -56,4 +62,7 @@ async def migrate(id_maps, migration_stats):
         stats["migrated"] += 1
         id_maps["activities"][str(old_activity.id)] = new_activity.id
 
+    stats["missing_budget_investments"] = list(stats["missing_budget_investments"])
+    stats["missing_newsletters"] = list(stats["missing_newsletters"])
+    stats["unsupported_actionable_type"] = list(stats["unsupported_actionable_type"])
     migration_stats["activities"] = stats

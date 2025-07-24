@@ -30,6 +30,7 @@ async def migrate(id_maps, migration_stats):
     stats = {
         "total": 0,
         "migrated": 0,
+        "missing_image_files": list(),
     }
     old_images = await OldImage.all()
     new_images = {
@@ -44,7 +45,8 @@ async def migrate(id_maps, migration_stats):
         stats["total"] += 1
         old_image_path = Path(settings.OLD_STORAGE_PATH / get_old_image_path(old_image))
         if not old_image_path.exists():
-            print(f"Missing image file: {get_old_image_path(old_image)}")
+            # print(f"Missing image file: {get_old_image_path(old_image)}")
+            stats["missing_image_files"].append(get_old_image_path(old_image))
             continue
         if old_image.imageable_type == "Budget":
             imageable_id = id_maps["budgets"][str(old_image.imageable_id)]

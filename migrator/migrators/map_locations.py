@@ -11,9 +11,9 @@ async def migrate(id_maps, migration_stats):
     old_map_locations = await OldMapLocation.all()
     new_map_locations = {m.investment_id: m for m in await NewMapLocation.all()}
     for old_map_location in old_map_locations:
-        stats["total"] += 1
         if old_map_location.proposal_id is not None:
             continue  # En producción solo hay investment_ids
+        stats["total"] += 1
         new_map_location = new_map_locations.get(old_map_location.investment_id)
         if new_map_location is None:
             new_map_location = NewMapLocation(
