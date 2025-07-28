@@ -10,6 +10,7 @@ from . import budget_phases
 from . import budget_valuator_assignments
 from . import comments
 from . import communities
+from . import documents
 from . import geozones
 from . import images
 from . import managers
@@ -34,6 +35,7 @@ __all__ = [
     "budget_valuator_assignments",
     "comments",
     "communities",
+    "documents",
     "geozones",
     "images",
     "managers",

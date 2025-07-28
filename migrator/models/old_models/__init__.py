@@ -14,6 +14,7 @@ from .budget_phase import OldBudgetPhase
 from .budget_valuator_assignment import OldBudgetValuatorAssignment
 from .comment import OldComment
 from .community import OldCommunity
+from .document import OldDocument
 from .geozone import OldGeozone
 from .image import OldImage
 from .manager import OldManager
@@ -41,6 +42,7 @@ __all__ = [
     "OldBudgetValuatorAssignment",
     "OldComment",
     "OldCommunity",
+    "OldDocument",
     "OldGeozone",
     "OldImage",
     "OldManager",

@@ -10,6 +10,7 @@ from .budget_phase import NewBudgetPhase, NewBudgetPhaseTranslation
 from .budget_valuator_assignment import NewBudgetValuatorAssignment
 from .comment import NewComment, NewCommentTranslation
 from .community import NewCommunity
+from .document import NewDocument
 from .geozone import NewGeozone
 from .image import NewImage
 from .manager import NewManager

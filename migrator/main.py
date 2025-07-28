@@ -95,6 +95,8 @@ async def run():
         await migrators.votes.migrate(id_maps, stats)
         print("Migrate images")
         await migrators.images.migrate(id_maps, stats)
+        print("Migrate documents")
+        await migrators.documents.migrate(id_maps, stats)
         print("Migrate map_locations")
         await migrators.map_locations.migrate(id_maps, stats)
         print("Migrate comments")
