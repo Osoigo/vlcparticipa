@@ -83,7 +83,7 @@ class NewUser(Model):
     # t.datetime "level_two_verified_at", precision: nil
     level_two_verified_at = NaiveDatetimeField(null=True)
     # t.string "erase_reason"
-    erase_reason = fields.CharField(max_length=255, null=True)
+    erase_reason = fields.CharField(max_length=512, null=True)
     # t.datetime "erased_at", precision: nil
     erased_at = NaiveDatetimeField(null=True)
     # t.boolean "public_activity", default: true

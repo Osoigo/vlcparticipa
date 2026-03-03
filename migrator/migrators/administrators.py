@@ -18,7 +18,7 @@ async def migrate(id_maps, migration_stats):
             id_maps["users"][str(old_administrator.user_id)]
         )
         if new_administrator is None:
-            new_administrator = OldAdministrator(
+            new_administrator = NewAdministrator(
                 user_id=id_maps["users"][str(old_administrator.user_id)]
             )
 
