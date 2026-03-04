@@ -7,11 +7,15 @@ from .budget_group import NewBudgetGroup, NewBudgetGroupTranslation
 from .budget_heading import NewBudgetHeading, NewBudgetHeadingTranslation
 from .budget_investment import NewBudgetInvestment, NewBudgetInvestmentTranslation
 from .budget_phase import NewBudgetPhase, NewBudgetPhaseTranslation
+from .budget_reclassified_vote import NewBudgetReclasifiedVote
 from .budget_valuator_assignment import NewBudgetValuatorAssignment
 from .comment import NewComment, NewCommentTranslation
 from .community import NewCommunity
+from .delayed_job import NewDelayedJob
 from .document import NewDocument
+from .failed_census_call import NewFailedCensusCall
 from .geozone import NewGeozone
+from .i18n_content import NewI18nContent, NewI18nContentTranslation
 from .image import NewImage
 from .manager import NewManager
 from .map_location import NewMapLocation
@@ -40,11 +44,17 @@ __all__ = [
     "NewBudgetPhase",
     "NewBudgetPhaseTranslation",
     "NewBudgetTranslation",
+    "NewBudgetReclasifiedVote",
     "NewBudgetValuatorAssignment",
     "NewComment",
     "NewCommentTranslation",
     "NewCommunity",
+    "NewDelayedJob",
+    "NewDocument",
+    "NewFailedCensusCall",
     "NewGeozone",
+    "NewI18nContent",
+    "NewI18nContentTranslation",
     "NewImage",
     "NewManager",
     "NewMapLocation",
