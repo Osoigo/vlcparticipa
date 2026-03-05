@@ -113,6 +113,12 @@ async def run():
         await migrators.failed_census_calls.migrate(id_maps, stats)
         print("Migrate i18n_contents")
         await migrators.i18n_contents.migrate(id_maps, stats)
+        print("Migrate notifications")
+        await migrators.notifications.migrate(id_maps, stats)
+        print("Migrate locks")
+        await migrators.locks.migrate(id_maps, stats)
+        print("Migrate widget_feeds")
+        await migrators.widget_feeds.migrate(id_maps, stats)
     except Exception as e:
         print(e)
         traceback.print_exc()

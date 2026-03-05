@@ -17,14 +17,17 @@ from . import failed_census_calls
 from . import geozones
 from . import i18n_contents
 from . import images
+from . import locks
 from . import managers
 from . import map_locations
 from . import newsletters
+from . import notifications
 from . import tags
 from . import users
 from . import valuators
 from . import visits
 from . import votes
+from . import widget_feeds
 
 __all__ = [
     "activities",
@@ -46,12 +49,15 @@ __all__ = [
     "geozones",
     "i18n_contents",
     "images",
+    "locks",
     "managers",
     "map_locations",
     "newsletters",
+    "notifications",
     "tags",
     "users",
     "valuators",
     "visits",
     "votes",
+    "widget_feeds",
 ]

@@ -21,14 +21,17 @@ from .failed_census_call import OldFailedCensusCall
 from .geozone import OldGeozone
 from .i18n_content import OldI18nContent, OldI18nContentTranslation
 from .image import OldImage
+from .lock import OldLock
 from .manager import OldManager
 from .map_location import OldMapLocation
 from .newsletter import OldNewsletter
+from .notification import OldNotification
 from .tag import OldTag, OldTaggings
 from .user import OldUser
 from .valuator import OldValuator
 from .visit import OldVisit
 from .vote import OldVote
+from .widget_feed import OldWidgetFeed
 
 __all__ = [
     "OldAdministrator",
@@ -54,13 +57,16 @@ __all__ = [
     "OldI18nContent",
     "OldI18nContentTranslation",
     "OldImage",
+    "OldLock",
     "OldManager",
     "OldMapLocation",
     "OldNewsletter",
+    "OldNotification",
     "OldTag",
     "OldTaggings",
     "OldUser",
     "OldValuator",
     "OldVisit",
     "OldVote",
+    "OldWidgetFeed",
 ]

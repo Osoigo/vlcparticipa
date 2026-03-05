@@ -17,15 +17,18 @@ from .failed_census_call import NewFailedCensusCall
 from .geozone import NewGeozone
 from .i18n_content import NewI18nContent, NewI18nContentTranslation
 from .image import NewImage
+from .lock import NewLock
 from .manager import NewManager
 from .map_location import NewMapLocation
 from .milestone import NewMilestoneStatus, NewMilestone, NewMilestoneTranslation
 from .newsletter import NewNewsletter
+from .notification import NewNotification
 from .tag import NewTag, NewTaggings
 from .user import NewUser
 from .valuator import NewValuator
 from .visit import NewVisit
 from .vote import NewVote
+from .widget_feed import NewWidgetFeed
 
 __all__ = [
     "NewActiveStorageAttachment",
@@ -56,16 +59,19 @@ __all__ = [
     "NewI18nContent",
     "NewI18nContentTranslation",
     "NewImage",
+    "NewLock",
     "NewManager",
     "NewMapLocation",
     "NewMilestoneStatus",
     "NewMilestone",
     "NewMilestoneTranslation",
     "NewNewsletter",
+    "NewNotification",
     "NewTag",
     "NewTaggings",
     "NewUser",
     "NewValuator",
     "NewVisit",
     "NewVote",
+    "NewWidgetFeed",
 ]
