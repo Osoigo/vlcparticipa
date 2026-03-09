@@ -1,0 +1,6 @@
+es:
+  admin:
+    budget_investments:
+      index:
+        list:
+          ballots: Votos
