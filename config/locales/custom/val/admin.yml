@@ -2,5 +2,8 @@ val:
   admin:
     budget_investments:
       index:
+        filters:
+          with_comments: Amb comentaris
+          without_comments: Sense comentaris
         list:
           ballots: Vots

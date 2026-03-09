@@ -2,5 +2,8 @@ es:
   admin:
     budget_investments:
       index:
+        filters:
+          with_comments: Con comentarios
+          without_comments: Sin comentarios
         list:
           ballots: Votos
