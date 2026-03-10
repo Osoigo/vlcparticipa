@@ -18,6 +18,14 @@
         <% end %>
         <div>
           <div class="filter">
+            <%= label_tag :created_before, t("admin.budget_investments.index.filters.created_before") %>
+            <%= text_field_tag :created_before, params["created_before"], placeholder: t("admin.budget_investments.index.created_before_filter") %>
+          </div>
+          <div class="filter">
+            <%= label_tag :created_after, t("admin.budget_investments.index.filters.created_after") %>
+            <%= text_field_tag :created_after, params["created_after"], placeholder: t("admin.budget_investments.index.created_after_filter") %>
+          </div>
+          <div class="filter">
             <%= label_tag :min_total_supports, t("admin.budget_investments.index.filters.min_total_supports") %>
             <%= text_field_tag :min_total_supports, params["min_total_supports"] %>
           </div>

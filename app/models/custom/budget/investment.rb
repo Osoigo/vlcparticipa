@@ -5,6 +5,20 @@ class Budget
     # Add sort by ballots
     SORTING_OPTIONS = { id: "id", supports: "cached_votes_up", ballots: "ballot_lines_count" }.freeze
 
+    # Add created before and after filters
+    scope :by_created_after,            ->(date)    { where("budget_investments.created_at >= ?", date) }
+    scope :by_created_before,           ->(date)    { where("budget_investments.created_at <= ?", date) }
+
+    class <<self
+      alias_method :consul_scoped_filter, :scoped_filter
+    end
+
+    def self.scoped_filter(params, current_filter)
+      results = consul_scoped_filter(params, current_filter)
+      results = results.by_created_before(params[:created_before]) if params[:created_before].present?
+      results = results.by_created_after(params[:created_after]) if params[:created_after].present?
+      results
+    end
 
     def self.advanced_filters(params, results)
       # Add filter by comments
