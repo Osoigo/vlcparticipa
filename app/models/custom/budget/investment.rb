@@ -3,7 +3,7 @@ load Rails.root.join("app", "models", "budget", "investment.rb")
 class Budget
   class Investment
     # Add sort by ballots
-    SORTING_OPTIONS = { id: "id", supports: "cached_votes_up", ballots: "ballot_lines_count" }.freeze
+    SORTING_OPTIONS = { id: "id", created_at: "created_at", supports: "cached_votes_up", ballots: "ballot_lines_count" }.freeze
 
     # Add created before and after filters
     scope :by_created_after,            ->(date)    { where("budget_investments.created_at >= ?", date) }

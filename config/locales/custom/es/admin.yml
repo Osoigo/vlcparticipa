@@ -11,3 +11,4 @@ es:
           without_comments: Sin comentarios
         list:
           ballots: Votos
+          created_at: Fecha de creación
