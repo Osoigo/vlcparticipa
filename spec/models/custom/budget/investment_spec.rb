@@ -3,7 +3,7 @@ require "rails_helper"
 describe Budget::Investment do
   it "says if enough support is reached when the heading has enough_support set" do
     budget = create(:budget, :selecting)
-    heading = create(:budget_heading, budget: budget)
+    create(:budget_heading, budget: budget)
     investment = create(:budget_investment, budget: budget)
 
     expect(investment.has_required_support?).to be false

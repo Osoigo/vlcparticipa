@@ -1,4 +1,4 @@
-require_dependency Rails.root.join('app', 'controllers',  'concerns', 'admin', 'budget_headings_actions').to_s
+require_dependency Rails.root.join("app", "controllers", "concerns", "admin", "budget_headings_actions").to_s
 
 module Admin::BudgetHeadingsActions
   private

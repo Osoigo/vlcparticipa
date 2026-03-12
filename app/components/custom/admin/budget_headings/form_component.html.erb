@@ -19,8 +19,8 @@
     <% end %>
 
     <%= f.text_field :required_support,
-                      maxlength: 8,
-                      hint: t("admin.budget_headings.form.required_support_info") %>
+                     maxlength: 8,
+                     hint: t("admin.budget_headings.form.required_support_info") %>
 
     <% if feature?(:map) %>
       <%= f.select :geozone_id,
@@ -59,4 +59,3 @@
     <% end %>
   </div>
 <% end %>
-

@@ -3,7 +3,7 @@ require "rails_helper"
 describe Budgets::Investments::VotesComponent do
   describe "vote link" do
     context "when investment shows votes" do
-      let(:heading) { create(:budget_heading ) }
+      let(:heading) { create(:budget_heading) }
       let(:investment) { create(:budget_investment, heading: heading) }
       let(:component) { Budgets::Investments::VotesComponent.new(investment) }
 
@@ -26,4 +26,3 @@ describe Budgets::Investments::VotesComponent do
     end
   end
 end
-
