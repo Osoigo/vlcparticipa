@@ -1,0 +1,5 @@
+en:
+  admin:
+    budget_headings:
+      form:
+        required_support_info: "If the investment has this number of support the users will be notified that it doesn't need more to go to the next phase"
