@@ -3,13 +3,16 @@ load Rails.root.join("app", "models", "budget", "investment.rb")
 class Budget
   class Investment
     # Add sort by ballots
-    SORTING_OPTIONS = { id: "id", created_at: "created_at", supports: "cached_votes_up", ballots: "ballot_lines_count" }.freeze
+    SORTING_OPTIONS = { id: "id",
+                        created_at: "created_at",
+                        supports: "cached_votes_up",
+                        ballots: "ballot_lines_count" }.freeze
 
     # Add created before and after filters
-    scope :by_created_after,            ->(date)    { where("budget_investments.created_at >= ?", date) }
-    scope :by_created_before,           ->(date)    { where("budget_investments.created_at <= ?", date) }
+    scope :by_created_after,            ->(date)    { where(budget_investments: { created_at: date.. }) }
+    scope :by_created_before,           ->(date)    { where(budget_investments: { created_at: ..date }) }
 
-    class <<self
+    class << self
       alias_method :consul_scoped_filter, :scoped_filter
     end
 
@@ -33,8 +36,8 @@ class Budget
       ids += results.where(selected: true).ids       if params[:advanced_filters].include?("selected")
       ids += results.undecided.ids                   if params[:advanced_filters].include?("undecided")
       ids += results.unfeasible.ids                  if params[:advanced_filters].include?("unfeasible")
-      ids += results.where("comments_count > 0").ids if params[:advanced_filters].include?('with_comments')
-      ids += results.where("comments_count = 0").ids if params[:advanced_filters].include?('without_comments')
+      ids += results.where("comments_count > 0").ids if params[:advanced_filters].include?("with_comments")
+      ids += results.where("comments_count = 0").ids if params[:advanced_filters].include?("without_comments")
       results = results.where(id: ids) if ids.any?
       results
     end

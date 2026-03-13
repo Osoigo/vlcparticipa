@@ -4,7 +4,9 @@ load Rails.root.join("app", "components", "admin", "budget_investments", "search
 
 class Admin::BudgetInvestments::SearchFormComponent
   # Filter by created before and after
+
   private
+
     def advanced_menu_visibility
       if advanced_filters_params.empty? &&
          params["created_before"].blank? &&
