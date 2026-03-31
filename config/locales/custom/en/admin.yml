@@ -3,3 +3,15 @@ en:
     budget_headings:
       form:
         required_support_info: "If the investment has this number of support the users will be notified that it doesn't need more to go to the next phase"
+    budget_investments:
+      index:
+        created_before_filter: YYYY-MM-DD
+        created_after_filter: YYYY-MM-DD
+        filters:
+          created_before: Created before
+          created_after: Created after
+          with_comments: With comments
+          without_comments: Without comments
+        list:
+          ballots: Ballots
+          created_at: Created at
