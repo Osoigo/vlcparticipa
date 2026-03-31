@@ -76,7 +76,7 @@
 
     <div class="filter title-or-id-filter">
       <%= label_tag :title_or_id, t("admin.budget_investments.index.basic_filters.title_or_id") %>
-      <%= text_field_tag :title_or_id, params["title_or_id"] %>
+      <%= text_field_tag :title_or_id, params["title_or_id"], autocomplete: "off" %>
     </div>
 
     <div class="filter">
