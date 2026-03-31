@@ -42,7 +42,7 @@ async def migrate(id_maps, migration_stats):
         ]
         new_budget_heading.price = old_budget_heading.price
         new_budget_heading.population = old_budget_heading.population
-        # TODO: new_budget_heading.required_support = old_budget_heading.required_support
+        new_budget_heading.required_support = old_budget_heading.required_support
 
         await new_budget_heading.save()
 

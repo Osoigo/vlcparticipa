@@ -33,7 +33,7 @@ class NewBudgetHeading(Model):
     # t.datetime "updated_at", precision: nil
     updated_at = NaiveDatetimeField(null=True)
     # t.integer "required_support"
-    # TODO: required_support = fields.IntField(null=True)
+    required_support = fields.IntField(null=True)
 
 
 """
