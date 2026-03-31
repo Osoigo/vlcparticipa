@@ -36,6 +36,7 @@ class Budget
       results = results.under_valuation    if params[:advanced_filters].include?("under_valuation")
       results = results.valuation_finished if params[:advanced_filters].include?("valuation_finished")
       results = results.winners            if params[:advanced_filters].include?("winners")
+      results = results.enough_support     if params[:advanced_filters].include?("enough_support")
 
       ids = []
       ids += results.valuation_finished_feasible.ids if params[:advanced_filters].include?("feasible")

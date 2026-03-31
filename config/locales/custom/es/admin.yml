@@ -10,6 +10,7 @@ es:
         filters:
           created_before: Creada antes de
           created_after: Creada después de
+          enough_support: Apoyos suficientes
           with_comments: Con comentarios
           without_comments: Sin comentarios
         list:
