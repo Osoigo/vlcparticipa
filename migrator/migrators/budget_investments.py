@@ -12,7 +12,7 @@ from ..models.old_models.budget_investment import OldBudgetInvestment
 async def migrate(id_maps, migration_stats):
     # missing in new:
     #   old_budget_investment.unidad
-    #   old_budget_investment.proposed_service
+    #   old_budget_investment.proposed_service  (not used in the database)
     #   old_budget_investment.other_services
     #   old_budget_investment.price_phase1
     #   old_budget_investment.price_phase2
@@ -20,7 +20,7 @@ async def migrate(id_maps, migration_stats):
     #   old_budget_investment.price_phase4
     #   old_budget_investment.budget_implementation
     # new fields:
-    #   new_budget_investment.original_heading_id
+    #   new_budget_investment.original_heading_id (same as heading_id for this migration)
 
     # Investments must keep their previous id, but keep id_map to track investment migrations
     id_maps["budget_investments"] = {}
@@ -102,9 +102,7 @@ async def migrate(id_maps, migration_stats):
         new_budget_investment.ballot_lines_count = (
             old_budget_investment.ballot_lines_count
         )
-        new_budget_investment.previous_heading_id = id_maps["budget_headings"][
-            str(old_budget_investment.heading_id)
-        ]
+        new_budget_investment.previous_heading_id = new_budget_investment.heading_id
         new_budget_investment.winner = old_budget_investment.winner
         new_budget_investment.incompatible = old_budget_investment.incompatible
         if old_budget_investment.community_id is not None:
@@ -124,6 +122,7 @@ async def migrate(id_maps, migration_stats):
         )
         new_budget_investment.ignored_flag_at = old_budget_investment.ignored_flag_at
         new_budget_investment.flags_count = old_budget_investment.flags_count
+        new_budget_investment.original_heading_id = new_budget_investment.heading_id
 
         await new_budget_investment.save()
 
