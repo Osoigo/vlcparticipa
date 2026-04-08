@@ -12,7 +12,7 @@ val:
         price_phase3: Import fase 3 (%{currency})
         price_phase4: Import fase 4 (%{currency})
       show:
-        unidad: Unitat
+        service: Unitat
         other_services: Altres servicis implicats
         allows_phase: Permet realització per fases?
         price_phase1: Import fase 1
@@ -21,4 +21,4 @@ val:
         price_phase4: Import fase 4
         budget_implementation: Aplicació pressupostària
         active: Si
-        no: No
+        inactive: No

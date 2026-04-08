@@ -12,7 +12,7 @@ en:
         price_phase3: Phase 3 ammount (%{currency})
         price_phase4: Phase 4 ammount (%{currency})
       show:
-        unidad: Unit
+        service: Unit
         other_services: Other services involved
         allows_phase: ¿Allows execution in phases?
         price_phase1: Phase 1 ammount
@@ -21,4 +21,4 @@ en:
         price_phase4: Phase 4 ammount
         budget_implementation: Budget application
         active: Yes
-        no: No
+        inactive: No

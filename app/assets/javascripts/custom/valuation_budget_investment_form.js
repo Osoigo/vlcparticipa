@@ -17,7 +17,10 @@
     },
     showFeasibilityFields: function() {
       var feasibility;
-      feasibility = $("#valuation_budget_investment_edit_form input[type=radio][name='budget_investment[feasibility]']:checked").val();
+      feasibility = $(
+        "#valuation_budget_investment_edit_form input[type=radio]" +
+        "[name='budget_investment[feasibility]']:checked"
+      ).val();
       if (feasibility === "feasible") {
         App.ValuationBudgetInvestmentForm.showFeasibleFields();
       } else if (feasibility === "unfeasible") {
@@ -25,18 +28,22 @@
       }
     },
     showFeasibilityFieldsOnChange: function() {
-      $("#valuation_budget_investment_edit_form input[type=radio][name='budget_investment[feasibility]']").on("change", function() {
+      $(
+        "#valuation_budget_investment_edit_form input[type=radio]" +
+        "[name='budget_investment[feasibility]']"
+      ).on("change", function() {
         App.ValuationBudgetInvestmentForm.showAllFields();
         App.ValuationBudgetInvestmentForm.showFeasibilityFields();
       });
     },
     showPhases: function() {
-      console.log("agur");
-      if ($("#budget_investment_allows_phase").prop("checked")) $("#fases").show();
-      else $("#fases").hide();
+      if ($("#budget_investment_allows_phase").prop("checked")) {
+        $("#fases").show();
+      } else {
+        $("#fases").hide();
+      }
     },
     showPhasesOnChange: function() {
-      console.log("kaixo");
       $("#budget_investment_allows_phase").on("change", function() {
         App.ValuationBudgetInvestmentForm.showPhases();
       });

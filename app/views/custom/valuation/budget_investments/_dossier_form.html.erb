@@ -52,7 +52,8 @@
     <% if budget.show_money? %>
       <div class="row">
         <div class="small-12 column">
-          <%= f.text_area :price_explanation, rows: 3,
+          <%= f.text_area :price_explanation,
+                          rows: 3,
                           label: t("valuation.budget_investments.edit.price_explanation", currency: budget.currency_symbol) %>
         </div>
       </div>
@@ -72,7 +73,7 @@
       <div class="row">
         <div class="small-12 column">
           <%= f.check_box :allows_phase,
-                          label: t('valuation.budget_investments.edit.allows_phase') %>
+                          label: t("valuation.budget_investments.edit.allows_phase") %>
         </div>
       </div>
       <div id="fases" class="row">
