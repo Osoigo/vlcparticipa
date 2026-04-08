@@ -16,8 +16,7 @@
             "Viabilidad",
             "Evaluación Finalizada",
             "Seleccionada",
-            # TODO: unidad
-            # "Servicio",
+            "Servicio",
             "Fase ejecución",
             "Porcentaje",
             "Etiquetas",
@@ -97,8 +96,7 @@ wb.add_worksheet(name: "Propuestas de inversión") do |sheet|
              viability,
              valuation_finished,
              selected,
-             # TODO: unidad
-             # investment.unidad,
+             investment.unidad,
              phase_name,
              number_to_percentage(percent, precision: 0),
              investment.tag_list.join("; "),
