@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_23_081603) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -292,6 +292,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_23_081603) do
     t.datetime "ignored_flag_at", precision: nil
     t.integer "flags_count", default: 0
     t.integer "original_heading_id"
+    t.string "unidad"
+    t.string "other_services"
+    t.boolean "allows_phase"
+    t.float "price_phase1"
+    t.float "price_phase2"
+    t.float "price_phase3"
+    t.float "price_phase4"
+    t.string "budget_implementation"
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"

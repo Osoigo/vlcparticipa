@@ -1,0 +1,24 @@
+val:
+  valuation:
+    budget_investments:
+      edit:
+        unidad: Servici que executa la proposta
+        other_services: Altres servicis implicats
+        price_explanation: Observacions a la proposta d´inversió <small>(opcional, dada pública)</small>
+        budget_implementation: Aplicació pressupostària
+        allows_phase: Si el projecte permet la seua execució per fases, indicar quantes i el cost de cada una
+        price_phase1: Import fase 1 (%{currency})
+        price_phase2: Import fase 2 (%{currency})
+        price_phase3: Import fase 3 (%{currency})
+        price_phase4: Import fase 4 (%{currency})
+      show:
+        unidad: Unitat
+        other_services: Altres servicis implicats
+        allows_phase: Permet realització per fases?
+        price_phase1: Import fase 1
+        price_phase2: Import fase 2
+        price_phase3: Import fase 3
+        price_phase4: Import fase 4
+        budget_implementation: Aplicació pressupostària
+        active: Si
+        no: No

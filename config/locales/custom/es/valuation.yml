@@ -1,0 +1,24 @@
+es:
+  valuation:
+    budget_investments:
+      edit:
+        unidad: Servicio que ejecuta la propuesta
+        other_services: Otros servicios implicados
+        price_explanation: Observaciones a la propuesta de inversión <small>(opcional, dato público)</small>
+        budget_implementation: Aplicación presupuestaria
+        allows_phase: Si el proyecto permite su ejecución por fases, indicar cuántas y el coste de cada una
+        price_phase1: Importe fase 1 (%{currency})
+        price_phase2: Importe fase 2 (%{currency})
+        price_phase3: Importe fase 3 (%{currency})
+        price_phase4: Importe fase 4 (%{currency})
+      show:
+        unidad: Unidad
+        other_services: Otros servicios implicados
+        allows_phase: ¿Permite realización por fases?
+        price_phase1: Importe fase 1
+        price_phase2: Importe fase 2
+        price_phase3: Importe fase 3
+        price_phase4: Importe fase 4
+        budget_implementation: Aplicación presupuestaria
+        active: Si
+        no: No
