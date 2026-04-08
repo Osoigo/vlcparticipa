@@ -86,6 +86,22 @@ class NewBudgetInvestment(Model):
     flags_count = fields.IntField(default=0)
     # t.integer "original_heading_id"
     original_heading_id = fields.IntField(null=True)
+    # t.string "unidad"
+    unidad = fields.CharField(max_length=255, null=True)
+    # t.string "other_services"
+    other_services = fields.CharField(max_length=255, null=True)
+    # t.boolean "allows_phase"
+    allows_phase = fields.BooleanField(default=False)
+    # t.float "price_phase1"
+    price_phase1 = fields.FloatField(null=True)
+    # t.float "price_phase2"
+    price_phase2 = fields.FloatField(null=True)
+    # t.float "price_phase3"
+    price_phase3 = fields.FloatField(null=True)
+    # t.float "price_phase4"
+    price_phase4 = fields.FloatField(null=True)
+    # t.string "budget_implementation"
+    budget_implementation = fields.CharField(max_length=255, null=True)
 
 
 """
@@ -129,6 +145,14 @@ CREATE TABLE public.budget_investments (
     ignored_flag_at timestamp without time zone,
     flags_count integer DEFAULT 0,
     original_heading_id integer
+    unidad character varying,
+    other_services character varying,
+    allows_phase boolean,
+    price_phase1 double precision,
+    price_phase2 double precision,
+    price_phase3 double precision,
+    price_phase4 double precision,
+    budget_implementation character varying
 );
 """
 

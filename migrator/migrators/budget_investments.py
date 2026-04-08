@@ -11,14 +11,7 @@ from ..models.old_models.budget_investment import OldBudgetInvestment
 
 async def migrate(id_maps, migration_stats):
     # missing in new:
-    #   old_budget_investment.unidad
     #   old_budget_investment.proposed_service  (not used in the database)
-    #   old_budget_investment.other_services
-    #   old_budget_investment.price_phase1
-    #   old_budget_investment.price_phase2
-    #   old_budget_investment.price_phase3
-    #   old_budget_investment.price_phase4
-    #   old_budget_investment.budget_implementation
     # new fields:
     #   new_budget_investment.original_heading_id (same as heading_id for this migration)
 
@@ -123,6 +116,16 @@ async def migrate(id_maps, migration_stats):
         new_budget_investment.ignored_flag_at = old_budget_investment.ignored_flag_at
         new_budget_investment.flags_count = old_budget_investment.flags_count
         new_budget_investment.original_heading_id = new_budget_investment.heading_id
+
+        new_budget_investment.unidad = old_budget_investment.unidad
+        new_budget_investment.other_services = old_budget_investment.other_services
+        new_budget_investment.price_phase1 = old_budget_investment.price_phase1
+        new_budget_investment.price_phase2 = old_budget_investment.price_phase2
+        new_budget_investment.price_phase3 = old_budget_investment.price_phase3
+        new_budget_investment.price_phase4 = old_budget_investment.price_phase4
+        new_budget_investment.budget_implementation = (
+            old_budget_investment.budget_implementation
+        )
 
         await new_budget_investment.save()
 
