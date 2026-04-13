@@ -17,6 +17,12 @@ class Budget
         " >= budget_headings.required_support"
       )
     }
+    scope :sort_by_ballots, -> {
+      joins(:budget).reorder(
+        "(budget_investments.ballot_lines_count - budget_investments.ballot_negativelines_count * budgets.negative_vote_value) DESC",
+        "id DESC"
+      )
+    }
 
     class << self
       alias_method :consul_scoped_filter, :scoped_filter
@@ -55,6 +61,22 @@ class Budget
       end
 
       false
+    end
+
+    def final_score
+      ballot_lines_count - ballot_negativelines_count * budget.negative_vote_value
+    end
+
+    def reason_for_not_being_negatively_ballotable_by(user, ballot)
+      return permission_problem(user)         if permission_problem?(user)
+      return :not_selected                    unless selected?
+      return :no_ballots_allowed              unless budget.balloting?
+      return :different_heading_assigned_html unless ballot.valid_heading?(heading)
+      return :no_negative_ballots_remaining_html if ballot.present? && !negative_ballots_remaining?(ballot)
+    end
+
+    def negative_ballots_remaining?(ballot)
+      return ballot.negativelines.count < budget.negative_votes
     end
   end
 end

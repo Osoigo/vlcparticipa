@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_13_100032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -175,6 +175,22 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.index ["investment_id"], name: "index_budget_ballot_lines_on_investment_id"
   end
 
+  create_table "budget_ballot_negativelines", force: :cascade do |t|
+    t.integer "ballot_id"
+    t.integer "budget_id"
+    t.integer "group_id"
+    t.integer "heading_id"
+    t.integer "investment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ballot_id", "investment_id"], name: "index_budget_ballot_negativelines_ballot_and_investment", unique: true
+    t.index ["ballot_id"], name: "index_budget_ballot_negativelines_on_ballot_id"
+    t.index ["budget_id"], name: "index_budget_ballot_negativelines_on_budget_id"
+    t.index ["group_id"], name: "index_budget_ballot_negativelines_on_group_id"
+    t.index ["heading_id"], name: "index_budget_ballot_negativelines_on_heading_id"
+    t.index ["investment_id"], name: "index_budget_ballot_negativelines_on_investment_id"
+  end
+
   create_table "budget_ballots", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "budget_id"
@@ -300,6 +316,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.float "price_phase3"
     t.float "price_phase4"
     t.string "budget_implementation"
+    t.integer "ballot_negativelines_count", default: 0
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"
@@ -399,6 +416,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.string "voting_style", default: "knapsack"
     t.boolean "published"
     t.boolean "hide_money", default: false
+    t.integer "negative_votes", default: 0
+    t.float "negative_vote_value", default: 0.5
   end
 
   create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
