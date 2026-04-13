@@ -910,7 +910,7 @@ describe "Admin budget investments", :admin do
   end
 
   context "Show" do
-    scenario "Show the investment details" do
+    scenario "Show the investment details", :consul do
       user = create(:user, username: "Rachel", email: "rachel@valuators.org")
       valuator = create(:valuator, user: user)
       budget_investment = create(:budget_investment,
@@ -943,7 +943,7 @@ describe "Admin budget investments", :admin do
       end
     end
 
-    scenario "Show image and documents on investment details" do
+    scenario "Show image and documents on investment details", :consul do
       budget_investment = create(:budget_investment,
                                  :with_image,
                                  :unfeasible,

@@ -40,7 +40,75 @@ describe "Admin budget investments", :admin do
     end
   end
 
+  context "Show" do
+    scenario "Show the investment details" do
+      user = create(:user, username: "Rachel", email: "rachel@valuators.org")
+      valuator = create(:valuator, user: user)
+      budget_investment = create(:budget_investment,
+                                 :unfeasible,
+                                 unfeasibility_explanation: "It is impossible",
+                                 price: 1234,
+                                 administrator: administrator,
+                                 valuators: [valuator])
+
+      visit admin_budget_budget_investments_path(budget_investment.budget)
+
+      within_window(window_opened_by { click_link budget_investment.title }) do
+        expect(page).to have_content("Investment preview")
+        expect(page).to have_content(budget_investment.title)
+        expect(page).to have_content(budget_investment.description)
+        expect(page).to have_content(budget_investment.author.name)
+        expect(page).to have_content(budget_investment.heading.name)
+        expect(page).to have_content("1234")
+        expect(page).to have_content("Unfeasible")
+        expect(page).to have_content("It is impossible")
+        expect(page).to have_content("Ana (ana@admins.org)")
+
+        within("#assigned_valuators") do
+          expect(page).to have_content("Rachel (rachel@valuators.org)")
+        end
+
+        expect(page).to have_button "Publish comment"
+      end
+    end
+
+    scenario "Show image and documents on investment details" do
+      budget_investment = create(:budget_investment,
+                                 :with_image,
+                                 :unfeasible,
+                                 unfeasibility_explanation: "It is impossible",
+                                 price: 1234,
+                                 administrator: administrator)
+      document = create(:document, documentable: budget_investment)
+
+      visit admin_budget_budget_investments_path(budget_investment.budget)
+
+      within_window(window_opened_by { click_link budget_investment.title }) do
+        expect(page).to have_content(budget_investment.title)
+        expect(page).to have_content(budget_investment.description)
+        expect(page).to have_content(budget_investment.author.name)
+        expect(page).to have_content(budget_investment.heading.name)
+        expect(page).to have_content("Investment preview")
+        expect(page).to have_content(budget_investment.image.title)
+        expect(page).to have_content("Documents (1)")
+        expect(page).to have_link text: document.title
+        expect(page).to have_content("1234")
+        expect(page).to have_content("Unfeasible")
+        expect(page).to have_content("It is impossible")
+        expect(page).to have_content("Ana (ana@admins.org)")
+      end
+    end
+  end
+
   context "Columns chooser" do
+    let!(:investment) do
+      create(:budget_investment,
+             :winner,
+             :visible_to_valuators,
+             budget: budget,
+             author: create(:user, username: "Jon Doe"))
+    end
+
     scenario "Set cookie with default columns value if undefined", :consul do
       visit admin_budget_budget_investments_path(budget)
 
@@ -50,7 +118,9 @@ describe "Admin budget investments", :admin do
                                  "price,valuation_finished,visible_to_valuators,selected,incompatible")
     end
 
-    scenario "Cookie will be updated after change columns selection", :consul do
+    scenario "Cookie will be updated after change columns selection" do
+      investment.winner # call investment to avoid rubocop error, the test fails if no investment available
+
       visit admin_budget_budget_investments_path(budget)
 
       click_button "Columns"
@@ -76,7 +146,7 @@ describe "Admin budget investments", :admin do
 
       cookie_value = cookie_by_name("investments-columns")[:value]
 
-      expect(cookie_value).to eq("id,created_at,supports,votes,admin,geozone,feasibility," \
+      expect(cookie_value).to eq("id,supports,votes,admin,geozone,feasibility," \
                                  "valuation_finished,visible_to_valuators,selected,incompatible,author")
     end
   end
