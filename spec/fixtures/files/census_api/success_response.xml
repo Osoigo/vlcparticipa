@@ -1,0 +1,93 @@
+<?xml version= "1.0" encoding= "UTF-8"?>
+<soapenv:Envelope xmlns:soapenv= "http://schemas.xmlsoap.org/soap/envelope/">
+  <soapenv:Header>
+    <aut:Credentials_v1.0 xmlns:aut= "http://www.webservice.es/schema/Authorization">
+      <aut:UsernameToken>USERTOKEN</aut:UsernameToken>
+    </aut:Credentials_v1.0>
+  </soapenv:Header>
+  <soapenv:Body>
+    <v20:GetHabitanteByDNIResponse version= "1.0" xmlns:v20= "http://www.webservice.es/services/esb/padron/WSPadron/v20">
+      <wsp:Habitante xmlns:wsp= "http://www.webservice.es/services/esb/padron/WSPadron">
+        <hab:DatosPersonales xmlns:hab= "http://www.webservice.es/schema/Padron/Habitante">
+          <hab:NIA>000000001001562</hab:NIA>
+          <hab:Nombre>JOSE MARÍA</hab:Nombre>
+          <hab:PrimerApellido>PÉREZ</hab:PrimerApellido>
+          <hab:ParticulaPrimerApellido />
+          <hab:SegundoApellido>MARTÍNEZ</hab:SegundoApellido>
+          <hab:ParticulaSegundoApellido />
+          <hab:FechaNacimiento>1980-12-31</hab:FechaNacimiento>
+          <hab:MunicipioNacimiento>
+            <hab:Codigo>250</hab:Codigo>
+            <hab:Nombre>VALÈNCIA</hab:Nombre>
+          </hab:MunicipioNacimiento>
+          <hab:ProvinciaNacimiento>
+            <hab:Codigo>46</hab:Codigo>
+            <hab:Nombre>VALENCIA/VALÈNCIA</hab:Nombre>
+          </hab:ProvinciaNacimiento>
+          <hab:PaisNacimiento>ESPAÑOLA</hab:PaisNacimiento>
+          <hab:Nacionalidad>
+            <hab:Codigo>108</hab:Codigo>
+            <hab:Nombre />
+          </hab:Nacionalidad>
+          <hab:Sexo>Hombre</hab:Sexo>
+          <hab:TipoDocumento>1</hab:TipoDocumento>
+          <hab:Documentacion>12345678</hab:Documentacion>
+          <hab:Letra>Z</hab:Letra>
+          <hab:FechaUltimaModificacion>2024-01-01</hab:FechaUltimaModificacion>
+          <hab:Distrito>11</hab:Distrito>
+          <hab:Seccion>05</hab:Seccion>
+          <hab:NumeroHoja>123</hab:NumeroHoja>
+          <hab:FechaAlta>2020-01-01</hab:FechaAlta>
+          <hab:FechaAltaInscripcion>2025-02-21</hab:FechaAltaInscripcion>
+          <hab:EntidadColectiva>
+            <hab:Codigo></hab:Codigo>
+            <hab:Descripcion />
+          </hab:EntidadColectiva>
+          <hab:EntidadSingular>
+            <hab:Codigo>14</hab:Codigo>
+            <hab:Descripcion>VALÈNCIA</hab:Descripcion>
+          </hab:EntidadSingular>
+          <hab:Nucleo>
+            <hab:Codigo>01</hab:Codigo>
+            <hab:Descripcion>VALÈNCIA</hab:Descripcion>
+          </hab:Nucleo>
+          <hab:CodigoUnicoEntidad>0014101</hab:CodigoUnicoEntidad>
+          <hab:Telefono>600123456</hab:Telefono>
+          <hab:NivelInstruccion>
+            <hab:Codigo>46</hab:Codigo>
+            <hab:Descripcion>Universitario</hab:Descripcion>
+          </hab:NivelInstruccion>
+          <hab:FechaCaducidadPermiso xsi:nil= "true" xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance" />
+          <hab:Direccion>
+            <hab:Provincia>
+              <hab:Codigo>46</hab:Codigo>
+              <hab:Nombre>VALENCIA/VALÈNCIA</hab:Nombre>
+            </hab:Provincia>
+            <hab:Municipio>
+              <hab:Codigo>250</hab:Codigo>
+              <hab:Nombre>VALÈNCIA</hab:Nombre>
+            </hab:Municipio>
+            <hab:Acronimo>C/</hab:Acronimo>
+            <hab:Tipovia>7170</hab:Tipovia>
+            <hab:NombreCalle>Calle de ejemplo</hab:NombreCalle>
+            <hab:Numero>10</hab:Numero>
+            <hab:CalificadorNumero />
+            <hab:NumeroSuperior />
+            <hab:CalificadorNumeroSuperior />
+            <hab:IndicadorKm />
+            <hab:Kilometro>0.0</hab:Kilometro>
+            <hab:IndicadorBloque />
+            <hab:Campobloque />
+            <hab:Escalera />
+            <hab:Planta>P03</hab:Planta>
+            <hab:Puerta>002</hab:Puerta>
+            <hab:TipoVivienda />
+            <hab:CodigoPostal>46001</hab:CodigoPostal>
+            <hab:DireccionPlanchada>C/ Calle de ejemplo, 10, P03 002</hab:DireccionPlanchada>
+          </hab:Direccion>
+          <hab:HabitanteProtegido>false</hab:HabitanteProtegido>
+        </hab:DatosPersonales>
+      </wsp:Habitante>
+    </v20:GetHabitanteByDNIResponse>
+  </soapenv:Body>
+</soapenv:Envelope>
