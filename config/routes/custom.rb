@@ -35,3 +35,9 @@ constraints lambda { |request| !Rails.application.multitenancy_management_mode? 
   # If multitenancy management mode is not being used, routes can be included within
   # this block and will still be accessible.
 end
+
+resources :budgets, only: [:show, :index] do
+  resource :ballot, only: :show, controller: "budgets/ballots" do
+    resources :negativelines, controller: "budgets/ballot/negativelines", only: [:create, :destroy]
+  end
+end

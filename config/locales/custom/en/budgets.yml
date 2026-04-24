@@ -1,5 +1,16 @@
 en:
   budgets:
+    ballots:
+      show:
+        remove_negative: Remove negative vote
+        remove_negative_label: "Remove your negative vote for %{investment}"
+      reasons_for_not_balloting:
+        no_negative_ballots_remaining: "You have already assigned all avaiable negative votes. Remember you can change them at any time."
     investments:
+      investment:
+        already_negated: You have already negated this investments project
+        negate: Negative vote
+        negate_support_title: Negate this project
+        add_negative_label: "Negate %{investment}"
       votes:
-        has_required_support: "This investement goes to the next phase"
+        has_required_support: This investement goes to the next phase

@@ -1,5 +1,16 @@
 es:
   budgets:
+    ballots:
+      show:
+        remove_negative: Quitar voto en contra
+        remove_negative_label: "Quitar voto en contra a %{investment}"
+      reasons_for_not_balloting:
+        no_negative_ballots_remaining: "Ya has gastado todos tus votos en contra. Recuerda que puedes cambiarlos en cualquier momento."
     investments:
+      investment:
+        already_negated: Ya has votado en contra de esta propuesta de inversión
+        negate: Voto en contra
+        negate_support_title: Dar un voto en contra a esta propuesta
+        add_negative_label: "Dar un voto en contra a %{investment}"
       votes:
-        has_required_support: "Esta propuesta pasa a la siguiente fase"
+        has_required_support: Esta propuesta pasa a la siguiente fase

@@ -1,0 +1,14 @@
+.investment-project,
+.investment-project-show,
+.budget-investment,
+.budget-investment-show {
+
+  .supports {
+    .remove .custom-cancel-circle {
+      color: $color-alert;
+      display: block;
+      font-size: rem-calc(70);
+      line-height: rem-calc(70);
+    }
+  }
+}
