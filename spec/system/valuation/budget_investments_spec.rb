@@ -260,7 +260,7 @@ describe "Valuation budget investments" do
       create(:budget_investment, budget: budget, price: nil, administrator: admin, valuators: [valuator])
     end
 
-    scenario "Dossier empty by default" do
+    scenario "Dossier empty by default", :consul do
       investment.update!(visible_to_valuators: true)
 
       visit valuation_budget_budget_investments_path(budget)
@@ -273,7 +273,7 @@ describe "Valuation budget investments" do
       expect(page).not_to have_content("Valuation finished")
     end
 
-    scenario "Edit dossier" do
+    scenario "Edit dossier", :consul do
       investment.update!(visible_to_valuators: true)
       visit valuation_budget_budget_investments_path(budget)
       within("#budget_investment_#{investment.id}") do
@@ -324,7 +324,7 @@ describe "Valuation budget investments" do
       expect(find("#budget_investment_feasibility_undecided")).to be_checked
     end
 
-    scenario "Feasibility selection makes proper fields visible" do
+    scenario "Feasibility selection makes proper fields visible", :consul do
       feasible_fields = ["Price (€)", "Cost during the first year (€)", "Price explanation",
                          "Time scope"]
       unfeasible_fields = ["Feasibility explanation"]
@@ -479,7 +479,7 @@ describe "Valuation budget investments" do
       end
     end
 
-    scenario "Validates price formats on the server side", :no_js do
+    scenario "Validates price formats on the server side", :consul, :no_js do
       investment.update!(visible_to_valuators: true)
 
       visit edit_valuation_budget_budget_investment_path(budget, investment)

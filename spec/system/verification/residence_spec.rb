@@ -20,7 +20,7 @@ describe "Residence" do
     expect(page).to have_content "Residence verified"
   end
 
-  scenario "Verify resident throught RemoteCensusApi", :remote_census do
+  scenario "Verify resident throught RemoteCensusApi", :remote_census, :consul do
     user = create(:user)
     login_as(user)
     mock_valid_remote_census_response

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_23_081603) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -292,6 +292,14 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_23_081603) do
     t.datetime "ignored_flag_at", precision: nil
     t.integer "flags_count", default: 0
     t.integer "original_heading_id"
+    t.string "unidad"
+    t.string "other_services"
+    t.boolean "allows_phase"
+    t.float "price_phase1"
+    t.float "price_phase2"
+    t.float "price_phase3"
+    t.float "price_phase4"
+    t.string "budget_implementation"
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"
@@ -1628,6 +1636,40 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_23_081603) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at", precision: nil
     t.string "unlock_token"
+    t.string "nIA"
+    t.string "name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "municipality_of_birth"
+    t.string "province_of_birth"
+    t.string "country_of_birth"
+    t.integer "nationality"
+    t.string "dc"
+    t.date "census_last_modification_at"
+    t.integer "district"
+    t.integer "section"
+    t.string "sheet_number"
+    t.date "census_created_at"
+    t.string "collective_entity"
+    t.string "singular_entity"
+    t.string "core"
+    t.string "single_entity_code"
+    t.string "census_phone", limit: 30
+    t.string "level_of_training"
+    t.date "permit_expiration_at"
+    t.string "province"
+    t.string "municipality"
+    t.string "acronym"
+    t.string "type_road"
+    t.string "street_name"
+    t.string "access"
+    t.string "km"
+    t.string "stairs"
+    t.string "floor"
+    t.string "door"
+    t.string "zip_code"
+    t.string "full_address"
+    t.boolean "protected_hab"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
