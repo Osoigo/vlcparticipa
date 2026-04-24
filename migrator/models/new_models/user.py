@@ -132,6 +132,74 @@ class NewUser(Model):
     locked_at = NaiveDatetimeField(null=True)
     # t.string "unlock_token"
     unlock_token = fields.CharField(max_length=255, null=True)
+    # t.string "nIA"
+    nIA = fields.CharField(max_length=255, null=True)
+    # t.string "name"
+    name = fields.CharField(max_length=255, null=True)
+    # t.string "first_name"
+    first_name = fields.CharField(max_length=255, null=True)
+    # t.string "last_name"
+    last_name = fields.CharField(max_length=255, null=True)
+    # t.string "municipality_of_birth"
+    municipality_of_birth = fields.CharField(max_length=255, null=True)
+    # t.string "province_of_birth"
+    province_of_birth = fields.CharField(max_length=255, null=True)
+    # t.string "country_of_birth"
+    country_of_birth = fields.CharField(max_length=255, null=True)
+    # t.integer "nationality"
+    nationality = fields.IntField(null=True)
+    # t.string "dc"
+    dc = fields.CharField(max_length=255, null=True)
+    # t.date "census_last_modification_at"
+    census_last_modification_at = fields.DateField(null=True)
+    # t.integer "district"
+    district = fields.IntField(null=True)
+    # t.integer "section"
+    section = fields.IntField(null=True)
+    # t.string "sheet_number"
+    sheet_number = fields.CharField(max_length=255, null=True)
+    # t.date "census_created_at"
+    census_created_at = fields.DateField(null=True)
+    # t.string "collective_entity"
+    collective_entity = fields.CharField(max_length=255, null=True)
+    # t.string "singular_entity"
+    singular_entity = fields.CharField(max_length=255, null=True)
+    # t.string "core"
+    core = fields.CharField(max_length=255, null=True)
+    # t.string "single_entity_code"
+    single_entity_code = fields.CharField(max_length=255, null=True)
+    # t.string "census_phone", limit: 30
+    census_phone = fields.CharField(max_length=255, null=True)
+    # t.string "level_of_training"
+    level_of_training = fields.CharField(max_length=255, null=True)
+    # t.date "permit_expiration_at"
+    permit_expiration_at = fields.DateField(null=True)
+    # t.string "province"
+    province = fields.CharField(max_length=255, null=True)
+    # t.string "municipality"
+    municipality = fields.CharField(max_length=255, null=True)
+    # t.string "acronym"
+    acronym = fields.CharField(max_length=255, null=True)
+    # t.string "type_road"
+    type_road = fields.CharField(max_length=255, null=True)
+    # t.string "street_name"
+    street_name = fields.CharField(max_length=255, null=True)
+    # t.string "access"
+    access = fields.CharField(max_length=255, null=True)
+    # t.string "km"
+    km = fields.CharField(max_length=255, null=True)
+    # t.string "stairs"
+    stairs = fields.CharField(max_length=255, null=True)
+    # t.string "floor"
+    floor = fields.CharField(max_length=255, null=True)
+    # t.string "door"
+    door = fields.CharField(max_length=255, null=True)
+    # t.string "zip_code"
+    zip_code = fields.CharField(max_length=255, null=True)
+    # t.string "full_address"
+    full_address = fields.CharField(max_length=255, null=True)
+    # t.boolean "protected_hab"
+    protected_hab = fields.BooleanField(null=True)
 
 
 """
@@ -197,6 +265,40 @@ CREATE TABLE public.users (
     subscriptions_token character varying,
     failed_attempts integer DEFAULT 0 NOT NULL,
     locked_at timestamp without time zone,
-    unlock_token character varying
+    unlock_token character varying,
+    "nIA" character varying,
+    name character varying,
+    first_name character varying,
+    last_name character varying,
+    municipality_of_birth character varying,
+    province_of_birth character varying,
+    country_of_birth character varying,
+    nationality integer,
+    dc character varying,
+    census_last_modification_at date,
+    district integer,
+    section integer,
+    sheet_number character varying,
+    census_created_at date,
+    collective_entity character varying,
+    singular_entity character varying,
+    core character varying,
+    single_entity_code character varying,
+    census_phone character varying(30),
+    level_of_training character varying,
+    permit_expiration_at date,
+    province character varying,
+    municipality character varying,
+    acronym character varying,
+    type_road character varying,
+    street_name character varying,
+    access character varying,
+    km character varying,
+    stairs character varying,
+    floor character varying,
+    door character varying,
+    zip_code character varying,
+    full_address character varying,
+    protected_hab boolean
 );
 """
