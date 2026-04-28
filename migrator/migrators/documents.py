@@ -21,6 +21,9 @@ def get_old_document_path(old_document):
     extension = old_document.attachment_file_name.rsplit(".", 1)[1]
     return f"system/documents/attachments/{id_partition}/original/{hash}.{extension}"
 
+def get_old_document_alternative_path(old_document):
+    return f"system/documents/cached_attachments/user/{old_document.user_id}/original/{old_document.attachment_file_name}"
+
 
 async def migrate(id_maps, migration_stats):
     id_maps["documents"] = {}
@@ -47,9 +50,13 @@ async def migrate(id_maps, migration_stats):
             settings.OLD_STORAGE_PATH / get_old_document_path(old_document)
         )
         if not old_document_path.exists():
-            # print(f"Missing document file: {get_old_document_path(old_document)}")
-            stats["missing_document_files"].append(get_old_document_path(old_document))
-            continue
+            old_document_path = Path(
+                settings.OLD_STORAGE_PATH / get_old_document_alternative_path(old_document)
+            )
+            if not old_document_path.exists():
+                print(f"Missing document file: {get_old_document_path(old_document)}, {get_old_document_alternative_path(old_document)}")
+                stats["missing_document_files"].append((get_old_document_path(old_document), get_old_document_alternative_path(old_document)))
+                continue
         if old_document.documentable_type == "Budget::Investment":
             documentable_id = id_maps["budget_investments"][
                 str(old_document.documentable_id)
@@ -74,10 +81,18 @@ async def migrate(id_maps, migration_stats):
                 key=str(uuid4()).replace("-", ""),
             )
         else:
-            active_storage_attachment = new_active_storage_attachments[new_document.id]
-            active_storage_blob = new_active_storage_blobs[
-                active_storage_attachment.blob_id
-            ]
+            active_storage_attachment = new_active_storage_attachments.get(new_document.id)
+            if active_storage_attachment is None:
+                active_storage_attachment = NewActiveStorageAttachment(
+                    record_type="Document",
+                    name="attachment",
+                )
+            active_storage_blob = new_active_storage_blobs.get(active_storage_attachment.blob_id)
+            if active_storage_blob is None:
+                active_storage_blob = NewActiveStorageBlob(
+                    service_name="local",
+                    key=str(uuid4()).replace("-", ""),
+                )
         new_document.created_at = old_document.created_at
         new_document.updated_at = old_document.updated_at
         new_document.user_id = id_maps["users"][str(old_document.user_id)]
