@@ -12,6 +12,8 @@ permissions:
 
 env:
   TEST_COVERAGE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && 1 || '' }}
+  SPEC_FILE_REGEX: ${{ vars.SPEC_FILE_REGEX || '' }}
+  SPEC_FILE_LIST: ${{ vars.SPEC_FILE_LIST || '' }}
 
 jobs:
   tests:
@@ -62,14 +64,63 @@ jobs:
         run: bundle exec rake db:setup
       - name: Compile assets
         run: bundle exec rake assets:precompile > /dev/null 2>&1
-      - name: Run test suite
+      - name: Run budget specs shard
         env:
-          KNAPSACK_PRO_TEST_SUITE_TOKEN_RSPEC: ${{ secrets.KNAPSACK_PRO_TEST_SUITE_TOKEN_RSPEC }}
-          KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
-          KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-          KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
-          KNAPSACK_PRO_LOG_LEVEL: info
-        run: bin/knapsack_pro_rspec
+          CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
+          CI_NODE_INDEX: ${{ matrix.ci_node_index }}
+          SPEC_FILE_REGEX: ${{ env.SPEC_FILE_REGEX }}
+          SPEC_FILE_LIST: ${{ env.SPEC_FILE_LIST }}
+        run: |
+          set -euo pipefail
+
+          SPEC_FILE_REGEX_LC="$(printf '%s' "${SPEC_FILE_REGEX:-}" | tr '[:upper:]' '[:lower:]')"
+
+          SYSTEM_TMP="$(mktemp)"
+          OTHER_TMP="$(mktemp)"
+          ALL_TMP="$(mktemp)"
+          trap 'rm -f "$SYSTEM_TMP" "$OTHER_TMP" "$ALL_TMP"' EXIT
+
+          if [ -n "${SPEC_FILE_LIST:-}" ]; then
+            printf '%s\n' "$SPEC_FILE_LIST" |
+              tr ' ' '\n' |
+              awk 'NF > 0' |
+              awk '/_spec\.rb$/ { print }' |
+              sort -u > "$ALL_TMP"
+          elif [ -n "$SPEC_FILE_REGEX_LC" ]; then
+            find spec -type f -name '*_spec.rb' |
+              sort |
+              awk -v spec_re="$SPEC_FILE_REGEX_LC" 'tolower($0) ~ spec_re' > "$ALL_TMP"
+          else
+            find spec -type f -name '*_spec.rb' |
+              sort > "$ALL_TMP"
+          fi
+
+          awk '/^spec\/system\// { print }' "$ALL_TMP" |
+            awk -v total="$CI_NODE_TOTAL" -v shard_idx="$CI_NODE_INDEX" '((NR - 1) % total) == shard_idx' > "$SYSTEM_TMP"
+
+          awk '$0 !~ /^spec\/system\// { print }' "$ALL_TMP" |
+            awk -v total="$CI_NODE_TOTAL" -v shard_idx="$CI_NODE_INDEX" '((NR - 1) % total) == shard_idx' > "$OTHER_TMP"
+
+          mapfile -t SYSTEM_SHARD_FILES < "$SYSTEM_TMP"
+          mapfile -t OTHER_SHARD_FILES < "$OTHER_TMP"
+
+          SHARD_FILES=("${SYSTEM_SHARD_FILES[@]}" "${OTHER_SHARD_FILES[@]}")
+
+          if [ ${#SHARD_FILES[@]} -eq 0 ]; then
+            echo "No specs assigned to shard ${CI_NODE_INDEX}/${CI_NODE_TOTAL}"
+            exit 0
+          fi
+
+          SEED=$(( (${GITHUB_RUN_NUMBER:-1} * 100) + CI_NODE_INDEX + 1 ))
+          echo "SPEC_FILE_REGEX=${SPEC_FILE_REGEX:-}"
+          if [ -n "${SPEC_FILE_LIST:-}" ]; then
+            echo "SPEC_FILE_LIST provided"
+          elif [ -z "${SPEC_FILE_REGEX:-}" ]; then
+            echo "SPEC_FILE_REGEX and SPEC_FILE_LIST empty: running full suite"
+          fi
+          echo "Running ${#SYSTEM_SHARD_FILES[@]} system specs and ${#OTHER_SHARD_FILES[@]} non-system specs on shard ${CI_NODE_INDEX}/${CI_NODE_TOTAL} with seed ${SEED}"
+
+          bundle exec rspec --order random --seed "$SEED" --format documentation "${SHARD_FILES[@]}"
       - name: Coveralls Parallel
         if: ${{ env.TEST_COVERAGE == 1 }}
         uses: coverallsapp/github-action@master
