@@ -7,6 +7,12 @@ es:
       reasons_for_not_balloting:
         no_negative_ballots_remaining: "Ya has gastado todos tus votos en contra. Recuerda que puedes cambiarlos en cualquier momento."
     investments:
+      index:
+        sidebar:
+          my_negative_votes: Mis votos en contra
+          negative_voted:
+            one: "<strong>Has votado en contra una propuesta de un total de %{total_negative_votes}</strong>"
+            other: "<strong>Has votado contra %{count} propuestas de un total de %{total_negative_votes}</strong>"
       investment:
         already_negated: Ya has votado en contra de esta propuesta de inversión
         negate: Voto en contra

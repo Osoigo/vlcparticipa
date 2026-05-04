@@ -23,6 +23,7 @@ class Budget
         "id DESC"
       )
     }
+    scope :sort_by_ballot_negativelines, -> { order(:"budget_ballot_negativelines.created_at") }
 
     class << self
       alias_method :consul_scoped_filter, :scoped_filter

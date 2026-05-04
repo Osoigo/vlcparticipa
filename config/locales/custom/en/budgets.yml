@@ -7,6 +7,12 @@ en:
       reasons_for_not_balloting:
         no_negative_ballots_remaining: "You have already assigned all avaiable negative votes. Remember you can change them at any time."
     investments:
+      index:
+        sidebar:
+          my_negative_votes: My negative votes
+          negative_voted:
+            one: "<strong>You have one negative vote from a total of %{total_negative_votes}</strong>"
+            other: "<strong>You have %{count} negative votes from a total of %{total_negative_votes}</strong>"
       investment:
         already_negated: You have already negated this investments project
         negate: Negative vote
