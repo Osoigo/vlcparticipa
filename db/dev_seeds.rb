@@ -44,7 +44,7 @@ def add_image_to(imageable, sample_image_files)
   # imageable should respond to #title & #author
   imageable.image = Image.create!({
     imageable: imageable,
-    title: imageable.title,
+    title: imageable.title[0..37],
     attachment: Rack::Test::UploadedFile.new(sample_image_files.sample),
     user: imageable.author
   })
