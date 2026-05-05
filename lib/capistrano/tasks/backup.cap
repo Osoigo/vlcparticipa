@@ -1,0 +1,73 @@
+namespace :backup do
+  desc "Install backup cron entries after checking prerequisites"
+  task :install do
+    invoke "backup:install_mcli"
+    invoke "backup:install_gpg_key"
+    invoke "backup:check_prerequisites"
+    invoke "whenever:update_crontab"
+  end
+
+  desc "Install the MinIO client binary as mcli in /usr/local/bin"
+  task :install_mcli do
+    on roles(:cron) do |host|
+      if test("command -v mcli >/dev/null 2>&1")
+        info "mcli already installed on #{host.hostname}"
+      else
+        arch = capture("uname -m").strip
+        platform = arch == "aarch64" ? "linux-arm64" : "linux-amd64"
+        mc_url = "https://dl.min.io/client/mc/release/#{platform}/mc"
+        execute "curl -fsSL #{mc_url} -o /tmp/mcli"
+        sudo "install -m 0755 /tmp/mcli /usr/local/bin/mcli"
+        execute "rm -f /tmp/mcli"
+        info "mcli installed on #{host.hostname}"
+      end
+    end
+  end
+
+  desc "Install GPG public key for seguridad@osoigo.com (set GPG_PUBLIC_KEY_PATH=...)"
+  task :install_gpg_key do
+    gpg_public_key_path = ENV.fetch("GPG_PUBLIC_KEY_PATH", "config/keys/seguridad.gpg.pub")
+
+    unless File.exist?(gpg_public_key_path)
+      raise "GPG public key file not found: #{gpg_public_key_path}. Set GPG_PUBLIC_KEY_PATH to a valid local path"
+    end
+
+    on roles(:cron) do |host|
+      if test("gpg --batch --list-keys --with-colons seguridad@osoigo.com | grep -q '^pub:'")
+        info "GPG key seguridad@osoigo.com already present on #{host.hostname}"
+      else
+        upload! gpg_public_key_path, "/tmp/seguridad.gpg.pub"
+        execute "mkdir -p $HOME/.gnupg && chmod 700 $HOME/.gnupg"
+        execute "gpg --batch --import /tmp/seguridad.gpg.pub"
+        execute "rm -f /tmp/seguridad.gpg.pub"
+
+        unless test("gpg --batch --list-keys --with-colons seguridad@osoigo.com | grep -q '^pub:'")
+          raise "GPG key seguridad@osoigo.com could not be imported on #{host.hostname}"
+        end
+
+        info "GPG key seguridad@osoigo.com installed on #{host.hostname}"
+      end
+    end
+  end
+
+  desc "Check backup prerequisites (mcli and GPG key seguridad@osoigo.com)"
+  task :check_prerequisites do
+    on roles(:cron) do |host|
+      unless test("command -v mcli >/dev/null 2>&1 || test -x $HOME/bin/mcli")
+        invoke "backup:install_mcli"
+      end
+
+      unless test("command -v gpg >/dev/null 2>&1")
+        raise "gpg is not installed for #{host.hostname}"
+      end
+
+      unless test("gpg --batch --list-keys --with-colons seguridad@osoigo.com | grep -q '^pub:'")
+        raise "GPG key seguridad@osoigo.com not found for #{host.hostname}"
+      end
+
+      info "Backup prerequisites OK on #{host.hostname}"
+    end
+  end
+end
+
+before "whenever:update_crontab", "backup:check_prerequisites"
