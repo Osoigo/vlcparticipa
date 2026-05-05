@@ -26,7 +26,7 @@ module Budgets
         @investment = @negativeline.investment
         load_heading
 
-        @negativeline.destroy
+        @negativeline.destroy!
         load_investments
       end
 

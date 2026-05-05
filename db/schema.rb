@@ -176,11 +176,11 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_13_100032) do
   end
 
   create_table "budget_ballot_negativelines", force: :cascade do |t|
-    t.integer "ballot_id"
-    t.integer "budget_id"
-    t.integer "group_id"
-    t.integer "heading_id"
-    t.integer "investment_id"
+    t.bigint "ballot_id"
+    t.bigint "budget_id"
+    t.bigint "group_id"
+    t.bigint "heading_id"
+    t.bigint "investment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ballot_id", "investment_id"], name: "index_budget_ballot_negativelines_ballot_and_investment", unique: true
