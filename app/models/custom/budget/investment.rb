@@ -21,7 +21,13 @@ class Budget
     }
     scope :sort_by_ballots, -> {
       joins(:budget).reorder(
-        Arel.sql("(budget_investments.ballot_lines_count - budget_investments.ballot_negativelines_count * budgets.negative_vote_value) DESC"),
+        Arel.sql(
+          "(\
+            budget_investments.ballot_lines_count \
+            - budget_investments.ballot_negativelines_count \
+            * budgets.negative_vote_value\
+           ) DESC"
+        ),
         "id DESC"
       )
     }
@@ -75,11 +81,12 @@ class Budget
       return :not_selected                    unless selected?
       return :no_ballots_allowed              unless budget.balloting?
       return :different_heading_assigned_html unless ballot.valid_heading?(heading)
-      return :no_negative_ballots_remaining   if ballot.present? && !negative_ballots_remaining?(ballot)
+
+      :no_negative_ballots_remaining if ballot.present? && !negative_ballots_remaining?(ballot)
     end
 
     def negative_ballots_remaining?(ballot)
-      return ballot.negativelines.count < budget.negative_votes
+      ballot.negativelines.count < budget.negative_votes
     end
   end
 end

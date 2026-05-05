@@ -18,12 +18,15 @@ class Budget
       before_validation :set_denormalized_ids
 
       def check_negatives_available
-        errors.add(:negatives, "No more negative votes available") if budget.negative_votes <= ballot.negativelines.count
+        errors.add(:negatives,
+                   "No more negative votes available") if budget.negative_votes <= ballot.negativelines.count
       end
 
       def check_valid_heading
         return if ballot.valid_heading?(heading)
-        errors.add(:heading, "This heading's budget is invalid, or a heading on the same group was already selected")
+
+        errors.add(:heading,
+                   "This heading's budget is invalid, or a heading on the same group was already selected")
       end
 
       def check_selected
@@ -33,9 +36,9 @@ class Budget
       private
 
         def set_denormalized_ids
-          self.heading_id ||= investment.try(:heading_id)
-          self.group_id   ||= investment.try(:group_id)
-          self.budget_id  ||= investment.try(:budget_id)
+          self.heading_id ||= investment&.heading_id
+          self.group_id   ||= investment&.group_id
+          self.budget_id  ||= investment&.budget_id
         end
     end
   end

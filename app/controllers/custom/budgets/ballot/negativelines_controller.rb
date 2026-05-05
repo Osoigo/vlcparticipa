@@ -12,8 +12,8 @@ module Budgets
       authorize_resource :budget
       authorize_resource :ballot
       load_and_authorize_resource :negativeline, through: :ballot,
-                                         find_by: :investment_id,
-                                         class: "Budget::Ballot::Negativeline"
+                                                 find_by: :investment_id,
+                                                 class: "Budget::Ballot::Negativeline"
 
       def create
         load_investment
@@ -49,7 +49,7 @@ module Budgets
         end
 
         def load_headings
-          @headings = @budget.headings.all.order(name: :asc)
+          @headings = @budget.headings.order(name: :asc)
         end
 
         def load_investment

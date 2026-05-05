@@ -7,7 +7,6 @@ $("#my_ballot").html("<%= j render(
   )
 ) %>");
 $("#ballot").html("<%= j render("budgets/ballot/ballot") %>")
-
 <%= render "refresh_ballots",
-            investment_ids: @investment_ids,
-            ballot: @ballot %>
+           investment_ids: @investment_ids,
+           ballot: @ballot %>

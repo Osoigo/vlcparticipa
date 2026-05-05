@@ -21,7 +21,6 @@
       <% end %>
     </div>
   <% end %>
-
   <% if negative_voted? %>
     <div class="remove supported">
       <span class="custom-cancel-circle"
@@ -44,7 +43,6 @@
       <% end %>
     </div>
   <% end %>
-
   <% if !voted? and !negative_voted? %>
     <div class="add in-favor">
       <% if investment.should_show_price? %>
@@ -64,7 +62,6 @@
                       "aria-label": vote_aria_label %>
       <% end %>
     </div>
-
     <div class="add against">
       <% if investment.should_show_ballots? %>
         <%= button_to t("budgets.investments.investment.negate"),
@@ -79,6 +76,5 @@
       <% end %>
     </div>
   <% end %>
-
   <%= render Shared::ParticipationNotAllowedComponent.new(investment, cannot_vote_text: cannot_vote_text) %>
 </div>

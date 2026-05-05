@@ -1,8 +1,6 @@
 <header>
   <%= back_link_to session[:ballot_referer] %>
-
   <h1 class="text-center"><%= t("budgets.ballots.show.title") %></h1>
-
   <div class="small-12 medium-8 column small-centered text-center">
     <h2>
       <%= sanitize(t("budgets.ballots.show.voted", count: ballot.investments.count)) %>
@@ -13,7 +11,6 @@
     <p><%= t("budgets.ballots.show.voted_info_2") %></p>
   </div>
 </header>
-
 <div class="row ballot">
   <% ballot_groups.each do |group| %>
     <% heading = ballot.heading_for_group(group) %>
@@ -34,14 +31,12 @@
             <%= t("budgets.ballots.show.zero") %><br>
           </p>
         <% end %>
-
         <ul class="ballot-list">
           <%= render Budgets::Ballot::InvestmentComponent.with_collection(group_investments(group)) %>
         </ul>
       </div>
     </div>
   <% end %>
-
   <% no_balloted_groups.each do |group| %>
     <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
       <div class="margin-top ballot-content">
@@ -55,12 +50,10 @@
     </div>
   <% end %>
 </div>
-
-<% # Votos negativos %>
+<%# Votos negativos %>
 <header>
   <h1 class="text-center"><%= t("budgets.ballots.show.title_negatives") %></h1>
 </header>
-
 <div class="row ballot">
   <% negative_ballot_groups.each do |group| %>
     <% heading = ballot.heading_for_negativegroup(group) %>
@@ -76,14 +69,12 @@
             <%= t("budgets.ballots.show.zero_negatives") %><br>
           </p>
         <% end %>
-
         <ul class="ballot-list">
           <%= render Budgets::Ballot::NegativeInvestmentComponent.with_collection(group_negative_investments(group)) %>
         </ul>
       </div>
     </div>
   <% end %>
-
   <% no_negative_balloted_groups.each do |group| %>
     <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
       <div class="margin-top ballot-content">

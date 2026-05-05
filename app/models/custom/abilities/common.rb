@@ -13,4 +13,3 @@ module Abilities
     end
   end
 end
-

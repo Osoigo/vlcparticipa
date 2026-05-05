@@ -21,6 +21,7 @@ class Budget
 
     def heading_for_negativegroup(group)
       return nil unless has_negativelines_in_group?(group)
+
       negativeinvestments.where(group: group).first.heading
     end
   end

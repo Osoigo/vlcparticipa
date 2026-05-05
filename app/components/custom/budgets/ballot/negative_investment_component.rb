@@ -4,8 +4,8 @@ class Budgets::Ballot::NegativeInvestmentComponent < Budgets::Ballot::Investment
   end
 
   private
+
     def delete_path
       budget_ballot_negativeline_path(budget, id: investment.id)
     end
 end
-
