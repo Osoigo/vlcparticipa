@@ -2,6 +2,8 @@ load Rails.root.join("app", "models", "budget", "investment.rb")
 
 class Budget
   class Investment
+    has_many :negativelines, dependent: :destroy, class_name: "Budget::Ballot::Negativeline"
+
     # Add sort by ballots
     SORTING_OPTIONS = { id: "id",
                         created_at: "created_at",

@@ -1,0 +1,99 @@
+<header>
+  <%= back_link_to session[:ballot_referer] %>
+
+  <h1 class="text-center"><%= t("budgets.ballots.show.title") %></h1>
+
+  <div class="small-12 medium-8 column small-centered text-center">
+    <h2>
+      <%= sanitize(t("budgets.ballots.show.voted", count: ballot.investments.count)) %>
+    </h2>
+    <p class="confirmed">
+      <%= t("budgets.ballots.show.voted_info") %>
+    </p>
+    <p><%= t("budgets.ballots.show.voted_info_2") %></p>
+  </div>
+</header>
+
+<div class="row ballot">
+  <% ballot_groups.each do |group| %>
+    <% heading = ballot.heading_for_group(group) %>
+    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+      <div class="margin-top ballot-content">
+        <div class="subtitle">
+          <h3>
+            <%= group.name %> - <%= heading.name %>
+          </h3>
+          <%= link_to sanitize(ballot.amount_available_info(heading)), group_path(group) %>
+        </div>
+        <% if ballot.has_lines_in_group?(group) %>
+          <h4 class="amount-spent text-right">
+            <%= sanitize(ballot.amount_spent_info(heading)) %>
+          </h4>
+        <% else %>
+          <p>
+            <%= t("budgets.ballots.show.zero") %><br>
+          </p>
+        <% end %>
+
+        <ul class="ballot-list">
+          <%= render Budgets::Ballot::InvestmentComponent.with_collection(group_investments(group)) %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <% no_balloted_groups.each do |group| %>
+    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+      <div class="margin-top ballot-content">
+        <div class="subtitle">
+          <h3>
+            <%= group.name %>
+          </h3>
+          <%= link_to t("budgets.ballots.show.no_balloted_group_yet"), group_path(group) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% # Votos negativos %>
+<header>
+  <h1 class="text-center"><%= t("budgets.ballots.show.title_negatives") %></h1>
+</header>
+
+<div class="row ballot">
+  <% negative_ballot_groups.each do |group| %>
+    <% heading = ballot.heading_for_negativegroup(group) %>
+    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+      <div class="margin-top ballot-content">
+        <div class="subtitle">
+          <h3>
+            <%= group.name %> - <%= heading.name %>
+          </h3>
+        </div>
+        <% if !ballot.has_negativelines_in_group?(group) %>
+          <p>
+            <%= t("budgets.ballots.show.zero_negatives") %><br>
+          </p>
+        <% end %>
+
+        <ul class="ballot-list">
+          <%= render Budgets::Ballot::NegativeInvestmentComponent.with_collection(group_negative_investments(group)) %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <% no_negative_balloted_groups.each do |group| %>
+    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+      <div class="margin-top ballot-content">
+        <div class="subtitle">
+          <h3>
+            <%= group.name %>
+          </h3>
+          <%= link_to t("budgets.ballots.show.no_negative_balloted_group_yet"), group_path(group) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

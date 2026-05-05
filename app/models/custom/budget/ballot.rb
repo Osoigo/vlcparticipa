@@ -4,8 +4,8 @@ class Budget
   class Ballot
     has_many :negativelines, dependent: :destroy
     has_many :negativeinvestments, through: :negativelines, source: :investment
-    has_many :negativegroups, -> { uniq }, through: :negativelines, source: :group
-    has_many :negativeheadings, -> { uniq }, through: :negativegroups
+    has_many :negativegroups, -> { distinct }, through: :negativelines, source: :group
+    has_many :negativeheadings, -> { distinct }, through: :negativegroups
 
     def has_negative_investment?(investment)
       negativeinvestment_ids.include?(investment.id)

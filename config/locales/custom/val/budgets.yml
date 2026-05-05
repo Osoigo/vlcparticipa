@@ -2,8 +2,11 @@ val:
   budgets:
     ballots:
       show:
+        no_negative_balloted_group_yet: "Encara no has votat en contra cap proposta d'inversió"
         remove_negative: Llevar vot en contra
         remove_negative_label: "Llevar vot en contra a %{investment}"
+        title_negatives: Els meus vots en contra
+        zero_negatives: Encara no has votat en contra cap proposta d'inversió.
       reasons_for_not_balloting:
         no_negative_ballots_remaining: "Ja has gastat tots els teus vots en contra. Recorda que pots canviar-los en qualsevol moment."
     investments:

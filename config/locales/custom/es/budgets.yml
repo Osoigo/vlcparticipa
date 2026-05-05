@@ -2,8 +2,11 @@ es:
   budgets:
     ballots:
       show:
+        no_negative_balloted_group_yet: "Todavía no has votado en contra ninguna propuesta de inversión"
         remove_negative: Quitar voto en contra
         remove_negative_label: "Quitar voto en contra a %{investment}"
+        title_negatives: Mis votos en contra
+        zero_negatives: Todavía no has votado en contra ninguna propuesta de inversión.
       reasons_for_not_balloting:
         no_negative_ballots_remaining: "Ya has gastado todos tus votos en contra. Recuerda que puedes cambiarlos en cualquier momento."
     investments:

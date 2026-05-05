@@ -2,8 +2,11 @@ en:
   budgets:
     ballots:
       show:
+        no_negative_balloted_group_yet: "You have not negative voted on this group yet"
         remove_negative: Remove negative vote
         remove_negative_label: "Remove your negative vote for %{investment}"
+        title_negatives: My negative votes
+        zero_negatives: You have not negative voted any investment project.
       reasons_for_not_balloting:
         no_negative_ballots_remaining: "You have already assigned all avaiable negative votes. Remember you can change them at any time."
     investments:
