@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Pre-commit hook para ejecutar Pronto
+# Detecta problemas de código antes de hacer commit
+
+set -e
+
+echo "🔍 Ejecutando Pronto..."
+
+# Ejecutar Pronto contra cambios staged
+if ! bundle exec pronto run; then
+    echo ""
+    echo "❌ Pronto encontró problemas. Commit cancelado."
+    echo "Para ver detalles específicos, ejecuta:"
+    echo "  bundle exec pronto run -r rubocop    # Solo Ruby"
+    echo "  bundle exec pronto run -r eslint     # Solo JavaScript"
+    echo "  bundle exec pronto run -r stylelint  # Solo CSS/SCSS"
+    echo "  bundle exec pronto run -r erb_lint   # Solo templates ERB"
+    exit 1
+fi
+
+echo "✅ Pronto OK - Commit permitido"

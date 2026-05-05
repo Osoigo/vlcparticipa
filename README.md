@@ -43,6 +43,7 @@ Prerequisites: install git, Ruby 3.2.8, CMake, pkg-config, Node.js 18.20.3, Imag
 git clone https://github.com/consuldemocracy/consuldemocracy.git
 cd consuldemocracy
 bin/setup
+bash scripts/setup-hooks.sh
 bin/rake db:dev_seed
 ```
 
@@ -59,6 +60,43 @@ bin/rspec
 ```
 
 Note: running the whole test suite on your machine might take more than an hour, so it's strongly recommended that you setup a Continuous Integration system in order to run them using parallel jobs every time you open or modify a pull request (if you use GitHub Actions or GitLab CI, this is already configured in `.github/workflows/tests.yml` and `.gitlab-ci.yml`) and only run tests related to your current task while developing on your machine. When you configure the application for the first time, it's recommended that you run at least one test in `spec/models/` and one test in `spec/system/` to check your machine is properly configured to run the tests.
+
+### Code Quality
+
+You can run Pronto to check code quality on your changes. Pronto analyzes code using multiple linters: RuboCop (Ruby), ESLint (JavaScript), Stylelint (CSS/SCSS), and ERB Lint (templates).
+
+**Run Pronto on staged changes only** (recommended for pre-commit):
+
+```bash
+bundle exec pronto run
+```
+
+**Run Pronto comparing against a specific branch:**
+
+```bash
+bundle exec pronto run -c origin/main
+```
+
+**Run Pronto comparing against a previous commit (staged and unstaged changes):**
+
+```bash
+bundle exec pronto run -c HEAD~1
+```
+
+**Run a specific linter:**
+
+```bash
+bundle exec pronto run -r rubocop     # Only Ruby
+bundle exec pronto run -r eslint      # Only JavaScript
+bundle exec pronto run -r stylelint   # Only CSS/SCSS
+bundle exec pronto run -r erb_lint    # Only templates
+```
+
+Pronto automatically runs on every commit via a pre-commit hook that was installed during setup. To bypass it:
+
+```bash
+git commit --no-verify
+```
 
 You can use the default admin user from the seeds file:
 
