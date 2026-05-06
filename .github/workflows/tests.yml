@@ -95,9 +95,28 @@ jobs:
               sort > "$ALL_TMP"
           fi
 
+          # System specs: greedy LPT bin-packing weighted by example count
           awk '/^spec\/system\// { print }' "$ALL_TMP" |
-            awk -v total="$CI_NODE_TOTAL" -v shard_idx="$CI_NODE_INDEX" '((NR - 1) % total) == shard_idx' > "$SYSTEM_TMP"
+            ruby -e '
+              total     = ENV["CI_NODE_TOTAL"].to_i
+              shard_idx = ENV["CI_NODE_INDEX"].to_i
+              files     = $stdin.read.split("\n").reject(&:empty?)
+              counts    = files.map do |f|
+                            count = File.read(f).scan(/^\s*(it|scenario|specify)\b/).size
+                            [f, count]
+                          end
+              counts.sort_by! { |_, c| -c }
+              shards     = Array.new(total, 0)
+              assignment = []
+              counts.each do |file, count|
+                min_shard = shards.each_with_index.min_by { |v, _| v }[1]
+                assignment << [file, min_shard]
+                shards[min_shard] += count
+              end
+              assignment.select { |_, s| s == shard_idx }.each { |f, _| puts f }
+            ' > "$SYSTEM_TMP"
 
+          # Non-system specs: simple round-robin (fast, file count is balanced enough)
           awk '$0 !~ /^spec\/system\// { print }' "$ALL_TMP" |
             awk -v total="$CI_NODE_TOTAL" -v shard_idx="$CI_NODE_INDEX" '((NR - 1) % total) == shard_idx' > "$OTHER_TMP"
 
