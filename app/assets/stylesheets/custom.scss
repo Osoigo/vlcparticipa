@@ -2,3 +2,29 @@
 //
 // You can also create SCSS files in the app/assets/stylesheets/custom/
 // folder and they will be loaded automatically.
+:root {
+  --anchor-color: #000000;
+  --anchor-color-hover: #0075FF;
+  --brand: #0075FF;
+  --brand-secondary: #ABD5FD;
+  --button-background-hover: #000000;
+  --button-background-hover-contrast: #FFFFFF;
+  --footer: #FFFFFF;
+  --main-header: #FFFFFF;
+  --top-links: var(--main-header);
+  --subnavigation: #FFFFFF;
+}
+.public > .wrapper > header > *::before,
+.proposal-dashboard > header > *::before{
+    bottom: -1px;
+}
+.public > .wrapper > header > *::before,
+.proposal-dashboard > header > *::before,
+.top-links,
+.top-bar{
+    border-bottom: 1px solid #000000;
+}
+.top-links a,
+.account-menu.menu li a{
+    color:#000000;
+}
