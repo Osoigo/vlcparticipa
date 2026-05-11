@@ -14,6 +14,35 @@
   --top-links: var(--main-header);
   --subnavigation: #FFFFFF;
 }
+
+// 04. Montserrat
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+@font-face {
+  font-family: "Montserrat";
+  src: font-url("Montserrat-Light.ttf");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: font-url("Montserrat-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: font-url("Montserrat-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body{
+    font-family: "Montserrat", sans-serif !important;
+}
+
 .public > .wrapper > header > *::before,
 .proposal-dashboard > header > *::before{
     bottom: -1px;
@@ -27,4 +56,38 @@
 .top-links a,
 .account-menu.menu li a{
     color:#000000;
+}
+/******************************************
+*** HOME
+******************************************/
+//Destacados
+.home-page .card .card-title{
+    padding: 0 0.375rem;
+}
+/******************************************
+*** HEADER
+******************************************/
+.jumbo{
+    margin-top: -32px;
+}
+.jumbo.header-card::before{
+    background: none;
+}
+.header-image{
+    position: absolute;
+    top: 1px;
+}
+.header-card:has(>.header-image){
+    height: 453px;
+
+    .row{
+        position: relative;
+        z-index: 1;
+    }
+}
+.btn-jumbo{
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width:100%;
 }
