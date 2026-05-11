@@ -40,7 +40,11 @@
       <% end %>
     </div>
   <% end %>
-  <% if negative_vote_allowed %>
+  <%= render Shared::ParticipationNotAllowedComponent.new(investment, cannot_vote_text: cannot_vote_text) %>
+</div>
+
+<% if negative_vote_allowed %>
+  <div class="negative-supports ballot">
     <% if negative_voted? %>
       <div class="remove against">
         <span class="icon-cancel-circle"
@@ -77,7 +81,6 @@
         <% end %>
       </div>
     <% end %>
-  <% end %>
-
-  <%= render Shared::ParticipationNotAllowedComponent.new(investment, cannot_vote_text: cannot_vote_text) %>
-</div>
+    <%= render Shared::ParticipationNotAllowedComponent.new(investment, cannot_vote_text: cannot_negative_vote_text) %>
+  </div>
+<% end %>
