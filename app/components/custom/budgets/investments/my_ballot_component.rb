@@ -10,4 +10,10 @@ class Budgets::Investments::MyBallotComponent
   def negated_investment_ids
     negated_investments.ids
   end
+
+  private
+
+    def negative_vote_allowed
+      budget.negative_votes > 0
+    end
 end

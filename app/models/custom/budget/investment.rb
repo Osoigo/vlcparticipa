@@ -86,7 +86,11 @@ class Budget
     end
 
     def negative_ballots_remaining?(ballot)
-      ballot.negativelines.count < budget.negative_votes
+      if budget.negative_votes > 0
+        ballot.negativelines.count < budget.negative_votes
+      else
+        true
+      end
     end
   end
 end
