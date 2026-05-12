@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_13_100032) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -175,6 +175,22 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.index ["investment_id"], name: "index_budget_ballot_lines_on_investment_id"
   end
 
+  create_table "budget_ballot_negativelines", force: :cascade do |t|
+    t.bigint "ballot_id"
+    t.bigint "budget_id"
+    t.bigint "group_id"
+    t.bigint "heading_id"
+    t.bigint "investment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ballot_id", "investment_id"], name: "index_budget_ballot_negativelines_ballot_and_investment", unique: true
+    t.index ["ballot_id"], name: "index_budget_ballot_negativelines_on_ballot_id"
+    t.index ["budget_id"], name: "index_budget_ballot_negativelines_on_budget_id"
+    t.index ["group_id"], name: "index_budget_ballot_negativelines_on_group_id"
+    t.index ["heading_id"], name: "index_budget_ballot_negativelines_on_heading_id"
+    t.index ["investment_id"], name: "index_budget_ballot_negativelines_on_investment_id"
+  end
+
   create_table "budget_ballots", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.integer "budget_id"
@@ -300,6 +316,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.float "price_phase3"
     t.float "price_phase4"
     t.string "budget_implementation"
+    t.integer "ballot_negativelines_count", default: 0
     t.index ["administrator_id"], name: "index_budget_investments_on_administrator_id"
     t.index ["author_id"], name: "index_budget_investments_on_author_id"
     t.index ["budget_id"], name: "index_budget_investments_on_budget_id"
@@ -399,6 +416,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.string "voting_style", default: "knapsack"
     t.boolean "published"
     t.boolean "hide_money", default: false
+    t.integer "negative_votes", default: 0
+    t.float "negative_vote_value", default: 0.5
   end
 
   create_table "ckeditor_assets", id: :serial, force: :cascade do |t|
@@ -1636,6 +1655,40 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_01_104718) do
     t.integer "failed_attempts", default: 0, null: false
     t.datetime "locked_at", precision: nil
     t.string "unlock_token"
+    t.string "nIA"
+    t.string "name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "municipality_of_birth"
+    t.string "province_of_birth"
+    t.string "country_of_birth"
+    t.integer "nationality"
+    t.string "dc"
+    t.date "census_last_modification_at"
+    t.integer "district"
+    t.integer "section"
+    t.string "sheet_number"
+    t.date "census_created_at"
+    t.string "collective_entity"
+    t.string "singular_entity"
+    t.string "core"
+    t.string "single_entity_code"
+    t.string "census_phone", limit: 30
+    t.string "level_of_training"
+    t.date "permit_expiration_at"
+    t.string "province"
+    t.string "municipality"
+    t.string "acronym"
+    t.string "type_road"
+    t.string "street_name"
+    t.string "access"
+    t.string "km"
+    t.string "stairs"
+    t.string "floor"
+    t.string "door"
+    t.string "zip_code"
+    t.string "full_address"
+    t.boolean "protected_hab"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["date_of_birth"], name: "index_users_on_date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true

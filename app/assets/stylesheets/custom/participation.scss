@@ -1,0 +1,68 @@
+.investment-project,
+.investment-project-show,
+.budget-investment,
+.budget-investment-show {
+
+  .negative-supports {
+    .remove .icon-cancel-circle {
+      color: $color-alert;
+      display: block;
+      font-size: rem-calc(70);
+      line-height: rem-calc(70);
+    }
+  }
+}
+
+body:not(.admin) .add .button.button-green {
+  align-items: center;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+  //padding: 0.5rem;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+body:not(.admin) .add .button.button-red {
+  align-items: center;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: $color-alert;
+  //padding: 0.5rem;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ballot .button-remove-against {
+  background: #e7eaec;
+  color: #002d50;
+  color: var(--brand-secondary, #002d50);
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+.ballot {
+  .button-remove-against {
+    @include has-fa-icon(times, solid);
+    @include brand-secondary-color;
+    background: #e7eaec;
+    font-weight: bold;
+    margin-top: $line-height;
+
+    &::before {
+      margin-right: $font-icon-margin;
+    }
+  }
+}
+
+.budget-investment .negative-supports .investment-project-amount,
+.budget-investment-show .negative-supports .investment-project-amount {
+  color: $color-alert;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0;
+}

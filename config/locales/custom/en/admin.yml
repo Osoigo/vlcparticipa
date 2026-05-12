@@ -1,5 +1,9 @@
 en:
   admin:
+    budgets:
+      edit:
+        negative_votes: Negative votes
+        negative_vote_value: Negative vote value
     budget_headings:
       form:
         required_support_info: "If the investment has this number of support the users will be notified that it doesn't need more to go to the next phase"
@@ -17,3 +21,5 @@ en:
         list:
           ballots: Ballots
           created_at: Created at
+          negative_ballots: Negative Ballots
+          total_ballots: Total Ballots
