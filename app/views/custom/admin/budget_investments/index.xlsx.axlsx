@@ -8,9 +8,8 @@
             "Último apoyo",
             "Apoyos suficientes",
             "Votos a favor",
-            # TODO: ballot_negativelines_count
-            # "Votos en contra",
-            # "Puntuación Votos",
+            "Votos en contra",
+            "Puntuación Votos",
             "Presupuesto",
             "Evaluadores",
             "Viabilidad",
@@ -88,9 +87,8 @@ wb.add_worksheet(name: "Propuestas de inversión") do |sheet|
              last_vote,
              investment.has_required_support? ? 1 : 0,
              investment.ballot_lines_count,
-             # TODO: ballot_negativelines_count
-             # investment.ballot_negativelines_count,
-             # investment.final_score,
+             investment.ballot_negativelines_count,
+             investment.final_score,
              investment.price ||= 0,
              valuators.join(", "),
              viability,
