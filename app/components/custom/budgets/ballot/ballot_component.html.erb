@@ -50,41 +50,42 @@
     </div>
   <% end %>
 </div>
-<%# Votos negativos %>
-<header>
-  <h1 class="text-center"><%= t("budgets.ballots.show.title_negatives") %></h1>
-</header>
-<div class="row ballot">
-  <% negative_ballot_groups.each do |group| %>
-    <% heading = ballot.heading_for_negativegroup(group) %>
-    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
-      <div class="margin-top ballot-content">
-        <div class="subtitle">
-          <h3>
-            <%= group.name %> - <%= heading.name %>
-          </h3>
-        </div>
-        <% if !ballot.has_negativelines_in_group?(group) %>
-          <p>
-            <%= t("budgets.ballots.show.zero_negatives") %><br>
-          </p>
-        <% end %>
-        <ul class="ballot-list">
-          <%= render Budgets::Ballot::NegativeInvestmentComponent.with_collection(group_negative_investments(group)) %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <% no_negative_balloted_groups.each do |group| %>
-    <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
-      <div class="margin-top ballot-content">
-        <div class="subtitle">
-          <h3>
-            <%= group.name %>
-          </h3>
-          <%= link_to t("budgets.ballots.show.no_negative_balloted_group_yet"), group_path(group) %>
+<% if negative_vote_allowed %>
+  <header>
+    <h1 class="text-center"><%= t("budgets.ballots.show.title_negatives") %></h1>
+  </header>
+  <div class="row ballot">
+    <% negative_ballot_groups.each do |group| %>
+      <% heading = ballot.heading_for_negativegroup(group) %>
+      <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+        <div class="margin-top ballot-content">
+          <div class="subtitle">
+            <h3>
+              <%= group.name %> - <%= heading.name %>
+            </h3>
+          </div>
+          <% if !ballot.has_negativelines_in_group?(group) %>
+            <p>
+              <%= t("budgets.ballots.show.zero_negatives") %><br>
+            </p>
+          <% end %>
+          <ul class="ballot-list">
+            <%= render Budgets::Ballot::NegativeInvestmentComponent.with_collection(group_negative_investments(group)) %>
+          </ul>
         </div>
       </div>
-    </div>
+    <% end %>
+    <% no_negative_balloted_groups.each do |group| %>
+      <div id="<%= dom_id(group) %>" class="small-12 medium-6 column end">
+        <div class="margin-top ballot-content">
+          <div class="subtitle">
+            <h3>
+              <%= group.name %>
+            </h3>
+            <%= link_to t("budgets.ballots.show.no_negative_balloted_group_yet"), group_path(group) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>
