@@ -1,5 +1,25 @@
-es:
+val:
   budgets:
+    ballots:
+      show:
+        no_negative_balloted_group_yet: "Encara no has votat en contra cap proposta d'inversió"
+        remove_negative: Llevar vot en contra
+        remove_negative_label: "Llevar vot en contra a %{investment}"
+        title_negatives: Els meus vots en contra
+        zero_negatives: Encara no has votat en contra cap proposta d'inversió.
+      reasons_for_not_balloting:
+        no_negative_ballots_remaining: "Ja has gastat tots els teus vots en contra. Recorda que pots canviar-los en qualsevol moment."
     investments:
+      index:
+        sidebar:
+          my_negative_votes: Els meus vots en contra
+          negative_voted:
+            one: "<strong>Has votat en contra una proposta d'un total de %{total_negative_votes}</strong>"
+            other: "<strong>Has votat en contra %{count} propostes d'un total de %{total_negative_votes}</strong>"
+      investment:
+        already_negated: Ja has votat en contra d'esta proposta d'inversió
+        negate: Vot en contra
+        negate_support_title: Donar un vot en contra a esta proposta
+        add_negative_label: "Donar un vot en contra a %{investment}"
       votes:
-        has_required_support: "Esta proposta passa a la següent fase"
+        has_required_support: Esta proposta passa a la següent fase
