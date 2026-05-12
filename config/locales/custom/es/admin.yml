@@ -19,4 +19,6 @@ es:
           without_comments: Sin comentarios
         list:
           ballots: Votos
+          negative_ballots: Votos negativos
+          total_ballots: Total votos
           created_at: Fecha de creación

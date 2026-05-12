@@ -16,4 +16,6 @@ val:
           without_comments: Sense comentaris
         list:
           ballots: Vots
+          negative_ballots: Vots negatius
+          total_ballots: Total vots
           created_at: Data de creació

@@ -19,4 +19,6 @@ en:
           without_comments: Without comments
         list:
           ballots: Ballots
+          negative_ballots: Negative Ballots
+          total_ballots: Total Ballots
           created_at: Created at

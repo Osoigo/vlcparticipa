@@ -8,7 +8,13 @@ class Budget
     SORTING_OPTIONS = { id: "id",
                         created_at: "created_at",
                         supports: "cached_votes_up",
-                        ballots: "ballot_lines_count" }.freeze
+                        ballots: "ballot_lines_count",
+                        negative_ballots: "ballot_negativelines_count",
+                        total_ballots: "(\
+                            budget_investments.ballot_lines_count \
+                            - budget_investments.ballot_negativelines_count \
+                            * budgets.negative_vote_value\
+                        )"}.freeze
 
     # Add created before and after filters
     scope :by_created_after,            ->(date)    { where(budget_investments: { created_at: date.. }) }
@@ -35,6 +41,7 @@ class Budget
 
     class << self
       alias_method :consul_scoped_filter, :scoped_filter
+      alias_method :consul_order_filter, :order_filter
     end
 
     def self.scoped_filter(params, current_filter)
@@ -62,6 +69,26 @@ class Budget
       ids += results.where("comments_count = 0").ids if params[:advanced_filters].include?("without_comments")
       results = results.where(id: ids) if ids.any?
       results
+    end
+
+    def self.order_filter(params)
+      # Added Arel.sql for false dangerous query method on sort by total_ballots
+      # Add join to budgets if sorting_key is total_ballots
+      sorting_key = params[:sort_by]&.downcase&.to_sym
+      allowed_sort_option = SORTING_OPTIONS[sorting_key]
+      direction = params[:direction] == "desc" ? "desc" : "asc"
+
+      if allowed_sort_option.present?
+        if sorting_key == :total_ballots
+          joins(:budget).order(Arel.sql("#{allowed_sort_option} #{direction}"))
+        else
+          order("#{allowed_sort_option} #{direction}")
+        end
+      elsif sorting_key == :title
+        direction == "asc" ? sort_by_title : sort_by_title.reverse
+      else
+        order(cached_votes_up: :desc).order(id: :desc)
+      end
     end
 
     def has_required_support?
