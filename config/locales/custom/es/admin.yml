@@ -11,6 +11,7 @@ es:
       index:
         created_before_filter: YYYY-MM-DD
         created_after_filter: YYYY-MM-DD
+        download_current_selection_xlsx: Descargar XLSX
         filters:
           created_before: Creada antes de
           created_after: Creada después de
@@ -19,6 +20,6 @@ es:
           without_comments: Sin comentarios
         list:
           ballots: Votos
+          created_at: Fecha de creación
           negative_ballots: Votos negativos
           total_ballots: Total votos
-          created_at: Fecha de creación
