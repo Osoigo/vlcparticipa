@@ -1,9 +1,14 @@
 val:
   admin:
+    budgets:
+      edit:
+        negative_votes: "Vots negatius"
+        negative_vote_value: "Valor de cada vot negatiu"
     budget_investments:
       index:
         created_before_filter: YYYY-MM-DD
         created_after_filter: YYYY-MM-DD
+        download_current_selection_xlsx: Descarregar XLSX
         filters:
           created_before: Creada abans de
           created_after: Creada després de
@@ -12,4 +17,6 @@ val:
           without_comments: Sense comentaris
         list:
           ballots: Vots
+          negative_ballots: Vots negatius
+          total_ballots: Total vots
           created_at: Data de creació

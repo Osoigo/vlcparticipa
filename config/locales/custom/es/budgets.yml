@@ -1,5 +1,25 @@
 es:
   budgets:
+    ballots:
+      show:
+        no_negative_balloted_group_yet: "Todavía no has votado en contra ninguna propuesta de inversión"
+        remove_negative: Quitar voto en contra
+        remove_negative_label: "Quitar voto en contra a %{investment}"
+        title_negatives: Mis votos en contra
+        zero_negatives: Todavía no has votado en contra ninguna propuesta de inversión.
+      reasons_for_not_balloting:
+        no_negative_ballots_remaining: "Ya has gastado todos tus votos en contra. Recuerda que puedes cambiarlos en cualquier momento."
     investments:
+      index:
+        sidebar:
+          my_negative_votes: Mis votos en contra
+          negative_voted:
+            one: "<strong>Has votado en contra una propuesta de un total de %{total_negative_votes}</strong>"
+            other: "<strong>Has votado contra %{count} propuestas de un total de %{total_negative_votes}</strong>"
+      investment:
+        already_negated: Ya has votado en contra de esta propuesta de inversión
+        negate: Voto en contra
+        negate_support_title: Dar un voto en contra a esta propuesta
+        add_negative_label: "Dar un voto en contra a %{investment}"
       votes:
-        has_required_support: "Esta propuesta pasa a la siguiente fase"
+        has_required_support: Esta propuesta pasa a la siguiente fase
