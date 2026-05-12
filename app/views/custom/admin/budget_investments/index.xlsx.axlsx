@@ -58,15 +58,13 @@ wb.add_worksheet(name: "Propuestas de inversión") do |sheet|
     end
     selected = investment.selected? ? "Sí" : "No"
 
-    # TODO: working_group_investment?
-    # if investment.working_group_investment?
-    #   working_group = "Grupo de trabajo por distrito"
-    # else
-    #   working_group = investment.tag_list.include?('ciudadanía'.mb_chars.upcase) ?
-    #     'Ciudadanía' :
-    #     'Ayuntamiento'
-    # end
-    working_group = "TODO"
+    if investment.working_group_investment?
+      working_group = "Grupo de trabajo por distrito"
+    else
+      working_group = investment.tag_list.include?('ciudadanía'.mb_chars.upcase) ?
+        'Ciudadanía' :
+        'Ayuntamiento'
+    end
 
     milestone = Milestone.where(milestoneable_type: "Budget::Investment",
                                 milestoneable_id: investment.id).order(status_id: :desc).first

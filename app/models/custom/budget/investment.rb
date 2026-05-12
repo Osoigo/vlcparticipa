@@ -119,5 +119,10 @@ class Budget
         true
       end
     end
+
+    def working_group_investment?
+      tags_name = self.tags.map{ |tag| tag.name.upcase }
+      return tags_name.include?("GRUPO DE TRABAJO POR DISTRITO")
+    end
   end
 end
