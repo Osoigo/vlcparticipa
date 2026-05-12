@@ -12,37 +12,41 @@
     }
   }
 }
+
 body:not(.admin) .add .button.button-green {
-    background-color: #dff0d8;
-    color: #3c763d;
-    border-color: #d6e9c6;
-    //padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+  align-items: center;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+  //padding: 0.5rem;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
+
 body:not(.admin) .add .button.button-red {
-    background-color: #f2dede;
-    color: $color-alert;
-    border-color: #ebccd1;
-    //padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+  align-items: center;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: $color-alert;
+  //padding: 0.5rem;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
+
 .ballot .button-remove-against {
-    color: #002d50;
-    color: var(--brand-secondary, #002d50);
-    background: #e7eaec;
-    font-weight: bold;
-    margin-top: 1.5rem;
+  background: #e7eaec;
+  color: #002d50;
+  color: var(--brand-secondary, #002d50);
+  font-weight: bold;
+  margin-top: 1.5rem;
 }
-.ballot{
-  .button-remove-against{
+
+.ballot {
+  .button-remove-against {
     @include has-fa-icon(times, solid);
     @include brand-secondary-color;
     background: #e7eaec;
@@ -54,10 +58,11 @@ body:not(.admin) .add .button.button-red {
     }
   }
 }
+
 .budget-investment .negative-supports .investment-project-amount,
 .budget-investment-show .negative-supports .investment-project-amount {
-    color: $color-alert;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 0;
+  color: $color-alert;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0;
 }
