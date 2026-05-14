@@ -1,5 +1,9 @@
 es:
   admin:
+    budgets:
+      edit:
+        negative_votes: "Votos negativos"
+        negative_vote_value: "Valor de cada voto negativo"
     budget_headings:
       form:
         required_support_info: "Si la propuesta obtiene este número de apoyos se avisará a los usuarios que ya no necesita más para poder pasar a la siguiente fase."
@@ -7,6 +11,7 @@ es:
       index:
         created_before_filter: YYYY-MM-DD
         created_after_filter: YYYY-MM-DD
+        download_current_selection_xlsx: Descargar XLSX
         filters:
           created_before: Creada antes de
           created_after: Creada después de
@@ -16,3 +21,5 @@ es:
         list:
           ballots: Votos
           created_at: Fecha de creación
+          negative_ballots: Votos negativos
+          total_ballots: Total votos

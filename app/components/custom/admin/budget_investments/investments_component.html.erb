@@ -3,6 +3,10 @@
               admin_budget_budget_investments_path(csv_params),
               class: "float-right small clear" %>
 
+  <%= link_to t("admin.budget_investments.index.download_current_selection_xlsx"),
+              admin_budget_budget_investments_path(xlsx_params),
+              class: "float-right small clear" %>
+
   <% if params[:advanced_filters].include?("winners") %>
     <%= render Admin::Budgets::CalculateWinnersButtonComponent.new(budget, from_investments: true) %>
   <% end %>
@@ -24,6 +28,8 @@
           <th data-field="created_at"><%= link_to_investments_sorted_by :created_at %></th>
           <th data-field="supports"><%= link_to_investments_sorted_by :supports %></th>
           <th data-field="ballots"><%= link_to_investments_sorted_by :ballots %></th>
+          <th data-field="negativeballots"><%= link_to_investments_sorted_by :negative_ballots %></th>
+          <th data-field="totalballots"><%= link_to_investments_sorted_by :total_ballots %></th>
           <th data-field="admin"><%= t("admin.budget_investments.index.list.admin") %></th>
           <th data-field="author">
             <%= t("admin.budget_investments.index.list.author") %>
