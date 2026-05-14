@@ -60,6 +60,8 @@ async def migrate(id_maps, migration_stats):
         new_budget_translation.name = old_budget.name
         new_budget_translation.created_at = old_budget.created_at
         new_budget_translation.updated_at = old_budget.updated_at
+        new_budget_translation.negative_votes = old_budget.negative_votes
+        new_budget_translation.negative_vote_value = old_budget.negative_vote_value
 
         await new_budget_translation.save()
         stats["migrated"] += 1

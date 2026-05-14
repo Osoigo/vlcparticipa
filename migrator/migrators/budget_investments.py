@@ -95,6 +95,9 @@ async def migrate(id_maps, migration_stats):
         new_budget_investment.ballot_lines_count = (
             old_budget_investment.ballot_lines_count
         )
+        new_budget_investment.ballot_negativelines_count = (
+            old_budget_investment.ballot_negativelines_count
+        )
         new_budget_investment.previous_heading_id = new_budget_investment.heading_id
         new_budget_investment.winner = old_budget_investment.winner
         new_budget_investment.incompatible = old_budget_investment.incompatible

@@ -1,7 +1,11 @@
 from .activity import OldActivity
 from .administrator import OldAdministrator
 from .budget import OldBudget
-from .budget_ballot import OldBudgetBallot, OldBudgetBallotLine
+from .budget_ballot import (
+    OldBudgetBallot,
+    OldBudgetBallotLine,
+    OldBudgetBallotNegativeline,
+)
 from .budget_group import OldBudgetGroup
 from .budget_heading import OldBudgetHeading
 from .budget_investment import OldBudgetInvestment
@@ -39,6 +43,7 @@ __all__ = [
     "OldBudget",
     "OldBudgetBallot",
     "OldBudgetBallotLine",
+    "OldBudgetBallotNegativeline",
     "OldBudgetGroup",
     "OldBudgetHeading",
     "OldBudgetInvestment",

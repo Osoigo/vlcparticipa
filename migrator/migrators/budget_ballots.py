@@ -1,8 +1,16 @@
 from tortoise.functions import Count
 
-from ..models.new_models.budget_ballot import NewBudgetBallot, NewBudgetBallotLine
+from ..models.new_models.budget_ballot import (
+    NewBudgetBallot,
+    NewBudgetBallotLine,
+    NewBudgetBallotNegativeline,
+)
 from ..models.new_models.budget_investment import NewBudgetInvestment
-from ..models.old_models.budget_ballot import OldBudgetBallot, OldBudgetBallotLine
+from ..models.old_models.budget_ballot import (
+    OldBudgetBallot,
+    OldBudgetBallotLine,
+    OldBudgetBallotNegativeline,
+)
 
 
 async def migrate(id_maps, migration_stats):
@@ -10,13 +18,14 @@ async def migrate(id_maps, migration_stats):
     #   old_budget_ballot.ballot_old
     #
     # new fields:
-    #   new_budget_ballot.ballot_lines_count
+    #   new_budget_ballot.ballot_lines_count, done
+    #   new_budget_ballot.ballot_negativelines_count, done
     #   new_budget_ballot.physical
     #   new_budget_ballot.poll_ballot_id
     #
-    #   new_budget_ballot_line.budget_id
-    #   new_budget_ballot_line.group_id
-    #   new_budget_ballot_line.heading_id
+    #   new_budget_ballot_line.budget_id, done
+    #   new_budget_ballot_line.group_id, done
+    #   new_budget_ballot_line.heading_id, done
     id_maps["budget_ballots"] = {}
     stats = {
         "ballots": {
@@ -26,6 +35,11 @@ async def migrate(id_maps, migration_stats):
             "not_migrated_ballots": set(),
         },
         "lines": {
+            "total": 0,
+            "migrated": 0,
+            "missing_ballots": set(),
+        },
+        "negativelines": {
             "total": 0,
             "migrated": 0,
             "missing_ballots": set(),
@@ -89,7 +103,7 @@ async def migrate(id_maps, migration_stats):
         )
         if new_budget_ballot_line is None:
             new_budget_ballot_line = NewBudgetBallotLine(
-                user_id=id_maps["budget_ballots"][
+                ballot_id=id_maps["budget_ballots"][
                     str(old_budget_ballot_line.ballot_id)
                 ],
                 investment_id=id_maps["budget_investments"][
@@ -121,9 +135,76 @@ async def migrate(id_maps, migration_stats):
             ballot_lines_count=entry["count"]
         )
 
+    id_maps["budget_ballot_negativelines"] = {}
+    old_budget_ballot_negativelines = await OldBudgetBallotNegativeline.all()
+    new_budget_ballot_negativelines = {
+        (b.ballot_id, b.investment_id): b
+        for b in await NewBudgetBallotNegativeline.all()
+    }
+    for old_budget_ballot_negativeline in old_budget_ballot_negativelines:
+        stats["negativelines"]["total"] += 1
+        ballot_id = id_maps["budget_ballots"].get(
+            str(old_budget_ballot_negativeline.ballot_id)
+        )
+        if ballot_id is None:
+            # print(f"Missing ballot. Old id: {old_budget_ballot_line.ballot_id}")
+            stats["lines"]["missing_ballots"].add(
+                old_budget_ballot_negativeline.ballot_id
+            )
+            continue
+        new_budget_ballot_negativeline = new_budget_ballot_negativelines.get(
+            (
+                ballot_id,
+                id_maps["budget_investments"][
+                    str(old_budget_ballot_negativeline.investment_id)
+                ],
+            )
+        )
+        if new_budget_ballot_negativeline is None:
+            new_budget_ballot_negativeline = NewBudgetBallotNegativeline(
+                ballot_id=id_maps["budget_ballots"][
+                    str(old_budget_ballot_negativeline.ballot_id)
+                ],
+                investment_id=id_maps["budget_investments"][
+                    str(old_budget_ballot_negativeline.investment_id)
+                ],
+            )
+        new_budget_ballot_negativeline.created_at = (
+            old_budget_ballot_negativeline.created_at
+        )
+        new_budget_ballot_negativeline.updated_at = (
+            old_budget_ballot_negativeline.updated_at
+        )
+        budget_id, group_id, heading_id = investment_data_map[
+            id_maps["budget_investments"][
+                str(old_budget_ballot_negativeline.investment_id)
+            ]
+        ]
+        new_budget_ballot_negativeline.budget_id = budget_id
+        new_budget_ballot_negativeline.group_id = group_id
+        new_budget_ballot_negativeline.heading_id = heading_id
+        await new_budget_ballot_negativeline.save()
+        stats["negativelines"]["migrated"] += 1
+        id_maps["budget_ballot_negativelines"][
+            str(old_budget_ballot_negativeline.id)
+        ] = new_budget_ballot_negativeline.id
+
+    ballot_negativelines_count = (
+        await NewBudgetBallotNegativeline.annotate(count=Count("id"))
+        .group_by("ballot_id")
+        .values("ballot_id", "count")
+    )
+    for entry in ballot_negativelines_count:
+        await NewBudgetBallot.filter(id=entry["ballot_id"]).update(
+            ballot_negativelines_count=entry["count"]
+        )
+
     stats["ballots"]["missing_users"] = list(stats["ballots"]["missing_users"])
     stats["ballots"]["not_migrated_ballots"] = list(
         stats["ballots"]["not_migrated_ballots"]
     )
     stats["lines"]["missing_ballots"] = list(stats["lines"]["missing_ballots"])
+    stats["negativelines"]["missing_ballots"] = list(
+        stats["negativelines"]["missing_ballots"]
+    )
     migration_stats["budget_ballots"] = stats

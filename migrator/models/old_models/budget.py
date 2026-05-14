@@ -46,6 +46,10 @@ class OldBudget(Model):
     vote_types = fields.CharField(max_length=255, null=True)
     # t.text "description_waiting"
     description_waiting = fields.CharField(max_length=255, null=True)
+    # t.integer "negative_votes", default: 0
+    negative_votes = fields.IntField(default=0)
+    # t.float "negative_vote_value", default: 0.5
+    negative_vote_value = fields.FloatField(default=0.5)
 
 
 """
@@ -68,6 +72,8 @@ CREATE TABLE public.budgets (
     description_publishing_prices text,
     description_informing text,
     vote_types character varying,
-    description_waiting text
+    description_waiting text,
+    negative_votes integer DEFAULT 0,
+    negative_vote_value double precision DEFAULT 0.5
 );
 """

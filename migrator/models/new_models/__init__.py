@@ -2,7 +2,11 @@ from .active_storage import NewActiveStorageAttachment, NewActiveStorageBlob
 from .activity import NewActivity
 from .administrator import NewAdministrator
 from .budget import NewBudget, NewBudgetTranslation
-from .budget_ballot import NewBudgetBallot, NewBudgetBallotLine
+from .budget_ballot import (
+    NewBudgetBallot,
+    NewBudgetBallotLine,
+    NewBudgetBallotNegativeline,
+)
 from .budget_group import NewBudgetGroup, NewBudgetGroupTranslation
 from .budget_heading import NewBudgetHeading, NewBudgetHeadingTranslation
 from .budget_investment import NewBudgetInvestment, NewBudgetInvestmentTranslation
@@ -38,6 +42,7 @@ __all__ = [
     "NewBudget",
     "NewBudgetBallot",
     "NewBudgetBallotLine",
+    "NewBudgetBallotNegativeline",
     "NewBudgetGroup",
     "NewBudgetGroupTranslation",
     "NewBudgetHeading",

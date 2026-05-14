@@ -20,6 +20,8 @@ class NewBudgetBallot(Model):
     updated_at = NaiveDatetimeField()
     # t.integer "ballot_lines_count", default: 0
     ballot_lines_count = fields.IntField(default=0)
+    # t.integer "ballot_negativelines_count", default: 0
+    ballot_negativelines_count = fields.IntField(default=0)
     # t.boolean "physical", default: false
     physical = fields.BooleanField(default=False)
     # t.integer "poll_ballot_id"
@@ -34,6 +36,7 @@ CREATE TABLE public.budget_ballots (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     ballot_lines_count integer DEFAULT 0,
+    ballot_negativelines_count integer DEFAULT 0,
     physical boolean DEFAULT false,
     poll_ballot_id integer
 );
@@ -72,5 +75,41 @@ CREATE TABLE public.budget_ballot_lines (
     budget_id integer,
     group_id integer,
     heading_id integer
+);
+"""
+
+
+class NewBudgetBallotNegativeline(Model):
+    class Meta:
+        table = "budget_ballot_negativelines"
+        app = "new"
+
+    id = fields.IntField(primary_key=True)
+    # t.bigint "ballot_id"
+    ballot_id = fields.IntField(null=True)
+    # t.bigint "budget_id"
+    budget_id = fields.IntField(null=True)
+    # t.bigint "group_id"
+    group_id = fields.IntField(null=True)
+    # t.bigint "heading_id"
+    heading_id = fields.IntField(null=True)
+    # t.bigint "investment_id"
+    investment_id = fields.IntField(null=True)
+    # t.datetime "created_at", null: false
+    created_at = NaiveDatetimeField()
+    # t.datetime "updated_at", null: false
+    updated_at = NaiveDatetimeField()
+
+
+"""
+CREATE TABLE public.budget_ballot_negativelines (
+    id bigint NOT NULL,
+    ballot_id integer,
+    budget_id integer,
+    group_id integer,
+    heading_id integer,
+    investment_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
 );
 """

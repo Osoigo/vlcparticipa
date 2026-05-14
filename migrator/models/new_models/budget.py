@@ -46,6 +46,10 @@ class NewBudget(Model):
     published = fields.BooleanField(null=True)
     # t.boolean "hide_money", default: false
     hide_money = fields.BooleanField(default=False)
+    # t.integer "negative_votes", default: 0
+    negative_votes = fields.IntField(default=0)
+    # t.float "negative_vote_value", default: 0.5
+    negative_vote_value = fields.FloatField(default=0.5)
 
 
 """
@@ -68,7 +72,9 @@ CREATE TABLE public.budgets (
     description_informing text,
     voting_style character varying DEFAULT 'knapsack'::character varying,
     published boolean,
-    hide_money boolean DEFAULT false
+    hide_money boolean DEFAULT false,
+    negative_votes integer DEFAULT 0,
+    negative_vote_value double precision DEFAULT 0.5
 );
 """
 

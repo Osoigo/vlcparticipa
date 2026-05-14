@@ -106,6 +106,8 @@ class OldBudgetInvestment(Model):
     price_phase4 = fields.FloatField(null=True)
     # t.string "budget_implementation"
     budget_implementation = fields.CharField(max_length=255, null=True)
+    # t.integer "ballot_negativelines_count", default: 0
+    ballot_negativelines_count = fields.IntField(default=0)
 
 
 """
@@ -158,6 +160,7 @@ CREATE TABLE public.budget_investments (
     price_phase2 double precision,
     price_phase3 double precision,
     price_phase4 double precision,
-    budget_implementation character varying
+    budget_implementation character varying,
+    ballot_negativelines_count integer DEFAULT 0
 );
 """
