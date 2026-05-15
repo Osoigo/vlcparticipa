@@ -6,7 +6,7 @@
     <ul class="no-bullet geozone">
       <% group.headings.each do |heading| %>
         <li class="inline-block">
-          <% css_class = { class: 'is-active' } if params[:heading_id] == heading.id.to_s %>
+          <% css_class = { class: "is-active" } if params[:heading_id] == heading.id.to_s %>
           <%= link_to heading.name, budget_investments_path(@budget, heading_id: heading.id), css_class || {} %>
         </li>
       <% end %>
