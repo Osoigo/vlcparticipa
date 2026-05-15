@@ -13,6 +13,11 @@
         <th scope="col" class="text-center">
           <%= t("budgets.results.ballot_lines_count") %>
         </th>
+        <% if @budget.negative_votes? %>
+          <th scope="col" class="text-center">
+            <%= t("budgets.results.ballot_negativelines_count") %>
+          </th>
+        <% end %>
         <% if @budget.show_money? %>
           <th scope="col" class="text-center">
             <%= t("budgets.results.price") %>
@@ -52,6 +57,11 @@
           <td class="text-center">
             <%= investment.ballot_lines_count %>
           </td>
+          <% if @budget.negative_votes? %>
+            <td class="text-center">
+              <%= investment.ballot_negativelines_count %>
+            </td>
+          <% end %>
           <% if @budget.show_money? %>
             <td class="text-center">
               <%= @budget.formatted_amount(investment.price) %>

@@ -23,3 +23,5 @@ en:
         add_negative_label: "Negate %{investment}"
       votes:
         has_required_support: This investement goes to the next phase
+    results:
+      ballot_negativelines_count: Negative votes

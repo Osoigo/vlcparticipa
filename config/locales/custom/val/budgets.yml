@@ -23,3 +23,5 @@ val:
         add_negative_label: "Donar un vot en contra a %{investment}"
       votes:
         has_required_support: Esta proposta passa a la següent fase
+    results:
+      ballot_negativelines_count: Vots en contra
