@@ -1,6 +1,17 @@
 <% if header.present? %>
+<%# if we have an image we use like background %>
+  <% if header.image.present? %>
+    <div class="header-card jumbo highlight header-card-bg-image" style="background-image: url('<%= url_for(header.image.variant(:large)) %>')">
+  <% else %>
     <div class="header-card jumbo highlight">
+  <% end %>
+      <%# if we have link_url but not link_text, we link all the div %>
+      <% if not header.link_text.present? && header.link_url.present? %>
+        <a href="<%= header.link_url %>" class="header-card-full-link">
+      <% end %>
+      
       <div class="row">
+        
         <div class="small-12 medium-6 medium-offset-6 column <%= "medium-9 small-centered text-center" if header.image.blank? %>">
           <span><%= header.label %></span>
           <h1><%= header.title %></h1>
@@ -13,12 +24,19 @@
             </div>
           <% end %>
         </div>
+        <%# image only on mobile version %>
+        <% if header.image.present? %>
+          <div class="small-12 medium-6 column medium-display-none">
+            <%= image_tag(header.image.variant(:large),
+                          class: "margin",
+                          alt: header.image.title) %>
+          </div>
+        <% end %>
 
       </div>
-      <% if header.image.present? %>
-        <%= image_tag(header.image.variant(:large),
-                      class: "header-image",
-                      alt: header.image.title) %>
+      <%# close end link %>
+      <% if not header.link_text.present? && header.link_url.present? %>
+        </a>
       <% end %>
     </div>
 <% end %>
