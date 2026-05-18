@@ -7,6 +7,7 @@
   --anchor-color-hover: #0075ff;
   --brand: #0075ff;
   --brand-secondary: #abd5fd;
+  --brand-secondary-contrast: #000;
   --button-background-hover: #000;
   --button-background-hover-contrast: #fff;
   --footer: #fff;
@@ -78,6 +79,12 @@ body {
   font-weight: 400;
 }
 
+@media print, screen and (min-width: 40em) {
+  .subnavigation a.is-active {
+    border-bottom: 5px solid;
+  }
+}
+
 .menu-button {
   color: initial;
 }
@@ -105,6 +112,10 @@ body {
     line-height: 1em;
     text-transform: uppercase;
   }
+}
+
+.jumbo.light {
+  background-color: var(--brand-secondary, #004a83);
 }
 
 .jumbo.header-card::before {
@@ -178,5 +189,93 @@ body {
   transform: scale(1);
 }
 /******************************************
-*** Estilos varios
+*** BUDGETS HEADER AND PHASE
 ******************************************/
+.budget-phases .tabs-controls .budget-prev-phase,
+.budget-phases .tabs-controls .budget-next-phase,
+.budget-phases .tabs-controls .budget-prev-phase-disabled,
+.budget-phases .tabs-controls .budget-next-phase-disabled,
+.debate-questions .quiz-header .quiz-next:hover,
+.debate-questions .quiz-header .quiz-next:active,
+.jumbo-budget .button,
+ .categories a:hover,
+.categories a.is-active,
+ .geozone a:hover,
+.geozone a.is-active,
+ .pagination .current,
+.ui-datepicker-calendar .ui-state-hover,
+.ui-datepicker-calendar .ui-state-active,
+.ui-datepicker-header,
+ .budgets-index > header,
+.budget-group-show > header,
+.budget-groups-index > header,
+.budget-ballot-show > header,
+.budget-header {
+  background-color: var(--brand-secondary, #004a83);
+  color: var(--brand-secondary-contrast, initial);
+}
+
+.budget-header {
+  margin-top: -1.5rem;
+  min-height: 24rem;
+  padding-bottom: 1.5rem;
+  padding-top: 4rem;
+}
+
+.budget-phases h2 {
+  padding: 1.5rem;
+}
+
+.budget-header .budget-title::after {
+  border-bottom: 2px solid #000;
+}
+// .budget-subheader{
+//     display:none;
+// }
+.budget-phases .phase-title a {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2.25rem;
+
+  > span:last-child {
+    margin-top: auto;
+  }
+}
+
+.budget-phases .phases-list .phase-name::before {
+  display: none;
+}
+
+.budget-phases .phase-title {
+  max-width: 260px;
+}
+
+.phase-name {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.phase-date {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1em;
+  margin-bottom: 0.75rem;
+}
+// div[data-tabs-content="budget_phases_tabs"]{
+//     display: none;
+// }
+
+.proposal .supports,
+.budget-investment .supports {
+  padding: 1.5rem 0 0;
+}
+/******************************************
+*** ACCORDION
+******************************************/
+.more-info-content a.accordion-title {
+  text-decoration: none;
+  color: initial;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
