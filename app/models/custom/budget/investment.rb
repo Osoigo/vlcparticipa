@@ -106,9 +106,13 @@ class Budget
     alias_method :consul_reason_for_not_being_selectable_by, :reason_for_not_being_selectable_by
 
     def reason_for_not_being_selectable_by(user)
-      return :max_votes_per_budget_per_user_limit_reached unless user.can_vote_budget_investment_for_this_budget?(budget_id)
+      reason = consul_reason_for_not_being_selectable_by(user)
+      if reason.present?
+        return reason
+      end
 
-      consul_reason_for_not_being_selectable_by(user)
+      can_vote = user.can_vote_budget_investment_for_this_budget?(budget_id)
+      :max_votes_per_budget_per_user_limit_reached unless can_vote
     end
 
     def reason_for_not_being_negatively_ballotable_by(user, ballot)
