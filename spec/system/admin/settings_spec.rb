@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe "Admin settings", :admin do
+  before do
+    Setting["max_votes_per_budget_per_user"] = 5
+  end
+
   scenario "Index" do
     visit admin_settings_path
 

@@ -103,6 +103,18 @@ class Budget
       ballot_lines_count - ballot_negativelines_count * budget.negative_vote_value
     end
 
+    alias_method :consul_reason_for_not_being_selectable_by, :reason_for_not_being_selectable_by
+
+    def reason_for_not_being_selectable_by(user)
+      reason = consul_reason_for_not_being_selectable_by(user)
+      if reason.present?
+        return reason
+      end
+
+      can_vote = user.can_vote_budget_investment_for_this_budget?(budget_id)
+      :max_votes_per_budget_per_user_limit_reached unless can_vote
+    end
+
     def reason_for_not_being_negatively_ballotable_by(user, ballot)
       return permission_problem(user)         if permission_problem?(user)
       return :not_selected                    unless selected?

@@ -1,6 +1,9 @@
 require "rails_helper"
 
 describe "Admin cookies vendors", :admin do
+  before do
+    Setting["max_votes_per_budget_per_user"] = 5
+  end
   describe "Index" do
     scenario "Shows existing cookies and links to actions" do
       create(:cookies_vendor, name: "Third party", cookie: "third_party")

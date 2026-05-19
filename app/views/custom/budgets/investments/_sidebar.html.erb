@@ -11,6 +11,20 @@
     </div>
   <% end %>
 <% end %>
+<% if (@budget.phase =='selecting') %>
+  <div class="sidebar-item">
+    <div class="sidebar-divider"></div>
+    <h2 class="sidebar-title"><%= markdown t("budgets.ballots.show.support_total") %></h2>
+    <br>
+    <span class="remaining_votes">
+      <%= markdown t("budgets.ballots.show.support_districts") %>
+      <br>
+      <%= markdown t("budgets.ballots.show.support_neighborhood") %>
+      <br>
+      <%= markdown t("budgets.ballots.show.support_maxuser", max_support: Setting["max_votes_per_budget_per_user"]) %>
+    </span>
+  </div>
+<% end %>
 <div id="my_ballot">
   <%= render Budgets::Investments::MyBallotComponent.new(
     ballot: @ballot,
