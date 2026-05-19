@@ -63,7 +63,7 @@ class Setting
           "sdg.process.polls": false,
           "sdg.process.budgets": false,
           "sdg.process.legislation": false,
-          "max_votes_per_budget_per_user": 5
+          max_votes_per_budget_per_user: 5
         })
       end
     end
