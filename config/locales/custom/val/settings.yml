@@ -1,0 +1,4 @@
+val:
+  settings:
+    max_votes_per_budget_per_user: "Nombre màxim de vots."
+    max_votes_per_budget_per_user_description: "Aquest és el nombre màxim de suports que pot fer un usuari per pressupost."

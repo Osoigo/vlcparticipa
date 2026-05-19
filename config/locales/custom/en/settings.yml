@@ -1,0 +1,4 @@
+en:
+  settings:
+    max_votes_per_budget_per_user: "Máximun number of support per budget."
+    max_votes_per_budget_per_user_description: "This is the maximun number of support votes the user can do per budget."
