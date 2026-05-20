@@ -3,8 +3,12 @@ es:
     ballots:
       show:
         no_negative_balloted_group_yet: "Todavía no has votado en contra ninguna propuesta de inversión"
-        remove_negative: Quitar voto en contra
         remove_negative_label: "Quitar voto en contra a %{investment}"
+        remove_negative: Quitar voto en contra
+        support_districts: "- Las propuestas de inversión presentadas para los **DISTRITOS** necesitan conseguir **30 APOYOS**"
+        support_maxuser: "- Los usuarios podrán apoyar **hasta %{max_support} propuestas** de cualquier **DISTRITO y PEDANÍA**"
+        support_neighborhood: "- Las propuestas de inversión presentadas para las **PEDANÍAS** necesitan conseguir **15 APOYOS** (Pobles del Nord, Pobles Benimàmet-Beniferri y Pobles del Sud)"
+        support_total: "**¡RECUERDA!** Para que pasen a la **fase de estudio de viabilidad**"
         title_negatives: Mis votos en contra
         zero_negatives: Todavía no has votado en contra ninguna propuesta de inversión.
       reasons_for_not_balloting:
@@ -23,3 +27,5 @@ es:
         add_negative_label: "Dar un voto en contra a %{investment}"
       votes:
         has_required_support: Esta propuesta pasa a la siguiente fase
+    results:
+      ballot_negativelines_count: Votos en contra

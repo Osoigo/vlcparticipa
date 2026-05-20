@@ -3,6 +3,7 @@ require "rails_helper"
 describe "Admin feature flags", :admin do
   before do
     Setting["process.budgets"] = true
+    Setting["max_votes_per_budget_per_user"] = 5
   end
 
   scenario "Enabled features are listed on menu" do

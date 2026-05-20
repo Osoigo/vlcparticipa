@@ -1,0 +1,4 @@
+en:
+  votes:
+    budget_investments:
+      max_votes_per_budget_per_user_limit_reached: You have supported the maximum number of proposals allowed.
