@@ -328,40 +328,42 @@ body {
   font-weight: bold;
   text-decoration: none;
 }
-.accordion-title {
-    font-size: 1rem;
-}
-.accordion-content ul li:has(a.pdf){
-  list-style-type: none;
-  list-style-position: inside;
 
-  a.pdf{
-    display: inline-block;
-    width: 300px;
-    text-wrap: wrap;
-    text-decoration: none;
-    color: #000000;
-    margin-bottom: 1rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    font-weight: normal;
-    text-transform: inherit;
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    text-align: left;
-    border: 1px solid #4c4c4c;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    background: #ffffff;
-    margin-bottom: 1;
+.accordion-title {
+  font-size: 1rem;
+}
+
+.accordion-content ul li:has(a.pdf) {
+  list-style-position: inside;
+  list-style-type: none;
+
+  a.pdf {
 
     @include has-fa-icon(file-pdf, regular);
+    align-items: center;
+    background: #fff;
+    border: 1px solid #4c4c4c;
+    border-radius: 6px;
+    color: #000;
+    display: inline-block;
+    display: flex;
+    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    margin-bottom: 1;
+    padding: 0.5rem 1rem;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    text-transform: inherit;
+    text-wrap: wrap;
+    width: 300px;
 
     &::before {
-      margin-right: $font-icon-margin;
       font-size: 1.2rem;
+      margin-right: $font-icon-margin;
     }
   }
 }
