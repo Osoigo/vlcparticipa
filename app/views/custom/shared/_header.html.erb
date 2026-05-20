@@ -1,25 +1,22 @@
 <% if header.present? %>
-<%# CUSTOM header %>
-    <div class="custom-header-card">
-    
-        <a href="<%= header.link_url %>" class="custom-header-card-full-link">
-          <div class="custom-header-card-bg-img">
-            <%= image_tag(image_path_for("header/header_#{locale.to_s}.png"),
+  <%# CUSTOM header %>
+  <div class="custom-header-card">
+    <a href="<%= header.link_url %>" class="custom-header-card-full-link">
+      <div class="custom-header-card-bg-img">
+        <%= image_tag(image_path_for("header/header_#{locale.to_s}.png"),
                                           class: 'custom-header-card-bg-img_md')  %>
-            <%= image_tag(image_path_for("header/header_sm_#{locale.to_s}.png"),
+        <%= image_tag(image_path_for("header/header_sm_#{locale.to_s}.png"),
                                           class: 'custom-header-card-bg-img_sm')  %>
-          </div>
-
-          <div class="custom-header-card-content">
-            <% if header.label? %>
-              <span><%= header.label %></span>
-            <% end %>
-            <h1><%= header.title %></h1>
-            <% if header.description? %>
-              <p class="lead"><%= header.description %></p>
-            <% end %>
-          </div>
-        </a>
-
-    </div>
+      </div>
+      <div class="custom-header-card-content">
+        <% if header.label? %>
+          <span><%= header.label %></span>
+        <% end %>
+        <h1><%= header.title %></h1>
+        <% if header.description? %>
+          <p class="lead"><%= header.description %></p>
+        <% end %>
+      </div>
+    </a>
+  </div>
 <% end %>
