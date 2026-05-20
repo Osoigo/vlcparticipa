@@ -103,15 +103,14 @@ body {
 /******************************************
 *** HEADER
 ******************************************/
+.home-page .background-header{
+  background-color: initial;
+}
+
 .jumbo {
   background: initial;
-  margin-top: -26px;
-
-  h1 {
-    font-size: 2.4rem;
-    line-height: 1em;
-    text-transform: uppercase;
-  }
+  margin-top: 0;
+  padding: 0;
 }
 
 .jumbo.light {
@@ -121,67 +120,94 @@ body {
 .jumbo.header-card::before {
   background: none;
 }
-
-.header-image {
-  position: absolute;
-  top: 6px;
-}
-
-.header-card:has(>.header-image) {
-  height: 453px;
-
-  .row {
-    position: relative;
-    z-index: 1;
-  }
-}
-
-.btn-jumbo {
-  height: 100%;
-  position: absolute;
-  width: 100%;
-  z-index: 2;
-}
-
-.medium-display-none {
-  display: none;
-  @media only screen and (max-width: 768px) {
-    display: initial;
-  }
-}
-
 .button.expanded {
   text-wrap: nowrap;
 }
-
-.header-card-bg-image {
-
-  /* Si la imagen es de 1710px x 475px, la proporción es 3/2 */
-  aspect-ratio: 3.3 / 1;
-  /* Centra la imagen y hace que cubra todo el contenedor */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  width: 100%; /* Para que ocupe todo el ancho y la altura se calcule sola */
-
-  &:hover {
-    opacity: 0.8;
-  }
-
-  @media only screen and (max-width: 768px) {
-    background: initial;
-    background-image: none !important;
-  }
-}
-
-.header-card-full-link {
-  color: initial;
-  display: block;
-  height: 100%;
+/*--------Background-image header (custom/shared/_header.htm.erb)--*/
+//assets/images/custom/header/header_es.png
+//assets/images/custom/header/header_sm_es.png
+//assets/images/custom/header/header_val.png
+//assets/images/custom/header/header_sm_val.png
+.custom-header-card-full-link {
+  position: relative;
   text-decoration: none;
-  width: 100%;
+  color: #000;
+
+  &:hover{
+    color: #000;
+    .custom-header-card-bg-img {
+      opacity: 0.7;
+    }
+  }
 }
+
+.custom-header-card-bg-img {
+  position: relative;
+  z-index: -1;
+  aspect-ratio: 3.2 / 1;
+
+  @media only screen and (max-width: 640px){
+    aspect-ratio: 1.2 / 1;
+  }
+}
+
+.custom-header-card-content{
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  padding-right: 2rem;
+
+  @media only screen and (max-width: 640px){
+    left: 33%;
+  }
+
+  span{
+    font-size: clamp(0.8rem, 1vw, 1rem);
+    line-height: 1em;
+    @media only screen and (max-width: 640px){
+      display: none;
+    }
+  }
+
+  h1{
+    font-size: clamp(1.5rem, 2.6vw, 2.8rem);
+    line-height: 1em;
+    text-transform: uppercase;
+    padding-top: 2rem;
+    @media only screen and (max-width: 640px){
+      padding-top: 0;
+    }
+  }
+  span + h1{
+    padding-top: 0;
+  }
+  .lead{
+    font-size: clamp(1.2rem, 1vw, 2rem);
+    line-height: 1.1em;
+    @media only screen and (max-width: 640px){
+      display: none;
+    }
+  }
+}
+
+.custom-header-card-bg-img_md {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+}
+.custom-header-card-bg-img_sm {
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  @media only screen and (max-width: 640px) {
+    display: initial;
+  }
+}
+/*-------- END Background-image header--*/
 /******************************************
 *** 3 columnas
 ******************************************/
@@ -191,6 +217,24 @@ body {
 /******************************************
 *** BUDGETS HEADER AND PHASE
 ******************************************/
+//assets/images/custom/phases/accepting_es.png
+//assets/images/custom/phases/balloting_es.png
+//assets/images/custom/phases/finished_es.png
+//assets/images/custom/phases/informing_es.png
+//assets/images/custom/phases/publishing_prices_es.png
+//assets/images/custom/phases/reviewing_ballots_es.png
+//assets/images/custom/phases/reviewing_es.png
+//assets/images/custom/phases/selecting_es.png
+//assets/images/custom/phases/valuating_es.png
+//assets/images/custom/phases/accepting_val.png
+//assets/images/custom/phases/balloting_val.png
+//assets/images/custom/phases/finished_val.png
+//assets/images/custom/phases/informing_val.png
+//assets/images/custom/phases/publishing_prices_val.png
+//assets/images/custom/phases/reviewing_ballots_val.png
+//assets/images/custom/phases/reviewing_val.png
+//assets/images/custom/phases/selecting_val.png
+//assets/images/custom/phases/valuating_val.png
 .budget-phases .tabs-controls .budget-prev-phase,
 .budget-phases .tabs-controls .budget-next-phase,
 .budget-phases .tabs-controls .budget-prev-phase-disabled,
