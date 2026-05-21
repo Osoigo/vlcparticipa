@@ -22,25 +22,37 @@
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: lighter;
-  src: font-url("Montserrat-Light.ttf");
+  font-weight: 300;
+  src: url("Montserrat-Light.ttf");
 }
 
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: normal;
-  src: font-url("Montserrat-Regular.ttf");
+  font-weight: 400;
+  src: url("Montserrat-Regular.ttf");
 }
 
 @font-face {
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: bold;
-  src: font-url("Montserrat-Bold.ttf");
+  font-weight: 700;
+  src: url("Montserrat-Bold.ttf");
 }
 
-body {
+body,
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
   font-family: "Montserrat", sans-serif !important;
 }
 
@@ -172,7 +184,7 @@ body {
   }
 
   h1 {
-    font-size: clamp(1.5rem, 2.6vw, 2.8rem);
+    font-size: clamp(1.5rem, 2.3vw, 2.8rem);
     line-height: 1em;
     padding-top: 2rem;
     text-transform: uppercase;
@@ -194,7 +206,7 @@ body {
   }
 }
 
-.custom-header-card-bg-img_md {
+.custom-header-card-bg-img-md {
   height: 100%;
   object-fit: cover;
   width: 100%;
@@ -203,7 +215,7 @@ body {
   }
 }
 
-.custom-header-card-bg-img_sm {
+.custom-header-card-bg-img-sm {
   display: none;
   height: 100%;
   object-fit: cover;

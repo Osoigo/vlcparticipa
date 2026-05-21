@@ -3,10 +3,10 @@
   <div class="custom-header-card">
     <a href="<%= header.link_url %>" class="custom-header-card-full-link">
       <div class="custom-header-card-bg-img">
-        <%= image_tag(image_path_for("header/header_#{locale.to_s}.png"),
-                                          class: 'custom-header-card-bg-img_md')  %>
-        <%= image_tag(image_path_for("header/header_sm_#{locale.to_s}.png"),
-                                          class: 'custom-header-card-bg-img_sm')  %>
+        <%= image_tag(image_path_for("header/header_#{locale}.png"),
+                      class: "custom-header-card-bg-img-md") %>
+        <%= image_tag(image_path_for("header/header_sm_#{locale}.png"),
+                      class: "custom-header-card-bg-img-sm") %>
       </div>
       <div class="custom-header-card-content">
         <% if header.label? %>

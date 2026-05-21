@@ -123,7 +123,7 @@ describe "Home" do
     end
   end
 
-  scenario "if there are cards, the 'featured' title will render" do
+  scenario "if there are cards, the 'featured' title will render", :consul do
     create(
       :widget_card,
       title: "Card text",
@@ -143,7 +143,7 @@ describe "Home" do
     expect(page).not_to have_css(".title", text: "Featured")
   end
 
-  scenario "cards are first sorted by 'order' field, then by 'created_at' when order is equal" do
+  scenario "cards are first sorted by 'order' field, then by 'created_at' when order is equal", :consul do
     create(:widget_card, title: "Card one", order: 1)
     create(:widget_card, title: "Card two", order: 3)
     create(:widget_card, title: "Card three", order: 2)
@@ -158,7 +158,7 @@ describe "Home" do
     end
   end
 
-  describe "Header Card" do
+  describe "Header Card", :consul do
     scenario "if there is header card with link, the link content is rendered" do
       create(:widget_card, :header, link_text: "Link text", link_url: "consul.dev")
 
