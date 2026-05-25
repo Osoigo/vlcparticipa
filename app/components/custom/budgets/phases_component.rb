@@ -1,34 +1,7 @@
-class Budgets::PhasesComponent < ApplicationComponent
-  use_helpers :wysiwyg, :auto_link_already_sanitized_html, :image_path_for
-  attr_reader :budget
+class Budgets::PhasesComponent < ApplicationComponent; end
 
-  def initialize(budget)
-    @budget = budget
-  end
+load Rails.root.join("app", "components", "budgets", "phases_component.rb")
 
-  private
-
-    def phases
-      budget.published_phases
-    end
-
-    def start_date(phase)
-      time_tag(phase.starts_at.to_date, format: :long) if phase.starts_at.present?
-    end
-
-    def end_date(phase)
-      time_tag(phase.ends_at.to_date - 1.day, format: :long) if phase.ends_at.present?
-    end
-
-    def phase_dom_id(phase)
-      "phase-#{phases.index(phase) + 1}-#{phase.name.parameterize}"
-    end
-
-    def prev_phase_dom_id(phase)
-      phase_dom_id(phases[phases.index(phase) - 1])
-    end
-
-    def next_phase_dom_id(phase)
-      phase_dom_id(phases[phases.index(phase) + 1])
-    end
+class Budgets::PhasesComponent
+  use_helpers :image_path_for
 end
