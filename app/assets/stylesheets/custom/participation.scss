@@ -1,3 +1,7 @@
+.ballot .button-remove-support {
+  color: var(--brand, #002d50);
+}
+
 .investment-project,
 .investment-project-show,
 .budget-investment,
@@ -37,19 +41,12 @@ body:not(.admin) .add .button.button-red {
   margin-top: 0.5rem;
 }
 
-.ballot .button-remove-against {
-  background: #e7eaec;
-  color: #002d50;
-  color: var(--brand-secondary, #002d50);
-  font-weight: bold;
-  margin-top: 1.5rem;
-}
-
 .ballot {
   .button-remove-against {
     @include has-fa-icon(times, solid);
     @include brand-secondary-color;
     background: #e7eaec;
+    color: var(--brand, #002d50);
     font-weight: bold;
     margin-top: $line-height;
 

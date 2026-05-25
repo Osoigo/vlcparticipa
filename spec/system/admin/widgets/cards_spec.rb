@@ -202,7 +202,7 @@ describe "Cards", :admin do
         expect(page).to have_css("#widget_card_#{card_3.id}.medium-2")
       end
 
-      scenario "Show label only if it is present" do
+      scenario "Show label only if it is present", :consul do
         card_1 = create(:widget_card, cardable: custom_page, title: "Card one", label: "My label")
         card_2 = create(:widget_card, cardable: custom_page, title: "Card two")
 
@@ -217,7 +217,7 @@ describe "Cards", :admin do
         end
       end
 
-      scenario "Show image if it is present" do
+      scenario "Show image if it is present", :consul do
         card_1 = create(:widget_card, cardable: custom_page, title: "Card one")
         card_2 = create(:widget_card, cardable: custom_page, title: "Card two")
 

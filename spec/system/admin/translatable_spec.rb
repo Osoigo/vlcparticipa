@@ -448,7 +448,7 @@ describe "Admin edit translatable records", :admin do
       end
     end
 
-    context "For Budget::Phase" do
+    context "For Budget::Phase", :consul do
       let(:translatable) { create(:budget).phases.last }
 
       scenario "Shows first available fallback" do

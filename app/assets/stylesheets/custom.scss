@@ -2,3 +2,380 @@
 //
 // You can also create SCSS files in the app/assets/stylesheets/custom/
 // folder and they will be loaded automatically.
+:root {
+  --anchor-color: #000;
+  --anchor-color-hover: #0075ff;
+  --brand: #0075ff;
+  --brand-secondary: #abd5fd;
+  --brand-secondary-contrast: #000;
+  --button-background-hover: #000;
+  --button-background-hover-contrast: #fff;
+  --footer: #fff;
+  --main-header: #fff;
+  --top-links: var(--main-header);
+  --subnavigation: #fff;
+}
+
+// 04. Montserrat
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 300;
+  src: url("Montserrat-Light.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  src: url("Montserrat-Bold.ttf");
+}
+
+body,
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.public > .wrapper > header > *::before,
+.proposal-dashboard > header > *::before {
+  bottom: -1px;
+}
+
+.public > .wrapper > header > *::before,
+.proposal-dashboard > header > *::before,
+.top-links,
+.top-bar {
+  border-bottom: 1px solid #000;
+}
+/******************************************
+*** MENU
+******************************************/
+.top-links a,
+.account-menu.menu li a {
+  color: initial;
+}
+
+.dropdown.menu > li.is-active > a {
+  color: initial;
+}
+
+.subnavigation ul {
+  text-align: center;
+  @media only screen and (max-width: 768px) {
+    text-align: left;
+  }
+}
+
+.subnavigation a {
+  color: initial;
+  font-weight: 400;
+}
+
+@media print, screen and (min-width: 40em) {
+  .subnavigation a.is-active {
+    border-bottom: 5px solid;
+  }
+}
+
+.menu-button {
+  color: initial;
+}
+/******************************************
+*** HOME
+******************************************/
+//Destacados
+.home-page .card .card-title {
+  padding: 0 1rem;
+}
+
+.home-page .card p,
+.home-page .card .sdg-tag-list {
+  padding: 0 1rem;
+}
+/******************************************
+*** HEADER
+******************************************/
+.home-page .background-header {
+  background-color: initial;
+}
+
+.jumbo {
+  background: initial;
+  //margin-top: 0;
+  padding: 0;
+}
+
+.jumbo.light {
+  background-color: var(--brand-secondary, #004a83);
+}
+
+.jumbo.header-card::before {
+  background: none;
+}
+
+.button.expanded {
+  text-wrap: nowrap;
+}
+/*--------Background-image header (custom/shared/_header.htm.erb)--*/
+//assets/images/custom/header/header_es.png
+//assets/images/custom/header/header_sm_es.png
+//assets/images/custom/header/header_val.png
+//assets/images/custom/header/header_sm_val.png
+.custom-header-card-full-link {
+  color: #000;
+  position: relative;
+  text-decoration: none;
+
+  &:hover {
+    color: #000;
+
+    .custom-header-card-bg-img {
+      opacity: 0.7;
+    }
+  }
+}
+
+.custom-header-card-bg-img {
+  aspect-ratio: 3.2 / 1;
+  position: relative;
+  z-index: -1;
+
+  @media only screen and (max-width: 640px) {
+    aspect-ratio: 1.2 / 1;
+  }
+}
+
+.custom-header-card-content {
+  left: 50%;
+  padding-right: 2rem;
+  position: absolute;
+  top: 1rem;
+
+  @media only screen and (max-width: 640px) {
+    left: 33%;
+  }
+
+  span {
+    font-size: clamp(0.8rem, 1vw, 1rem);
+    line-height: 1em;
+    @media only screen and (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 2.3vw, 2.8rem);
+    line-height: 1em;
+    padding-top: 2rem;
+    text-transform: uppercase;
+    @media only screen and (max-width: 640px) {
+      padding-top: 0;
+    }
+  }
+
+  span + h1 {
+    padding-top: 0;
+  }
+
+  .lead {
+    font-size: clamp(1.2rem, 1vw, 2rem);
+    line-height: 1.1em;
+    @media only screen and (max-width: 640px) {
+      display: none;
+    }
+  }
+}
+
+.custom-header-card-bg-img-md {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  @media only screen and (max-width: 640px) {
+    display: none;
+  }
+}
+
+.custom-header-card-bg-img-sm {
+  display: none;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  @media only screen and (max-width: 640px) {
+    display: initial;
+  }
+}
+/*-------- END Background-image header--*/
+/******************************************
+*** 3 columnas
+******************************************/
+.home-page .card a:hover:not(:focus) .figure-card img {
+  transform: scale(1);
+}
+/******************************************
+*** BUDGETS HEADER AND PHASE
+******************************************/
+//assets/images/custom/phases/accepting_es.png
+//assets/images/custom/phases/balloting_es.png
+//assets/images/custom/phases/finished_es.png
+//assets/images/custom/phases/informing_es.png
+//assets/images/custom/phases/publishing_prices_es.png
+//assets/images/custom/phases/reviewing_ballots_es.png
+//assets/images/custom/phases/reviewing_es.png
+//assets/images/custom/phases/selecting_es.png
+//assets/images/custom/phases/valuating_es.png
+//assets/images/custom/phases/accepting_val.png
+//assets/images/custom/phases/balloting_val.png
+//assets/images/custom/phases/finished_val.png
+//assets/images/custom/phases/informing_val.png
+//assets/images/custom/phases/publishing_prices_val.png
+//assets/images/custom/phases/reviewing_ballots_val.png
+//assets/images/custom/phases/reviewing_val.png
+//assets/images/custom/phases/selecting_val.png
+//assets/images/custom/phases/valuating_val.png
+.budget-phases .tabs-controls .budget-prev-phase,
+.budget-phases .tabs-controls .budget-next-phase,
+.budget-phases .tabs-controls .budget-prev-phase-disabled,
+.budget-phases .tabs-controls .budget-next-phase-disabled,
+.debate-questions .quiz-header .quiz-next:hover,
+.debate-questions .quiz-header .quiz-next:active,
+.jumbo-budget .button,
+.categories a:hover,
+.categories a.is-active,
+.geozone a:hover,
+.geozone a.is-active,
+.pagination .current,
+.ui-datepicker-calendar .ui-state-hover,
+.ui-datepicker-calendar .ui-state-active,
+.ui-datepicker-header,
+.budgets-index > header,
+.budget-group-show > header,
+.budget-groups-index > header,
+.budget-ballot-show > header,
+.budget-header {
+  background-color: var(--brand-secondary, #004a83);
+  color: var(--brand-secondary-contrast, initial);
+}
+
+.budget-header {
+  margin-top: -1.5rem;
+  min-height: 24rem;
+  padding-bottom: 1.5rem;
+  padding-top: 4rem;
+}
+
+.budget-phases h2 {
+  padding: 1.5rem;
+}
+
+.budget-header .budget-title::after {
+  border-bottom: 2px solid #000;
+}
+// .budget-subheader{
+//     display:none;
+// }
+.budget-phases .phase-title a {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2.25rem;
+
+  > span:last-child {
+    margin-top: auto;
+  }
+}
+
+.budget-phases .phases-list .phase-name::before {
+  display: none;
+}
+
+.budget-phases .phase-title {
+  max-width: 260px;
+}
+
+.phase-name {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.phase-date {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1em;
+  margin-bottom: 0.75rem;
+}
+// div[data-tabs-content="budget_phases_tabs"]{
+//     display: none;
+// }
+
+.proposal .supports,
+.budget-investment .supports {
+  padding: 1.5rem 0 0;
+}
+/******************************************
+*** ACCORDION
+******************************************/
+.more-info-content a.accordion-title {
+  background-color: #f0f0f0;
+  color: initial;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.accordion-title {
+  font-size: 1rem;
+}
+
+.accordion-content ul li:has(a.pdf) {
+  list-style-position: inside;
+  list-style-type: none;
+
+  a.pdf {
+
+    @include has-fa-icon(file-pdf, regular);
+    align-items: center;
+    background: #fff;
+    border: 1px solid #4c4c4c;
+    border-radius: 6px;
+    color: #000;
+    display: inline-block;
+    display: flex;
+    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    margin-bottom: 1;
+    padding: 0.5rem 1rem;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    text-transform: inherit;
+    text-wrap: wrap;
+    width: 300px;
+
+    &::before {
+      font-size: 1.2rem;
+      margin-right: $font-icon-margin;
+    }
+  }
+}

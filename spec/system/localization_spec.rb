@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe "Localization" do
-  scenario "Wrong locale" do
+  scenario "Wrong locale", :consul do
     I18n.with_locale(:es) do
       create(:widget_card, title: "Bienvenido a CONSUL",
                            description: "Software libre para la participación ciudadana.",
