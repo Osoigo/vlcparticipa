@@ -8,6 +8,9 @@ es:
         csvfile: Fichero CSV
         done: Propuestas ganadoras establecidas
         form_help: El fichero tiene que ser un csv con una única columna, los ID de las propuestas. Sin cabecera.
+        missing_winner_ids:
+          one: "Una de las propuestas no se ha encontrado"
+          other: "%{count} de las propuestas no se han encontrado"
         set: Indicar manualmente
         set_title: Indicar propuestas ganadoras manualmente
         set_winners: Indicar manualmente

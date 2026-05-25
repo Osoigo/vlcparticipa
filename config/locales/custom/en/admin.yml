@@ -8,6 +8,9 @@ en:
         csvfile: CSV file
         done: Winner proposals established
         form_help: The file must be a CSV with a single column, the IDs of the proposals. No header.
+        missing_winner_ids:
+          one: One of the proposals has not been found
+          other: "%{count} of the proposals have not been found"
         set: Set manually
         set_title: Indicate winning proposals manually
         set_winners: Set manually
