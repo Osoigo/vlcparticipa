@@ -1,4 +1,4 @@
-class Admin::Budgets::CalculateWinnersButtonComponent < ApplicationComponent ; end
+class Admin::Budgets::CalculateWinnersButtonComponent < ApplicationComponent; end
 
 load Rails.root.join("app", "components", "admin", "budgets", "calculate_winners_button_component.rb")
 
