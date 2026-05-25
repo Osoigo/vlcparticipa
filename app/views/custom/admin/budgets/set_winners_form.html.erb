@@ -1,0 +1,14 @@
+<%= back_link_to admin_budgets_path %>
+
+<div class="small-12 column">
+  <h2><%= t("admin.budgets.winners.set_title") %></h2>
+
+  <p><%= t("admin.budgets.winners.form_help") %></p>
+
+  <%= form_tag set_winners_admin_budget_path, method: :post, enctype: "multipart/form-data" do %>
+    <%= label_tag t("admin.budgets.winners.csvfile") %>
+    <%= file_field_tag :csvfile %>
+    <%= submit_tag t("admin.budgets.winners.set") %>
+  <% end %>
+
+</div>
