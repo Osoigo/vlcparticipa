@@ -1,7 +1,10 @@
 load Rails.root.join("app", "controllers", "admin", "budget_investments_controller.rb")
 
 class Admin::BudgetInvestmentsController
-  has_filters %w[all without_admin without_valuator under_valuation valuation_finished enough_support not_enough_support winners],
+  has_filters %w[all without_admin
+                 without_valuator under_valuation valuation_finished
+                 enough_support not_enough_support
+                 winners],
               only: :index
 
   before_action :load_counters, only: [:index]
