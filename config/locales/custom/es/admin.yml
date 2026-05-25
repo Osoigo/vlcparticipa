@@ -4,6 +4,16 @@ es:
       edit:
         negative_votes: "Votos negativos"
         negative_vote_value: "Valor de cada voto negativo"
+      winners:
+        csvfile: Fichero CSV
+        done: Propuestas ganadoras establecidas
+        form_help: El fichero tiene que ser un csv con una única columna, los ID de las propuestas. Sin cabecera.
+        missing_winner_ids:
+          one: "Una de las propuestas no se ha encontrado"
+          other: "%{count} de las propuestas no se han encontrado"
+        set: Indicar manualmente
+        set_title: Indicar propuestas ganadoras manualmente
+        set_winners: Indicar manualmente
     budget_headings:
       form:
         required_support_info: "Si la propuesta obtiene este número de apoyos se avisará a los usuarios que ya no necesita más para poder pasar a la siguiente fase."

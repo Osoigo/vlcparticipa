@@ -4,6 +4,16 @@ val:
       edit:
         negative_votes: "Vots negatius"
         negative_vote_value: "Valor de cada vot negatiu"
+      winners:
+        csvfile: Ficher CSV
+        done: Propostes guanyadores establides
+        form_help: El fitxer ha de ser un csv amb una única columna, els ANEU de les propostes. Sense capçalera.
+        missing_winner_ids:
+          one: "Una de les propostes no s'ha trobat"
+          other: "%{count} de les propostes no s'han trobat"
+        set: Indicar manualment
+        set_title: Indicar propostes guanyadores manualment
+        set_winners: Indicar manualment
     budget_investments:
       index:
         created_before_filter: YYYY-MM-DD
