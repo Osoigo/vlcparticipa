@@ -16,6 +16,7 @@ es:
           created_before: Creada antes de
           created_after: Creada después de
           enough_support: Apoyos suficientes
+          not_enough_support: Apoyos insuficientes
           with_comments: Con comentarios
           without_comments: Sin comentarios
         list:

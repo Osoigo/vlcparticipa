@@ -13,6 +13,7 @@ val:
           created_before: Creada abans de
           created_after: Creada després de
           enough_support: Suports suficients
+          not_enough_support: Suports insuficients
           with_comments: Amb comentaris
           without_comments: Sense comentaris
         list:

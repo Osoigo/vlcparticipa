@@ -1,0 +1,41 @@
+<ul class="menu simple clear" id="filter-subnav">
+  <li class="show-for-sr"><%= t("#{i18n_namespace}.filter") %>: </li>
+  <% valid_filters.each do |filter| %>
+    <% case filter
+      when "all"
+        filter_count = @counts_total
+      when "without_admin"
+        filter_count = @counts_without_admin
+      when "without_valuator"
+        filter_count = @counts_without_val
+      when "under_valuation"
+        filter_count = @counts_in_val
+      when "valuation_finished"
+        filter_count =  @counts_aval_finished
+      when "enough_support"
+        filter_count =  @counts_enough_support
+      when "not_enough_support"
+        filter_count =  @counts_not_enough_support
+      when "winners"
+        filter_count =  @counts_winners
+       end %>
+    <% if current_filter == filter %>
+      <li class="is-active">
+        <h2>
+          <%= t("#{i18n_namespace}.filters.#{filter}") %>
+          <% if !filter_count.nil? %>
+            (<%= filter_count %>)
+          <% end %>
+        </h2>
+      </li>
+    <% else %>
+      <li>
+        <%= link_to t("#{i18n_namespace}.filters.#{filter}"),
+                    current_path_with_query_params(filter: filter, page: 1) %>
+        <% if !filter_count.nil? %>
+          (<%= filter_count %>)
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
