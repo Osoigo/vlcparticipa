@@ -1,4 +1,4 @@
-<div class="<%= results_type == :compatible ? "success" : "js-discarded" %>"
+div class="<%= results_type == :compatible ? "success" : "js-discarded" %>"
      style="<%= results_type == :compatible ? "" : "display: none" %>"
      id="<%= results_type %>-container">
   <h4><%= title %></h4>
@@ -51,10 +51,9 @@
             <% end %>
             <%= link_to investment.title, budget_investment_path(@budget, investment) %>
             <%# Marcar las propuestas seleccionadas por reequibrio territorial %>
-            rebalance_2022 = [6046, 6654, 5313, 6261, 6394, 6263, 6411, 6312, 6087, 5435, 6805, 6255, 6575, 6564, 5398]
-            rebalance_2025 = [6046, 6654, 5313, 6261, 6394, 6263, 6411, 6312, 6087, 5435, 6805, 6255, 6575, 6564, 5398]
-            rebalance = rebalance_2022 + rebalance_2025
-            %>
+            <% rebalance_2022 = [6046, 6654, 5313, 6261, 6394, 6263, 6411, 6312, 6087, 5435, 6805, 6255, 6575, 6564, 5398]
+               rebalance_2025 = [6046, 6654, 5313, 6261, 6394, 6263, 6411, 6312, 6087, 5435, 6805, 6255, 6575, 6564, 5398]
+               rebalance = rebalance_2022 + rebalance_2025 %>
             <% if rebalance.include? investment.id %>
               <abbr title="<%= t("budgets.results.territorial_rebalance") %>" class="adjust-investments-advice-mark"> * </abbr>
               <div id="<%= dom_id(investment) %>_advice" class="adjust-investments-advice">
