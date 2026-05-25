@@ -4,6 +4,13 @@ en:
       edit:
         negative_votes: Negative votes
         negative_vote_value: Negative vote value
+      winners:
+        csvfile: CSV file
+        done: Winner proposals established
+        form_help: The file must be a CSV with a single column, the IDs of the proposals. No header.
+        set: Set manually
+        set_title: Indicate winning proposals manually
+        set_winners: Set manually
     budget_headings:
       form:
         required_support_info: "If the investment has this number of support the users will be notified that it doesn't need more to go to the next phase"
