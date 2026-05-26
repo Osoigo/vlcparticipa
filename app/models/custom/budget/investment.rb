@@ -25,6 +25,12 @@ class Budget
         " >= budget_headings.required_support"
       )
     }
+    scope :not_enough_support, -> {
+      joins(:heading).where(
+        "budget_investments.cached_votes_up + budget_investments.physical_votes" \
+        " < budget_headings.required_support"
+      )
+    }
     scope :sort_by_ballots, -> {
       joins(:budget).reorder(
         Arel.sql(
