@@ -3,8 +3,12 @@ en:
     ballots:
       show:
         no_negative_balloted_group_yet: "You have not negative voted on this group yet"
-        remove_negative: Remove negative vote
         remove_negative_label: "Remove your negative vote for %{investment}"
+        remove_negative: Remove negative vote
+        support_districts: "- The investment proposals submitted for the **DISTRICTS** need to obtain **30 SUPPORTS**"
+        support_maxuser: "- Users will be able to support **up to 5 proposals** from any **DISTRICT and VILLAGE**"
+        support_neighborhood: "- The investment proposals submitted for the **VILLAGES** need to obtain **15 SUPPORTS** (Pobles del Nord, Pobles Benimàmet-Beniferri y Pobles del Sud)"
+        support_total: REMEMBER!** To move on to the **feasibility study phase**
         title_negatives: My negative votes
         zero_negatives: You have not negative voted any investment project.
       reasons_for_not_balloting:
@@ -23,3 +27,6 @@ en:
         add_negative_label: "Negate %{investment}"
       votes:
         has_required_support: This investement goes to the next phase
+    results:
+      ballot_negativelines_count: Negative votes
+      territorial_rebalance: "Selected by territorial rebalance"

@@ -3,8 +3,12 @@ val:
     ballots:
       show:
         no_negative_balloted_group_yet: "Encara no has votat en contra cap proposta d'inversió"
-        remove_negative: Llevar vot en contra
         remove_negative_label: "Llevar vot en contra a %{investment}"
+        remove_negative: Llevar vot en contra
+        support_districts: "- Les propostes d'inversió presentades per als **DISTRICTES** necessiten aconseguir **30 SUPORTS**"
+        support_maxuser: "- Els usuaris podran secundar fins a **5 propostes** de qualsevol **DISTRICTE i PEDANIA**"
+        support_neighborhood: "- Les propostes d'inversió presentades per a les **PEDANIES** necessiten aconseguir **15 SUPORTS** (Pobles del Nord, Pobles Benimàmet-Beniferri i Pobles del Sud)"
+        support_total: "**RECORDA!** Perquè passen a la **fase d´estudi de viabilitat**"
         title_negatives: Els meus vots en contra
         zero_negatives: Encara no has votat en contra cap proposta d'inversió.
       reasons_for_not_balloting:
@@ -23,3 +27,6 @@ val:
         add_negative_label: "Donar un vot en contra a %{investment}"
       votes:
         has_required_support: Esta proposta passa a la següent fase
+    results:
+      ballot_negativelines_count: Vots en contra
+      territorial_rebalance: "Seleccionada per reequilibri territorial"

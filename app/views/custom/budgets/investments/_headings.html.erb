@@ -1,0 +1,15 @@
+<% @budget.groups.each do |group| %>
+  <% if group.headings.count > 0 %>
+    <div class="sidebar-divider"></div>
+    <h3 class="sidebar-title"><%= group.name %></h3>
+    <br>
+    <ul class="no-bullet geozone">
+      <% group.headings.each do |heading| %>
+        <li class="inline-block">
+          <% css_class = { class: "is-active" } if params[:heading_id] == heading.id.to_s %>
+          <%= link_to heading.name, budget_investments_path(@budget, heading_id: heading.id), css_class || {} %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

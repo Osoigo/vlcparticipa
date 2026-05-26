@@ -26,7 +26,7 @@ describe "Help page" do
     end
   end
 
-  scenario "renders the default image for locales with no images" do
+  scenario "renders the default image for locales with no images", :consul do
     Setting["feature.help_page"] = true
 
     visit help_path(locale: :de)
@@ -34,7 +34,7 @@ describe "Help page" do
     within("#proposals") { expect(page).to have_css "img" }
   end
 
-  scenario "renders the SDG help page link when the feature is enabled" do
+  scenario "renders the SDG help page link when the feature is enabled", :consul do
     Setting["feature.help_page"] = true
     Setting["feature.sdg"] = true
 
@@ -57,7 +57,7 @@ describe "Help page" do
     expect(page).not_to have_link "Sustainable Development Goals help"
   end
 
-  scenario "renders the legislation section link when the process is enabled" do
+  scenario "renders the legislation section link when the process is enabled", :consul do
     Setting["feature.help_page"] = true
     Setting["process.legislation"] = true
 

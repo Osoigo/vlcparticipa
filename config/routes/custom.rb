@@ -41,3 +41,12 @@ resources :budgets, only: [:show, :index] do
     resources :negativelines, controller: "budgets/ballot/negativelines", only: [:create, :destroy]
   end
 end
+
+namespace :admin do
+  resources :budgets do
+    member do
+      get :set_winners_form
+      post :set_winners
+    end
+  end
+end
