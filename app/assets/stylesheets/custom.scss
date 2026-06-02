@@ -382,7 +382,7 @@ h6,
 /******************************************
 *** BOTÓN REEQUILIBRIO TERRITORIAL
 ******************************************/
-.budgets-stats{
+.budgets-stats {
   .main-link {
     @include regular-button($color: rgba(0, 0, 0, 0.5));
 
@@ -396,5 +396,5 @@ h6,
 *** IMAGES
 ******************************************/
 img {
-    height: auto !important;
+  height: auto !important;
 }
