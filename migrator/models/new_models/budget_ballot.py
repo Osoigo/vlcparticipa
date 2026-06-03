@@ -21,7 +21,7 @@ class NewBudgetBallot(Model):
     # t.integer "ballot_lines_count", default: 0
     ballot_lines_count = fields.IntField(default=0)
     # t.integer "ballot_negativelines_count", default: 0
-    ballot_negativelines_count = fields.IntField(default=0)
+    # ballot_negativelines_count = fields.IntField(default=0)
     # t.boolean "physical", default: false
     physical = fields.BooleanField(default=False)
     # t.integer "poll_ballot_id"

@@ -33,6 +33,7 @@ from .valuator import NewValuator
 from .visit import NewVisit
 from .vote import NewVote
 from .widget_feed import NewWidgetFeed
+from .report import NewReport
 
 __all__ = [
     "NewActiveStorageAttachment",
@@ -79,4 +80,5 @@ __all__ = [
     "NewVisit",
     "NewVote",
     "NewWidgetFeed",
+    "NewReport",
 ]

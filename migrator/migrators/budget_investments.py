@@ -23,11 +23,12 @@ async def migrate(id_maps, migration_stats):
         "missing_admins": set(),
     }
     old_budget_investments = await OldBudgetInvestment.all()
+    total_old_investments = len(old_budget_investments)
     new_budget_investments = {b.id: b for b in await NewBudgetInvestment.all()}
     new_budget_investment_translations = {
         t.budget_investment_id: t for t in await NewBudgetInvestmentTranslation.all()
     }
-    for old_budget_investment in old_budget_investments:
+    for idx, old_budget_investment in enumerate(old_budget_investments):
         stats["total"] += 1
         new_budget_investment = new_budget_investments.get(old_budget_investment.id)
         if new_budget_investment is None:
@@ -147,6 +148,7 @@ async def migrate(id_maps, migration_stats):
         id_maps["budget_investments"][str(old_budget_investment.id)] = (
             new_budget_investment.id
         )
+        print(f"{idx} / {total_old_investments }", end="\r")
 
     # rebuild budget_investments_id_seq
     connection = connections.get("new")

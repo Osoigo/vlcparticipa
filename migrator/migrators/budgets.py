@@ -1,6 +1,8 @@
+import datetime
 from tortoise import connections
 
 from ..models.new_models.budget import NewBudget, NewBudgetTranslation
+from ..models.new_models.report import NewReport
 from ..models.old_models.budget import OldBudget
 
 
@@ -15,19 +17,25 @@ async def migrate(id_maps, migration_stats):
     #   new_budget.hide_money
     #   new_budget_translations.main_link_text
     #   new_budget_translations.main_link_url
+
+    # Budgets must keep their previous id, but keep id_map to track budget migrations
     id_maps["budgets"] = {}
     stats = {
         "total": 0,
         "migrated": 0,
     }
-    old_budgets = await OldBudget.all()
+    old_budgets = await OldBudget.all().order_by("id")
+    total_old_budgets = len(old_budgets)
     new_budgets = {b.slug: b for b in await NewBudget.all()}
     new_budget_translations = {t.budget_id: t for t in await NewBudgetTranslation.all()}
-    for old_budget in old_budgets:
+    new_reports = {
+        r.process_id: r for r in await NewReport.filter(process_type="Budget")
+    }
+    for idx, old_budget in enumerate(old_budgets):
         stats["total"] += 1
-        new_budget = new_budgets.get(old_budget.slug)
+        new_budget = new_budgets.get(old_budget.id)
         if new_budget is None:
-            new_budget = NewBudget(slug=old_budget.slug)
+            new_budget = NewBudget(id=old_budget.id, slug=old_budget.slug)
             new_budget_translation = NewBudgetTranslation(id=old_budget.id, locale="es")
         else:
             new_budget_translation = new_budget_translations[new_budget.id]
@@ -63,9 +71,24 @@ async def migrate(id_maps, migration_stats):
         new_budget_translation.negative_votes = old_budget.negative_votes
         new_budget_translation.negative_vote_value = old_budget.negative_vote_value
 
+        # activate results and stats for this budget
+        report = new_reports.get(new_budget.id)
+        if report is None:
+            report = NewReport(
+                process_type="Budget",
+                process_id=new_budget.id,
+                created_at=datetime.datetime.now(),
+                updated_at=datetime.datetime.now(),
+            )
+        report.stats = True
+        report.results = True
+        report.advanced_stats = True
+        await report.save()
+
         await new_budget_translation.save()
         stats["migrated"] += 1
         id_maps["budgets"][str(old_budget.id)] = new_budget.id
+        print(f"{idx} / {total_old_budgets }", end="\r")
 
     # rebuild budgets_id_seq
     connection = connections.get("new")

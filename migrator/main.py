@@ -1,3 +1,4 @@
+import datetime
 import json
 import traceback
 from pathlib import Path
@@ -46,6 +47,42 @@ async def run():
         }
     )
 
+    STEPS = (
+        ("Migrate geozones", migrators.geozones),
+        ("Migrate newsletters", migrators.newsletters),
+        ("Migrate users", migrators.users),
+        ("Migrate managers", migrators.managers),
+        ("Migrate valuators", migrators.valuators),
+        ("Migrate administrators", migrators.administrators),
+        ("Migrate communities", migrators.communities),
+        ("Migrate budgets", migrators.budgets),
+        ("Migrate budget_phases", migrators.budget_phases),
+        ("Migrate budget_groups", migrators.budget_groups),
+        ("Migrate budget_headings", migrators.budget_headings),
+        ("Migrate budget_investments", migrators.budget_investments),
+        ("Migrate budget_valuator_assignments", migrators.budget_valuator_assignments),
+        ("Migrate budget_ballots", migrators.budget_ballots),
+        (
+            "Migrate budget_investment_milestones",
+            migrators.budget_investment_milestones,
+        ),
+        ("Migrate budget_reclassified_votes", migrators.budget_reclassified_votes),
+        ("Migrate tags", migrators.tags),
+        ("Migrate votes", migrators.votes),
+        ("Migrate images", migrators.images),
+        ("Migrate documents", migrators.documents),
+        ("Migrate map_locations", migrators.map_locations),
+        ("Migrate comments", migrators.comments),
+        ("Migrate activities", migrators.activities),
+        ("Migrate visits", migrators.visits),
+        ("Migrate delayed_jobs", migrators.delayed_jobs),
+        ("Migrate failed_census_calls", migrators.failed_census_calls),
+        ("Migrate i18n_contents", migrators.i18n_contents),
+        ("Migrate notifications", migrators.notifications),
+        ("Migrate locks", migrators.locks),
+        ("Migrate widget_feeds", migrators.widget_feeds),
+    )
+
     id_maps_file = Path("id_maps.json")
     if id_maps_file.exists():
         with id_maps_file.open() as f:
@@ -59,66 +96,9 @@ async def run():
     else:
         stats = {}
     try:
-        print("Migrate geozones")
-        await migrators.geozones.migrate(id_maps, stats)
-        print("Migrate newsletters")
-        await migrators.newsletters.migrate(id_maps, stats)
-        print("Migrate users")
-        await migrators.users.migrate(id_maps, stats)
-        print("Migrate managers")
-        await migrators.managers.migrate(id_maps, stats)
-        print("Migrate valuators")
-        await migrators.valuators.migrate(id_maps, stats)
-        print("Migrate administrators")
-        await migrators.administrators.migrate(id_maps, stats)
-        print("Migrate communities")
-        await migrators.communities.migrate(id_maps, stats)
-        print("Migrate budgets")
-        await migrators.budgets.migrate(id_maps, stats)
-        print("Migrate budget_phases")
-        await migrators.budget_phases.migrate(id_maps, stats)
-        print("Migrate budget_groups")
-        await migrators.budget_groups.migrate(id_maps, stats)
-        print("Migrate budget_headings")
-        await migrators.budget_headings.migrate(id_maps, stats)
-        print("Migrate budget_investments")
-        await migrators.budget_investments.migrate(id_maps, stats)
-        print("Migrate budget_valuator_assignments")
-        await migrators.budget_valuator_assignments.migrate(id_maps, stats)
-        print("Migrate budget_ballots")
-        await migrators.budget_ballots.migrate(id_maps, stats)
-        print("Migrate budget_investment_milestones")
-        await migrators.budget_investment_milestones.migrate(id_maps, stats)
-        print("Migrate budget_reclassified_votes")
-        await migrators.budget_reclassified_votes.migrate(id_maps, stats)
-        print("Migrate tags")
-        await migrators.tags.migrate(id_maps, stats)
-        print("Migrate votes")
-        await migrators.votes.migrate(id_maps, stats)
-        print("Migrate images")
-        await migrators.images.migrate(id_maps, stats)
-        print("Migrate documents")
-        await migrators.documents.migrate(id_maps, stats)
-        print("Migrate map_locations")
-        await migrators.map_locations.migrate(id_maps, stats)
-        print("Migrate comments")
-        await migrators.comments.migrate(id_maps, stats)
-        print("Migrate activities")
-        await migrators.activities.migrate(id_maps, stats)
-        print("Migrate visits")
-        await migrators.visits.migrate(id_maps, stats)
-        print("Migrate delayed_jobs")
-        await migrators.delayed_jobs.migrate(id_maps, stats)
-        print("Migrate failed_census_calls")
-        await migrators.failed_census_calls.migrate(id_maps, stats)
-        print("Migrate i18n_contents")
-        await migrators.i18n_contents.migrate(id_maps, stats)
-        print("Migrate notifications")
-        await migrators.notifications.migrate(id_maps, stats)
-        print("Migrate locks")
-        await migrators.locks.migrate(id_maps, stats)
-        print("Migrate widget_feeds")
-        await migrators.widget_feeds.migrate(id_maps, stats)
+        for step_name, step in STEPS:
+            print(f"{datetime.datetime.now().strftime('%H:%M:%S')} - {step_name}")
+            await step.migrate(id_maps, stats)
     except Exception as e:
         print(e)
         traceback.print_exc()

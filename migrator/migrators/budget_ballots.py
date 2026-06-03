@@ -46,10 +46,11 @@ async def migrate(id_maps, migration_stats):
         },
     }
     old_budget_ballots = await OldBudgetBallot.all()
+    total_old_ballots = len(old_budget_ballots)
     new_budget_ballots = {
         (b.user_id, b.budget_id, b.created_at): b for b in await NewBudgetBallot.all()
     }
-    for old_budget_ballot in old_budget_ballots:
+    for idx, old_budget_ballot in enumerate(old_budget_ballots):
         stats["ballots"]["total"] += 1
         user_id = id_maps["users"].get(str(old_budget_ballot.user_id))
         if user_id is None:
@@ -76,6 +77,7 @@ async def migrate(id_maps, migration_stats):
         await new_budget_ballot.save()
         stats["ballots"]["migrated"] += 1
         id_maps["budget_ballots"][str(old_budget_ballot.id)] = new_budget_ballot.id
+        print(f"{idx} / {total_old_ballots }", end="\r")
 
     investment_data_map = {
         i.id: (i.budget_id, i.group_id, i.heading_id)
@@ -189,15 +191,15 @@ async def migrate(id_maps, migration_stats):
             str(old_budget_ballot_negativeline.id)
         ] = new_budget_ballot_negativeline.id
 
-    ballot_negativelines_count = (
-        await NewBudgetBallotNegativeline.annotate(count=Count("id"))
-        .group_by("ballot_id")
-        .values("ballot_id", "count")
-    )
-    for entry in ballot_negativelines_count:
-        await NewBudgetBallot.filter(id=entry["ballot_id"]).update(
-            ballot_negativelines_count=entry["count"]
-        )
+    # ballot_negativelines_count = (
+    #     await NewBudgetBallotNegativeline.annotate(count=Count("id"))
+    #     .group_by("ballot_id")
+    #     .values("ballot_id", "count")
+    # )
+    # for entry in ballot_negativelines_count:
+    #     await NewBudgetBallot.filter(id=entry["ballot_id"]).update(
+    #         ballot_negativelines_count=entry["count"]
+    #     )
 
     stats["ballots"]["missing_users"] = list(stats["ballots"]["missing_users"])
     stats["ballots"]["not_migrated_ballots"] = list(

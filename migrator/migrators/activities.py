@@ -9,6 +9,7 @@ async def migrate(id_maps, migration_stats):
         "migrated": 0,
         "missing_budget_investments": set(),
         "missing_newsletters": set(),
+        "missing_users": set(),
         "unsupported_actionable_type": set(),
     }
     old_activities = await OldActivity.all()
@@ -50,8 +51,14 @@ async def migrate(id_maps, migration_stats):
                 # print(f"Actividad en tipo no soportado: {old_activity.actionable_type}")
                 stats["unsupported_actionable_type"].add(old_activity.actionable_type)
                 continue
+
+            user_id = id_maps["users"].get(old_activity.user_id)
+            if user_id is None:
+                stats["missing_users"].add(old_activity.user_id)
+                continue
+
             new_activity = NewActivity(
-                user_id=id_maps["users"][old_activity.user_id],
+                user_id=user_id,
                 action=old_activity.action,
                 actionable_type=old_activity.actionable_type,
                 actionable_id=actionable_id,
@@ -66,5 +73,6 @@ async def migrate(id_maps, migration_stats):
 
     stats["missing_budget_investments"] = list(stats["missing_budget_investments"])
     stats["missing_newsletters"] = list(stats["missing_newsletters"])
+    stats["missing_users"] = list(stats["missing_users"])
     stats["unsupported_actionable_type"] = list(stats["unsupported_actionable_type"])
     migration_stats["activities"] = stats
