@@ -379,3 +379,21 @@ h6,
     }
   }
 }
+
+.accordion-content img {
+  height: auto !important;
+}
+
+/******************************************
+*** BOTÓN REEQUILIBRIO TERRITORIAL
+******************************************/
+.budgets-stats {
+  .main-link {
+    @include regular-button($color: rgba(0, 0, 0, 0.5));
+
+    font-size: 1.25rem;
+    margin-bottom: $line-height * 2;
+    min-width: 30%;
+    text-decoration: none;
+  }
+}
