@@ -379,6 +379,11 @@ h6,
     }
   }
 }
+
+.accordion-content img {
+  height: auto !important;
+}
+
 /******************************************
 *** BOTÓN REEQUILIBRIO TERRITORIAL
 ******************************************/
@@ -391,10 +396,4 @@ h6,
     min-width: 30%;
     text-decoration: none;
   }
-}
-/******************************************
-*** IMAGES
-******************************************/
-img {
-  height: auto !important;
 }
