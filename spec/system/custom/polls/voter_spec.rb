@@ -3,7 +3,7 @@ require "rails_helper"
 describe "Voter" do
   context "Origin", :with_frozen_time do
     let(:poll) { create(:poll) }
-    let!(:question) { create(:poll_question, :yes_no, poll: poll) }
+    let!(:question) { create(:poll_question, :yes_no, poll: poll, title: "Is this question stupid?") }
     let(:booth) { create(:poll_booth) }
     let(:officer) { create(:poll_officer) }
     let(:admin) { create(:administrator) }
@@ -14,7 +14,7 @@ describe "Voter" do
       create(:poll_officer_assignment, officer: officer, poll: poll, booth: booth)
     end
 
-    scenario "Voting in poll and then verifiying account" do
+    scenario "Voting in poll and then verifying account" do
       allow_any_instance_of(Verification::Sms).to receive(:generate_confirmation_code).and_return("1357")
       user = create(:user)
       admin_user = admin.user
@@ -31,8 +31,9 @@ describe "Voter" do
 
       visit poll_path(poll)
 
-      within("#poll_question_#{question.id}_options") do
-        expect(page).not_to have_button("Yes")
+      within_fieldset "Is this question stupid?" do
+        expect(page).to have_field "Yes", type: :radio, disabled: true
+        expect(page).to have_field "No", type: :radio, disabled: true
       end
 
       expect(page).to have_content "You have already participated in a physical booth. " \
