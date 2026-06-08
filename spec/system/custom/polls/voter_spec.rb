@@ -3,12 +3,12 @@ require "rails_helper"
 describe "Voter" do
   context "Origin", :with_frozen_time do
     let(:poll) { create(:poll) }
-    let!(:question) { create(:poll_question, :yes_no, poll: poll, title: "Is this question stupid?") }
     let(:booth) { create(:poll_booth) }
     let(:officer) { create(:poll_officer) }
     let(:admin) { create(:administrator) }
 
     before do
+      create(:poll_question, :yes_no, poll: poll, title: "Is this question stupid?")
       create(:geozone, :in_census)
       create(:poll_shift, officer: officer, booth: booth, date: Date.current, task: :vote_collection)
       create(:poll_officer_assignment, officer: officer, poll: poll, booth: booth)
