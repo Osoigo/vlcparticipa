@@ -5,7 +5,7 @@ load Rails.root.join("app", "components", "budgets", "ballot", "ballot_component
 class Budgets::Ballot::BallotComponent
   private
 
-    def negative_vote_allowed
+    def negative_vote_allowed?
       budget.negative_votes > 0
     end
 
