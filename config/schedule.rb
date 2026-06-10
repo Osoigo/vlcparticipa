@@ -35,6 +35,18 @@ every 1.day, at: "3:00 am", roles: [:cron] do
   rake "votes:reset_hot_score"
 end
 
+every 1.day, at: "4:10 am", roles: [:backup] do
+  command "/bin/bash #{@path}/create_backup.sh -t day"
+end
+
+every :sunday, at: "4:20 am", roles: [:backup] do
+  command "/bin/bash #{@path}/create_backup.sh -t week"
+end
+
+every 1.month, at: "4:30 am", roles: [:backup] do
+  command "/bin/bash #{@path}/create_backup.sh -t month"
+end
+
 every :reboot do
   # Number of workers must be kept in sync with capistrano's delayed_job_workers
   command "cd #{@path} && RAILS_ENV=#{@environment} bundle exec bin/delayed_job -m -n 2 restart"
