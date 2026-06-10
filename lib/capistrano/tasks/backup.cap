@@ -9,7 +9,7 @@ namespace :backup do
 
   desc "Install the MinIO client binary as mcli in /usr/local/bin"
   task :install_mcli do
-    on roles(:cron) do |host|
+    on roles(:backup) do |host|
       if test("command -v mcli >/dev/null 2>&1")
         info "mcli already installed on #{host.hostname}"
       else
@@ -32,7 +32,7 @@ namespace :backup do
       raise "GPG public key file not found: #{gpg_public_key_path}. Set GPG_PUBLIC_KEY_PATH to a valid local path"
     end
 
-    on roles(:cron) do |host|
+    on roles(:backup) do |host|
       if test("gpg --batch --list-keys --with-colons seguridad@osoigo.com | grep -q '^pub:'")
         info "GPG key seguridad@osoigo.com already present on #{host.hostname}"
       else
@@ -52,7 +52,7 @@ namespace :backup do
 
   desc "Check backup prerequisites (mcli and GPG key seguridad@osoigo.com)"
   task :check_prerequisites do
-    on roles(:cron) do |host|
+    on roles(:backup) do |host|
       unless test("command -v mcli >/dev/null 2>&1 || test -x $HOME/bin/mcli")
         invoke "backup:install_mcli"
       end

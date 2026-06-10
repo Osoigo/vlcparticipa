@@ -35,15 +35,15 @@ every 1.day, at: "3:00 am", roles: [:cron] do
   rake "votes:reset_hot_score"
 end
 
-every 1.day, at: "4:10 am", roles: [:cron] do
+every 1.day, at: "4:10 am", roles: [:backup] do
   command "/bin/bash #{@path}/create_backup.sh -t day"
 end
 
-every :sunday, at: "4:20 am", roles: [:cron] do
+every :sunday, at: "4:20 am", roles: [:backup] do
   command "/bin/bash #{@path}/create_backup.sh -t week"
 end
 
-every 1.month, at: "4:30 am", roles: [:cron] do
+every 1.month, at: "4:30 am", roles: [:backup] do
   command "/bin/bash #{@path}/create_backup.sh -t month"
 end
 
