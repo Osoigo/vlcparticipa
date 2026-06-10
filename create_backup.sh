@@ -67,7 +67,7 @@ shift $(($OPTIND - 1))
 # La carpeta shared de consul
 PROJECT_FOLDER=/var/consul/shared
 # Nombre del proyecto
-PROJECT_NAME=valencia-pre
+PROJECT_NAME=valencia-production
 # Nombre del bucket donde se guarda el backup
 S3_BACKUP_BUCKET_NAME=valencia
 # Nombre del backup, por defecto el día en formato YYYYMMDD
