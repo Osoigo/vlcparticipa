@@ -12,7 +12,7 @@ class Budget
     end
 
     def negate_investment(investment)
-      negativelines.create(investment: investment).persisted?
+      negativelines.create(investment: investment)
     end
 
     def has_negativelines_in_group?(group)

@@ -13,7 +13,7 @@ class Budgets::Investments::MyBallotComponent
 
   private
 
-    def negative_vote_allowed
+    def negative_vote_allowed?
       budget.negative_votes > 0
     end
 end
