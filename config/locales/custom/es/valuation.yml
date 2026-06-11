@@ -15,10 +15,10 @@ es:
         service: Unidad
         other_services: Otros servicios implicados
         allows_phase: ¿Permite realización por fases?
-        price_phase1: Importe fase 1
-        price_phase2: Importe fase 2
-        price_phase3: Importe fase 3
-        price_phase4: Importe fase 4
+        price_phase1_with_currency: Importe fase 1 (%{currency})
+        price_phase2_with_currency: Importe fase 2 (%{currency})
+        price_phase3_with_currency: Importe fase 3 (%{currency})
+        price_phase4_with_currency: Importe fase 4 (%{currency})
         budget_implementation: Aplicación presupuestaria
         active: Si
         inactive: No

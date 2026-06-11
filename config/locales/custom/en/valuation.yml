@@ -15,10 +15,10 @@ en:
         service: Unit
         other_services: Other services involved
         allows_phase: ¿Allows execution in phases?
-        price_phase1: Phase 1 ammount
-        price_phase2: Phase 2 ammount
-        price_phase3: Phase 3 ammount
-        price_phase4: Phase 4 ammount
+        price_phase1_with_currency: Phase 1 ammount (%{currency})
+        price_phase2_with_currency: Phase 2 ammount (%{currency})
+        price_phase3_with_currency: Phase 3 ammount (%{currency})
+        price_phase4_with_currency: Phase 4 ammount (%{currency})
         budget_implementation: Budget application
         active: Yes
         inactive: No

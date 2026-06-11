@@ -12,7 +12,6 @@ AllCops:
   Exclude:
     - "db/schema.rb"
     - "app/lib/ckeditor/backend/active_storage.rb"
-    - "config/initializers/disable_active_storage_pdf_auto_previews.rb"
     - "vendor/**/*"
   DisabledByDefault: true
 
@@ -162,12 +161,13 @@ Layout/LineEndStringConcatenationIndentation:
 
 Layout/LineLength:
   Max: 110
+  AllowHeredoc: false
+  AllowQualifiedName: false
   Exclude:
     - "Gemfile"
     - "config/environments/production.rb"
     - "config/environments/staging.rb"
     - "config/initializers/devise.rb"
-    - "config/initializers/backtrace_silencers.rb"
     - "db/migrate/*create_delayed_jobs.rb"
     - "db/migrate/*create_active_storage_variant_records.active_storage.rb"
     - "app/models/budget/stats.rb"
@@ -340,6 +340,15 @@ Lint/SymbolConversion:
     - "app/models/setting.rb"
     - "db/dev_seeds/settings.rb"
 
+Lint/UnreachableCode:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Lint/UnreachablePatternBranch:
+  Enabled: true
+
 Lint/UselessAssignment:
   Enabled: true
 
@@ -459,6 +468,9 @@ Rails/HasManyOrHasOneDependent:
 Rails/HttpStatus:
   Enabled: true
 
+Rails/HttpStatusNameConsistency:
+  Enabled: true
+
 Rails/I18nLocaleAssignment:
   Enabled: true
   Include:
@@ -493,6 +505,9 @@ Rails/PluralizationGrammar:
   Enabled: true
 
 Rails/Presence:
+  Enabled: true
+
+Rails/RedirectBackOrTo:
   Enabled: true
 
 Rails/RedundantActiveRecordAllMethod:
@@ -658,6 +673,9 @@ RSpec/MissingExpectationTargetMethod:
 RSpec/NotToNot:
   Enabled: true
 
+RSpec/Output:
+  Enabled: true
+
 RSpec/OverwritingSetup:
   Enabled: true
 
@@ -762,7 +780,13 @@ Style/ComparableBetween:
 Style/DigChain:
   Enabled: true
 
+Style/EmptyClassDefinition:
+  Enabled: true
+
 Style/EmptyStringInsideInterpolation:
+  Enabled: true
+
+Style/FileOpen:
   Enabled: true
 
 Style/FileRead:
@@ -815,6 +839,9 @@ Style/LineEndConcatenation:
 Style/MapIntoArray:
   Enabled: true
 
+Style/MapJoin:
+  Enabled: true
+
 Style/MapToHash:
   Enabled: true
 
@@ -826,8 +853,13 @@ Style/MinMaxComparison:
 
 Style/MutableConstant:
   Enabled: true
+  Exclude:
+    - "bin/setup"
 
 Style/NegatedIfElseCondition:
+  Enabled: true
+
+Style/NegativeArrayIndex:
   Enabled: true
 
 Style/Not:
@@ -843,6 +875,9 @@ Style/Proc:
   Enabled: true
 
 Style/RaiseArgs:
+  Enabled: true
+
+Style/ReduceToHash:
   Enabled: true
 
 Style/RedundantArgument:
@@ -861,6 +896,9 @@ Style/RedundantFileExtensionInRequire:
   Enabled: true
 
 Style/RedundantFreeze:
+  Enabled: true
+
+Style/RedundantMinMaxBy:
   Enabled: true
 
 Style/RedundantInterpolation:
