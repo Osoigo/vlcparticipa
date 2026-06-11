@@ -13,7 +13,7 @@ Citizen Participation and Open Government Application, fork adapted to the city 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
 [![Accessibility conformance](https://img.shields.io/badge/accessibility-WAI:AA-green.svg)](https://www.w3.org/WAI/eval/Overview)
 
-![Build status](https://github.com/consuldemocracy/consuldemocracy/workflows/tests/badge.svg)
+![Build status](https://github.com/osoigo/vlcparticipa/workflows/tests/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/consuldemocracy/consuldemocracy/badge.svg)](https://coveralls.io/github/consuldemocracy/consuldemocracy?branch=master)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/consul/localized.svg)](https://translate.consuldemocracy.org/)
 [![Knapsack Pro Parallel CI builds for consul valencia](https://img.shields.io/badge/Knapsack%20Pro-Parallel%20%2F%20consul%20valencia-%230074ff)](https://knapsackpro.com/dashboard/organizations/4583/projects/3092/test_suites/4528/builds?utm_campaign=organization-id-4583&utm_content=test-suite-id-4528&utm_medium=readme&utm_source=knapsack-pro-badge&utm_term=project-id-3092)
