@@ -338,13 +338,13 @@ h6,
 .budget-investment-show {
 
   .supports {
-    
-    .has-required-supports{
-      background-color: #ABD5FD;
-      padding: 4px;
-      color: #000000;
+
+    .has-required-supports {
+      background-color: #abd5fd;
+      color: #000;
       font-size: $small-font-size;
       font-weight: 500;
+      padding: 4px;
       text-align: center;
     }
   }
@@ -353,7 +353,7 @@ h6,
 *** BOTÓN SALIR
 ******************************************/
 .account-menu.menu li a,
-.account-menu.menu li button{
+.account-menu.menu li button {
   color: #000;
 }
 /******************************************
