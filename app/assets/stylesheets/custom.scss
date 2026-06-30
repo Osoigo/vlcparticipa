@@ -331,6 +331,31 @@ h6,
 .budget-investment .supports {
   padding: 1.5rem 0 0;
 }
+
+.investment-project,
+.investment-project-show,
+.budget-investment,
+.budget-investment-show {
+
+  .supports {
+    
+    .has-required-supports{
+      background-color: #ABD5FD;
+      padding: 4px;
+      color: #000000;
+      font-size: $small-font-size;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}
+/******************************************
+*** BOTÓN SALIR
+******************************************/
+.account-menu.menu li a,
+.account-menu.menu li button{
+  color: #000;
+}
 /******************************************
 *** ACCORDION
 ******************************************/
