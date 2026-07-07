@@ -7,7 +7,7 @@
               admin_budget_budget_investments_path(xlsx_params),
               class: "float-right small clear" %>
 
-  <% if params[:advanced_filters].include?("winners") %>
+  <% if params[:advanced_filters].include?("winners") or params["filter"] == "winners" %>
     <%= render Admin::Budgets::CalculateWinnersButtonComponent.new(budget, from_investments: true) %>
   <% end %>
 
