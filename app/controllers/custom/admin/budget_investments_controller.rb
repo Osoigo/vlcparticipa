@@ -42,7 +42,7 @@ class Admin::BudgetInvestmentsController
     end
 
     def load_counters
-      @counts = Budget::Investment.scoped_filter(params, "all").order_filter(params)
+      @counts = Budget::Investment.scoped_filter(params, "all")
       @counts_total = @counts.count
       @counts_without_admin = @counts.where(administrator_id: nil).count
       @counts_without_val = @counts.where(valuator_assignments_count: 0).count
