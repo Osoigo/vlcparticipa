@@ -73,14 +73,14 @@ async def run():
         ("Migrate documents", migrators.documents),
         ("Migrate map_locations", migrators.map_locations),
         ("Migrate comments", migrators.comments),
-        ("Migrate activities", migrators.activities),
-        ("Migrate visits", migrators.visits),
         ("Migrate delayed_jobs", migrators.delayed_jobs),
         ("Migrate failed_census_calls", migrators.failed_census_calls),
         ("Migrate i18n_contents", migrators.i18n_contents),
         ("Migrate notifications", migrators.notifications),
         ("Migrate locks", migrators.locks),
         ("Migrate widget_feeds", migrators.widget_feeds),
+        ("Migrate activities", migrators.activities),
+        ("Migrate visits", migrators.visits),
     )
 
     id_maps_file = Path("id_maps.json")
@@ -99,15 +99,15 @@ async def run():
         for step_name, step in STEPS:
             print(f"{datetime.datetime.now().strftime('%H:%M:%S')} - {step_name}")
             await step.migrate(id_maps, stats)
+
+            # write id_maps.json and stats.json every step, as the program can die for excesive memory usage
+            with id_maps_file.open("w") as f:
+                json.dump(indent=2, fp=f, obj=id_maps)
+            with stats_file.open("w") as f:
+                json.dump(indent=2, fp=f, obj=stats)
     except Exception as e:
         print(e)
         traceback.print_exc()
-
-    with id_maps_file.open("w") as f:
-        json.dump(indent=2, fp=f, obj=id_maps)
-
-    with stats_file.open("w") as f:
-        json.dump(indent=2, fp=f, obj=stats)
 
     await Tortoise.close_connections()
     pp(stats)

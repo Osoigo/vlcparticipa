@@ -11,9 +11,9 @@ class NewReport(Model):
 
     id = fields.IntField(primary_key=True)
     # t.boolean "stats"
-    published = fields.BooleanField()
+    stats = fields.BooleanField()
     # t.boolean "results"
-    published = fields.BooleanField()
+    results = fields.BooleanField()
     # t.string "process_type"
     process_type = fields.CharField(max_length=255, null=True)
     # t.integer "process_id"
@@ -23,7 +23,7 @@ class NewReport(Model):
     # t.datetime "updated_at", precision: nil, null: false
     updated_at = NaiveDatetimeField()
     # t.boolean "advanced_stats"
-    published = fields.BooleanField()
+    advanced_stats = fields.BooleanField()
 
 
 """
