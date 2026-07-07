@@ -13,13 +13,17 @@ describe Abilities::Administrator do
   let(:debate) { create(:debate) }
   let(:comment) { create(:comment) }
   let(:proposal) { create(:proposal, author: user) }
+  let(:other_user_proposal) { create(:proposal, author: other_user) }
   let(:budget_investment) { create(:budget_investment) }
   let(:finished_investment) { create(:budget_investment, budget: create(:budget, :finished)) }
   let(:legislation_question) { create(:legislation_question) }
+  let(:legislation_proposal) { create(:legislation_proposal, author: user) }
   let(:current_poll) { create(:poll) }
   let(:future_poll) { create(:poll, :future) }
   let(:current_poll_question) { create(:poll_question) }
   let(:future_poll_question) { create(:poll_question, poll: future_poll) }
+  let(:future_poll_question_open) { create(:poll_question_open, poll: future_poll) }
+  let(:future_poll_question_option_open) { future_poll_question_open.question_options.new }
   let(:current_poll_question_option) { create(:poll_question_option) }
   let(:future_poll_question_option) { create(:poll_question_option, poll: future_poll) }
   let(:current_poll_option_video) { create(:poll_option_video, option: current_poll_question_option) }
@@ -71,6 +75,12 @@ describe Abilities::Administrator do
   it { should be_able_to(:confirm_hide, hidden_debate) }
   it { should be_able_to(:confirm_hide, hidden_proposal) }
   it { should be_able_to(:confirm_hide, hidden_user) }
+
+  it { should be_able_to(:hide, proposal) }
+  it { should be_able_to(:hide, other_user_proposal) }
+
+  it { should_not be_able_to(:flag, legislation_proposal)   }
+  it { should_not be_able_to(:unflag, legislation_proposal) }
 
   it { should be_able_to(:comment_as_administrator, debate) }
   it { should_not be_able_to(:comment_as_moderator, debate) }
@@ -143,6 +153,9 @@ describe Abilities::Administrator do
   it { should_not be_able_to(:create, current_poll_question_option) }
   it { should_not be_able_to(:update, current_poll_question_option) }
   it { should_not be_able_to(:destroy, current_poll_question_option) }
+  it { should_not be_able_to(:create,  future_poll_question_option_open) }
+  it { should_not be_able_to(:update,  future_poll_question_option_open) }
+  it { should_not be_able_to(:destroy, future_poll_question_option_open) }
 
   it { should be_able_to(:create, future_poll_option_video) }
   it { should be_able_to(:update, future_poll_option_video) }

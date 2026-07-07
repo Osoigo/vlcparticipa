@@ -74,21 +74,6 @@ so:
       legislation/proposal:
         one: "Sojeedin"
         other: "Sojeedino"
-      legislation/draft_versions:
-        one: "Qaybta Qabyo Qoraalka ah"
-        other: "Weerinta qabya qoralka"
-      legislation/questions:
-        one: "Sual"
-        other: "Sualo"
-      legislation/question_options:
-        one: "Sual Dorsho"
-        other: "Doorashooyinka su'aasha"
-      documents:
-        one: "Dukumenti"
-        other: "Dukumentiyo"
-      images:
-        one: "Sawiir"
-        other: "Sawiiro"
       topic:
         one: "Mawduuc"
         other: "Mawduucyada"
@@ -268,7 +253,6 @@ so:
         title: "Ciwaan"
       site_customization/page:
         content: Mowduuc
-        created_at: Saame
         subtitle: Ciwaan hoosaad
         slug: Laqabso
         status: Status
@@ -431,8 +415,6 @@ so:
           attributes:
             document_number:
               not_in_census: "Dukumenti mahan tiro koob"
-            user_id:
-              has_voted: "Isticmaalkii hore ayaa u codeeyay"
         legislation/process:
           attributes:
             end_date:

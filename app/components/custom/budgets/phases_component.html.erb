@@ -8,7 +8,7 @@
         <a href="#<%= phase_dom_id(phase) %>">
           <%# CUSTOM phase-icon %>
           <div class="phase-icon">
-            <%= image_tag(image_path_for("phases/#{phase.kind}_#{locale}.png")) %>
+            <%= image_tag(image_path_for("phases/#{phase.kind}_#{I18n.locale}.png")) %>
           </div>
           <%# //CUSTOM %>
           <% if phase.current? %>

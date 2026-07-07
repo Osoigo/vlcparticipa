@@ -4,8 +4,6 @@ describe "Debates" do
   context "Concerns" do
     it_behaves_like "notifiable in-app", :debate
     it_behaves_like "relationable", Debate
-    it_behaves_like "remotely_translatable", :debate, "debates_path", {}
-    it_behaves_like "remotely_translatable", :debate, "debate_path", { id: "id" }
     it_behaves_like "flaggable", :debate
   end
 
@@ -296,7 +294,7 @@ describe "Debates" do
   scenario "JS injection is prevented but autolinking is respected", :no_js do
     author = create(:user)
     js_injection_string = "<script>alert('hey')</script> " \
-                          "<a href=\"javascript:alert('surprise!')\">click me<a/> " \
+                          "<a href=\"javascript:alert('surprise!')\">click me</a> " \
                           "http://example.org"
     login_as(author)
 

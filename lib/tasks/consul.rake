@@ -3,8 +3,8 @@ namespace :consul do
   task execute_release_tasks: ["settings:rename_setting_keys",
                                "settings:add_new_settings",
                                "cache:clear",
-                               "execute_release_2.3.0_tasks"]
+                               "execute_release_2.5.1_tasks"]
 
-  desc "Runs tasks needed to upgrade from 2.2.2 to 2.3.0"
-  task "execute_release_2.3.0_tasks": []
+  desc "Runs tasks needed to upgrade from 2.4.1 to 2.5.1"
+  task "execute_release_2.5.1_tasks": []
 end

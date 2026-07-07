@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = Rails.application.secrets.secret_key_base
+  config.secret_key = Rails.application.secret_key_base
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -146,7 +146,7 @@ Devise.setup do |config|
   # their account can't be confirmed with the token any more.
   # Default is nil, meaning there is no restriction on how long a user can take
   # before confirming their account.
-  # config.confirm_within = 3.days
+  config.confirm_within = 3.days
 
   # If true, requires any email changes to be confirmed (exactly the same way as
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
@@ -286,6 +286,14 @@ Devise.setup do |config|
                   Rails.application.secrets.wordpress_oauth2_secret,
                   client_options: { site: Rails.application.secrets.wordpress_oauth2_site },
                   setup: ->(env) { OmniauthTenantSetup.wordpress_oauth2(env) }
+  config.omniauth :saml, setup: ->(env) { OmniauthTenantSetup.saml(env) }
+  config.omniauth :openid_connect,
+                  name: :oidc,
+                  scope: [:openid, :email, :profile],
+                  response_type: :code,
+                  discovery: true,
+                  client_auth_method: :basic,
+                  setup: ->(env) { OmniauthTenantSetup.oidc(env) }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -1,5 +1,6 @@
 sv:
   attributes:
+    created_at: Skapad kl.
     geozone_id: "Område"
     results_enabled: "Visa resultat"
     stats_enabled: "Visa statistik"
@@ -106,22 +107,19 @@ sv:
       legislation/proposal:
         one: "Förslag"
         other: "Förslag"
-      legislation/draft_versions:
+      legislation/draft_version:
         one: "Utkastversion"
-        other: "Versioner av utkast"
-      legislation/questions:
+        other: "Utkastversioner"
+      legislation/question:
         one: "Fråga"
         other: "Frågor"
-      legislation/question_options:
+      legislation/question_option:
         one: "Frågealternativ"
-        other: "Svarsalternativ"
-      legislation/answers:
+        other: "Frågealternativ"
+      legislation/answer:
         one: "Svar"
         other: "Svar"
-      documents:
-        one: "Dokument"
-        other: "Dokument"
-      images:
+      image:
         one: "Bild"
         other: "Bilder"
       tenant:
@@ -251,6 +249,7 @@ sv:
         main_link_url: "Länken leder till (lägg till en länk)"
       comment:
         body: "Kommentar"
+        parent_id: "Överordnad"
         user: "Användare"
       debate:
         author: "Skribent"
@@ -361,7 +360,6 @@ sv:
         title: "Titel"
       site_customization/page:
         content: Innehåll
-        created_at: Skapad kl.
         subtitle: Underrubrik
         slug: URL
         status: Status
@@ -534,6 +532,7 @@ sv:
         max_votes: Högsta antalet röster
         vote_type: Omröstningstyp
       votation_type/vote_type:
+        open: Öppen fråga
         unique: Unikt svar
         multiple: Flera svar
       cookies/vendor:
@@ -576,8 +575,6 @@ sv:
           attributes:
             document_number:
               not_in_census: "Finns inte i adressregistret"
-            user_id:
-              has_voted: "Användaren har redan röstat"
         legislation/process:
           attributes:
             end_date:
@@ -630,6 +627,10 @@ sv:
           attributes:
             code:
               invalid: "måste börja med samma kod som sitt delmål, följt av en punkt, och sluta med ett tal"
+        votation_type:
+          attributes:
+            vote_type:
+              cannot_change_to_open_ended: "kan inte byta till öppen typ av fråga eftersom du redan har definierat möjliga giltiga svar på denna fråga"
       messages:
         translations_too_short: Det krävs minst en översättning
         record_invalid: "Felmeddelanden: %{errors}"

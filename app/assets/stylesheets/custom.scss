@@ -12,8 +12,8 @@
   --button-background-hover-contrast: #fff;
   --footer: #fff;
   --main-header: #fff;
-  --top-links: var(--main-header);
   --subnavigation: #fff;
+  --top-links: var(--main-header);
 }
 
 // 04. Montserrat
@@ -331,6 +331,31 @@ h6,
 .budget-investment .supports {
   padding: 1.5rem 0 0;
 }
+
+.investment-project,
+.investment-project-show,
+.budget-investment,
+.budget-investment-show {
+
+  .supports {
+
+    .has-required-supports {
+      background-color: #abd5fd;
+      color: #000;
+      font-size: $small-font-size;
+      font-weight: 500;
+      padding: 4px;
+      text-align: center;
+    }
+  }
+}
+/******************************************
+*** BOTÓN SALIR
+******************************************/
+.account-menu.menu li a,
+.account-menu.menu li button {
+  color: #000;
+}
 /******************************************
 *** ACCORDION
 ******************************************/
@@ -377,5 +402,23 @@ h6,
       font-size: 1.2rem;
       margin-right: $font-icon-margin;
     }
+  }
+}
+
+.accordion-content img {
+  height: auto !important;
+}
+
+/******************************************
+*** BOTÓN REEQUILIBRIO TERRITORIAL
+******************************************/
+.budgets-stats {
+  .main-link {
+    @include regular-button($color: rgba(0, 0, 0, 0.5));
+
+    font-size: 1.25rem;
+    margin-bottom: $line-height * 2;
+    min-width: 30%;
+    text-decoration: none;
   }
 }

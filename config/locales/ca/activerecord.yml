@@ -93,24 +93,6 @@ ca:
       legislation/proposal:
         one: "la proposta"
         other: "Propostes ciutadanes"
-      legislation/draft_versions:
-        one: "versió esborrany"
-        other: "Versions de l'esborrany"
-      legislation/questions:
-        one: "pregunta"
-        other: "Preguntes ciutadanes"
-      legislation/question_options:
-        one: "Opció de resposta tancada"
-        other: "Opcions de resposta"
-      legislation/answers:
-        one: "Resposta"
-        other: "respostes"
-      documents:
-        one: "Document"
-        other: "Documents"
-      images:
-        one: "Imatge"
-        other: "Imatges"
       topic:
         one: "Tema"
         other: "Temes"
@@ -324,7 +306,6 @@ ca:
         title: "Títol"
       site_customization/page:
         content: contingut
-        created_at: creat
         subtitle: Subtítol
         slug: URL
         status: Estat
@@ -509,8 +490,6 @@ ca:
           attributes:
             document_number:
               not_in_census: "Este documento no aparece en el censo"
-            user_id:
-              has_voted: "L'usuari ja ha votat"
         legislation/process:
           attributes:
             end_date:

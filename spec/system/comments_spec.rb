@@ -267,7 +267,7 @@ describe "Comments" do
   scenario "Sanitizes comment body for security" do
     create(:comment, commentable: resource,
                      body: "<script>alert('hola')</script> " \
-                           "<a href=\"javascript:alert('sorpresa!')\">click me<a/> " \
+                           "<a href=\"javascript:alert('sorpresa!')\">click me</a> " \
                            "http://www.url.com")
 
     visit polymorphic_path(resource)
@@ -341,11 +341,13 @@ describe "Comments" do
 
       expect(page).not_to have_content "This was a mistake"
       expect(page).not_to have_button "Delete comment"
+      expect(page).not_to have_content "This comment has been deleted"
 
       refresh
 
       expect(page).not_to have_content "This was a mistake"
       expect(page).not_to have_button "Delete comment"
+      expect(page).not_to have_content "This comment has been deleted"
 
       logout
       login_as(admin)

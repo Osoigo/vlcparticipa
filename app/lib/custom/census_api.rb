@@ -54,9 +54,12 @@ class CensusApi
       api_token = Rails.application.secrets.census_api_token
 
       <<~XML
-        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v20="http://www.valencia.es/services/esb/padron/WSPadron/v20" xmlns:wsp="http://www.valencia.es/services/esb/padron/WSPadron">
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                          xmlns:v20="http://www.valencia.es/services/esb/padron/WSPadron/v20"
+                          xmlns:wsp="http://www.valencia.es/services/esb/padron/WSPadron">
           <soapenv:Header>
-            <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+                           xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
               <wsse:UsernameToken wsu:Id="UsernameToken-#{api_token}">
                 <wsse:Username>#{api_username}</wsse:Username>
                 <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">#{api_password}</wsse:Password>

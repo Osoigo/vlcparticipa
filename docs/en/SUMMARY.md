@@ -44,13 +44,14 @@
   * [Tests](customization/tests.md)
 
 * [Technical Features](features/features.md)
-  * [OAuth](features/oauth.md)
+  * [Authentication with external services (OAuth)](features/oauth.md)
   * [GraphQL](features/graphql.md)
   * [Debates and proposals recommendations](features/recommendations.md)
   * [Configure Census Connection](features/census_configuration.md)
   * [Local Census](features/local_census.md)
   * [Multitenancy](features/multitenancy.md)
   * [User content translations](features/user_content_translations.md)
+  * [AI Image Suggestions](features/image_suggestions.md)
 
 * [Open Source project](open_source/open_source.md)
   * [Code of conduct](open_source/code_of_conduct.md)

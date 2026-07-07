@@ -26,7 +26,7 @@ Cuando quieras resolver una incidencia mediante código:
 * Avisa de que vas a trabajar en esta incidencia añadiendo un comentario.
 * Envía una *pull request* al repositorio principal indicando qué incidencia estás resolviendo y siguiendo nuestras [convenciones de código](#convenciones-de-código)
 
-**¿Es tu primer Pull Request?** Puedes aprender en este curso gratuito (en inglés) sobre [cómo contribuir a un proyecto OpenSource en GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
+**¿Es tu primer Pull Request?** Puedes aprender en este curso gratuito (en inglés) sobre [cómo contribuir a un proyecto OpenSource en GitHub](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github)
 
 ## Convenciones de código
 
@@ -46,7 +46,6 @@ Cuando revisemos tu código y te pidamos que cambies alguna cosa, si tienes expe
 ## Miembros del equipo principal
 
 * [Javi Martín](https://github.com/javierm)
-* [Raimond García](https://github.com/voodoorai2000)
 * [Sebastià Roig](https://github.com/taitus)
 
 ## Todos los demás contribuidores
@@ -55,4 +54,4 @@ Además del equipo principal, hay [más de cien contribuidores](https://github.c
 
 Finalmente, un agradecimiento especial a los antiguos miembros del equipo principal. Conocidos con cariño como El Alumni:
 
-[Juanjo Bazán](https://github.com/xuanxu), [Enrique García Cota](https://github.com/kikito), [Alberto Calderón](https://github.com/bertocq), [María Checa](https://github.com/mariacheca), [Alberto García](https://github.com/decabeza), [Julián Herrero](https://github.com/microweb10), [Senén Rodero](https://github.com/Senen).
+[Juanjo Bazán](https://github.com/xuanxu), [Enrique García Cota](https://github.com/kikito), [Alberto Calderón](https://github.com/bertocq), [María Checa](https://github.com/mariacheca), [Alberto García](https://github.com/decabeza), [Julián Herrero](https://github.com/microweb10), [Senén Rodero](https://github.com/Senen) y [Raimond García](https://github.com/voodoorai2000).

@@ -43,7 +43,7 @@
   <%= render Shared::ParticipationNotAllowedComponent.new(investment, cannot_vote_text: cannot_vote_text) %>
 </div>
 
-<% if negative_vote_allowed %>
+<% if negative_vote_allowed? %>
   <div class="negative-supports ballot">
     <% if negative_voted? %>
       <div class="remove against">

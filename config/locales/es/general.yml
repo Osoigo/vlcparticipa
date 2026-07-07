@@ -88,7 +88,6 @@ es:
         confidence_score: Mejor valorados
         created_at: Nuevos
         hot_score: Más activos
-        most_commented: Más comentados
         relevance: Más relevantes
         recommendations: Recomendaciones
       recommendations:
@@ -124,7 +123,6 @@ es:
       recommendations_title: Recomendaciones para crear un debate
       start_new: Empezar un debate
     show:
-      author_deleted: Usuario eliminado
       comments_title: Comentarios
       edit_debate_link: Editar debate
       flag: Este debate ha sido marcado como inapropiado por varios usuarios.
@@ -205,6 +203,7 @@ es:
       participation_text: Decide cómo debe ser la ciudad que quieres.
       participation_title: Participación
       privacy: Política de privacidad
+      source_code: Código fuente
     header:
       administration_menu: Menú
       administration: Administración
@@ -275,6 +274,14 @@ es:
       sign_in: Entra con Twitter
       sign_up: Regístrate con Twitter
       name: Twitter
+    saml:
+      sign_in: Entra con SAML
+      sign_up: Regístrate con SAML
+      name: SAML
+    oidc:
+      sign_in: Entra con OIDC
+      sign_up: Regístrate con OIDC
+      name: OIDC
     info:
       sign_in: "Entra con:"
       sign_up: "Regístrate con:"
@@ -321,6 +328,7 @@ es:
       tags_placeholder: "Escribe las etiquetas que desees separadas por coma (',')"
       map_location: "Ubicación en el mapa"
       map_location_instructions: "Navega por el mapa hasta la ubicación y coloca el marcador."
+      map_marker_coordinates: "Latitud: %{latitude}. Longitud: %{longitude}"
       map_remove_marker: "Eliminar el marcador"
     index:
       featured_proposals: Destacadas
@@ -402,12 +410,10 @@ es:
         other: "%{count} votos"
       supports_necessary: "%{number} apoyos necesarios"
       reason_for_supports_necessary: ""
-      total_percent: 100%
       archived: "Esta propuesta ha sido archivada y ya no puede recoger apoyos."
       successful: "Esta propuesta ha alcanzado los apoyos necesarios."
       selected: "Propuesta seleccionada"
     show:
-      author_deleted: Usuario eliminado
       code: "Código de la propuesta:"
       comments_tab: Comentarios
       dashboard_proposal_link: Panel de control
@@ -573,6 +579,9 @@ es:
   polls:
     dates: "Desde el %{open_at} hasta el %{closed_at}"
     final_date: "Recuento final/Resultados"
+    form:
+      vote: "Votar"
+      maximum_exceeded: "has seleccionado %{given} respuestas, pero el máximo que puedes seleccionar es %{maximum}"
     index:
       filters:
         current: "Abiertas"
@@ -598,6 +607,7 @@ es:
     show:
       already_voted_in_booth: "Ya has participado en esta votación en urnas presenciales, no puedes volver a participar."
       already_voted_in_web: "Ya has participado en esta votación. Si vuelves a votar se sobreescribirá tu resultado anterior."
+      already_voted_blank_in_web: "Ya has participado en esta votación mediante un voto en blanco. Si vuelves a votar se sobreescribirá tu resultado anterior."
       back: Volver a votaciones
       cant_answer_not_logged_in: "Necesitas %{signin} o %{signup} para participar."
       comments_tab: Comentarios
@@ -627,14 +637,13 @@ es:
       results:
         title: "Preguntas"
         most_voted_answer: "Respuesta más votada: "
+        open_ended:
+          valid: Válidos
+          blank: En blanco
     poll_header:
       back_to_proposal: Volver a la propuesta
   poll_questions:
-    show:
-      vote_answer: "Votar %{answer}"
-      voted: "Has votado %{answer}"
     description:
-      unique: "Puedes seleccionar un máximo de 1 respuesta."
       multiple: "Puedes seleccionar un máximo de %{maximum} respuestas."
     read_more_about: "Leer más:"
   proposal_notifications:
@@ -646,6 +655,10 @@ es:
     show:
       back: "Volver a mi contenido"
   shared:
+    embedded_video:
+      accept: "Ver vídeo"
+      warning: "Esta página contiene un vídeo de un proveedor externo. Al acceder al contenido, aceptas que tus datos puedan ser transferidos a proveedores externos."
+    warning_for_external_links: "Al confirmar, aceptas salir del sitio web."
     actions:
       label: "%{action} %{name}"
     edit: "Editar"
@@ -921,8 +934,8 @@ es:
     poll:
       take_part: Participa del %{from} al %{to}
   remote_translations:
-    text: El contenido de esta página no está disponible en tu idioma
-    all_remote_translations_enqueued_text: "En un breve periodo de tiempo refrescando la página podrá ver todo el contenido en su idioma"
+    text: El contenido de esta página no está disponible en tu idioma. ¿Te gustaría traducirlo?
+    all_remote_translations_enqueued_text: "Por favor, espera 5 segundos y actualiza la página para que se muestre el contenido traducido."
     create:
       enqueue_remote_translation: Se han solicitado correctamente las traducciones.
     button: Traducir página

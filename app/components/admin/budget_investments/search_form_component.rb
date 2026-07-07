@@ -1,6 +1,6 @@
 class Admin::BudgetInvestments::SearchFormComponent < ApplicationComponent
   attr_reader :budget
-  use_helpers :budget_heading_select_options
+  delegate :budget_heading_select_options, to: :helpers
 
   def initialize(budget)
     @budget = budget
@@ -35,11 +35,11 @@ class Admin::BudgetInvestments::SearchFormComponent < ApplicationComponent
     end
 
     def valuator_group_select_options
-      ValuatorGroup.order("name ASC").map { |g| [g.name, "group_#{g.id}"] }
+      ValuatorGroup.order(:name).map { |g| [g.name, "group_#{g.id}"] }
     end
 
     def valuator_select_options
-      budget.valuators.order("description ASC").order("users.email ASC").includes(:user)
+      budget.valuators.order(:description).order("users.email ASC").includes(:user)
             .map { |v| [v.description_or_email, "valuator_#{v.id}"] }
     end
 

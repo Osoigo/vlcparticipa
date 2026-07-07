@@ -1,7 +1,8 @@
 class Admin::Geozones::IndexComponent < ApplicationComponent
   include Header
+
   attr_reader :geozones
-  use_helpers :render_map
+  delegate :render_map, to: :helpers
 
   def initialize(geozones)
     @geozones = geozones

@@ -8,20 +8,19 @@ class MapLocation < ApplicationRecord
     latitude.present? && longitude.present? && zoom.present?
   end
 
-  def json_data
-    {
-      investment_id: investment_id,
-      proposal_id: proposal_id,
-      lat: latitude,
-      long: longitude
-    }
+  def mappable
+    proposal || investment
+  end
+
+  def title
+    mappable&.title
   end
 
   def self.from_heading(heading)
     new(
       zoom: Budget::Heading::OSM_DISTRICT_LEVEL_ZOOM,
-      latitude: (heading.latitude.to_f if heading.latitude.present?),
-      longitude: (heading.longitude.to_f if heading.longitude.present?)
+      latitude: heading.latitude.presence&.to_f,
+      longitude: heading.longitude.presence&.to_f
     )
   end
 

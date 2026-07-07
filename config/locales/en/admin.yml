@@ -62,6 +62,7 @@ en:
         filter: Show
         filters:
           all: All
+          on_budget_investments: Investment projects
           on_comments: Comments
           on_debates: Debates
           on_proposals: Proposals
@@ -1131,6 +1132,7 @@ en:
         title: "Votation type"
         unique_description: "It's only possible to answer one time to the question."
         multiple_description: "Allows to choose multiple answers. It's possible to set the maximum number of answers."
+        open_description: "Open-ended question that allows users to provide a single answer in their own words."
     questions:
       index:
         create: "Create question"
@@ -1291,6 +1293,11 @@ en:
         selected: Selected
         milestones: Milestones
         no_proposals: There are no proposals.
+        list:
+          id: ID
+          title: Proposal
+          author: Author
+          summary: Summary
       show:
         create_question: Add this proposal to a poll to be voted
       form:
@@ -1325,6 +1332,7 @@ en:
         participation_processes: "Participation processes"
         images_and_documents: "Images and documents"
         feature_flags: Features
+        blank_option: "None"
         features:
           enabled: "Enabled"
         map:
@@ -1347,6 +1355,8 @@ en:
           title: Cookies consent
         cookies_consent_banner:
           title: Cookies consent banner
+        llm:
+          title: LLM Settings
       remote_census_general_name: General Information
       remote_census_request_name: Request Data
       remote_census_response_name: Response Data
@@ -1432,7 +1442,7 @@ en:
       author: Author
       created_at: Creation date
       name: Name
-      no_signature_sheets: "There are not signature_sheets"
+      no_signature_sheets: "There are no signature sheets"
       index:
         title: Signature sheets
         new: New signature sheets

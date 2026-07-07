@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-capybara
   - rubocop-factory_bot
   - rubocop-performance
@@ -22,9 +22,8 @@ Bundler/OrderedGems:
   Enabled: true
   ConsiderPunctuation: true
 
-Capybara/ClickLinkOrButtonStyle:
+Capybara/AmbiguousClick:
   Enabled: true
-  EnforcedStyle: strict
 
 Capybara/CurrentPathExpectation:
   Enabled: true
@@ -101,6 +100,9 @@ Layout/EmptyLineBetweenDefs:
 Layout/EmptyLines:
   Enabled: true
 
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: true
+
 Layout/EmptyLinesAroundAccessModifier:
   Enabled: true
 
@@ -159,12 +161,13 @@ Layout/LineEndStringConcatenationIndentation:
 
 Layout/LineLength:
   Max: 110
+  AllowHeredoc: false
+  AllowQualifiedName: false
   Exclude:
     - "Gemfile"
     - "config/environments/production.rb"
     - "config/environments/staging.rb"
     - "config/initializers/devise.rb"
-    - "config/initializers/backtrace_silencers.rb"
     - "db/migrate/*create_delayed_jobs.rb"
     - "db/migrate/*create_active_storage_variant_records.active_storage.rb"
     - "app/models/budget/stats.rb"
@@ -186,6 +189,8 @@ Layout/MultilineMethodCallBraceLayout:
 
 Layout/MultilineMethodCallIndentation:
   Enabled: true
+  Exclude:
+    - "config/environments/production.rb"
 
 Layout/MultilineOperationIndentation:
   Enabled: true
@@ -335,6 +340,15 @@ Lint/SymbolConversion:
     - "app/models/setting.rb"
     - "db/dev_seeds/settings.rb"
 
+Lint/UnreachableCode:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Lint/UnreachablePatternBranch:
+  Enabled: true
+
 Lint/UselessAssignment:
   Enabled: true
 
@@ -350,6 +364,14 @@ Naming/BlockForwarding:
     - "app/controllers/application_controller.rb"
     - "app/controllers/management/base_controller.rb"
     - "app/controllers/subscriptions_controller.rb"
+
+Naming/PredicateMethod:
+  Enabled: true
+  Exclude:
+    - "app/models/local_census_records/import.rb"
+    - "app/models/user.rb"
+    - "app/models/verification/management/email.rb"
+    - "config/initializers/foundation_form_builder.rb"
 
 Naming/RescuedExceptionsVariableName:
   Enabled: true
@@ -373,6 +395,9 @@ Performance/StartWith:
   Enabled: true
 
 Performance/Sum:
+  Enabled: true
+
+Performance/ZipWithoutBlock:
   Enabled: true
 
 Rails/ActionControllerFlashBeforeRender:
@@ -427,6 +452,9 @@ Rails/FindBy:
   Exclude:
     - "config/initializers/ahoy.rb"
 
+Rails/FindByOrAssignmentMemoization:
+  Enabled: true
+
 Rails/FindEach:
   Enabled: true
 
@@ -438,6 +466,9 @@ Rails/HasManyOrHasOneDependent:
   Severity: refactor
 
 Rails/HttpStatus:
+  Enabled: true
+
+Rails/HttpStatusNameConsistency:
   Enabled: true
 
 Rails/I18nLocaleAssignment:
@@ -455,6 +486,9 @@ Rails/NotNullColumn:
   Exclude:
     - "db/migrate/201[5-7]*"
 
+Rails/OrderArguments:
+  Enabled: true
+
 Rails/OutputSafety:
   Enabled: true
   Severity: warning
@@ -471,6 +505,9 @@ Rails/PluralizationGrammar:
   Enabled: true
 
 Rails/Presence:
+  Enabled: true
+
+Rails/RedirectBackOrTo:
   Enabled: true
 
 Rails/RedundantActiveRecordAllMethod:
@@ -560,6 +597,9 @@ RSpec/BeNil:
   Enabled: true
   EnforcedStyle: be
 
+RSpec/ChangeByZero:
+  Enabled: true
+
 RSpec/ContextMethod:
   Enabled: true
 
@@ -609,6 +649,9 @@ RSpec/Focus:
 RSpec/HookArgument:
   Enabled: true
 
+RSpec/IncludeExamples:
+  Enabled: true
+
 RSpec/InstanceVariable:
   Enabled: true
   Exclude:
@@ -628,6 +671,9 @@ RSpec/MissingExpectationTargetMethod:
   Enabled: true
 
 RSpec/NotToNot:
+  Enabled: true
+
+RSpec/Output:
   Enabled: true
 
 RSpec/OverwritingSetup:
@@ -698,11 +744,16 @@ Style/AndOr:
 
 Style/ArgumentsForwarding:
   Enabled: true
+  Exclude:
+    - "bin/setup"
 
 Style/ArrayCoercion:
   Enabled: true
 
 Style/ArrayIntersect:
+  Enabled: true
+
+Style/ArrayIntersectWithSingleElement:
   Enabled: true
 
 Style/BlockDelimiters:
@@ -720,7 +771,22 @@ Style/ClassVars:
 Style/CollectionMethods:
   Enabled: true
 
+Style/CollectionQuerying:
+  Enabled: true
+
+Style/ComparableBetween:
+  Enabled: true
+
 Style/DigChain:
+  Enabled: true
+
+Style/EmptyClassDefinition:
+  Enabled: true
+
+Style/EmptyStringInsideInterpolation:
+  Enabled: true
+
+Style/FileOpen:
   Enabled: true
 
 Style/FileRead:
@@ -773,6 +839,9 @@ Style/LineEndConcatenation:
 Style/MapIntoArray:
   Enabled: true
 
+Style/MapJoin:
+  Enabled: true
+
 Style/MapToHash:
   Enabled: true
 
@@ -784,8 +853,13 @@ Style/MinMaxComparison:
 
 Style/MutableConstant:
   Enabled: true
+  Exclude:
+    - "bin/setup"
 
 Style/NegatedIfElseCondition:
+  Enabled: true
+
+Style/NegativeArrayIndex:
   Enabled: true
 
 Style/Not:
@@ -803,7 +877,13 @@ Style/Proc:
 Style/RaiseArgs:
   Enabled: true
 
+Style/ReduceToHash:
+  Enabled: true
+
 Style/RedundantArgument:
+  Enabled: true
+
+Style/RedundantArrayFlatten:
   Enabled: true
 
 Style/RedundantBegin:
@@ -816,6 +896,9 @@ Style/RedundantFileExtensionInRequire:
   Enabled: true
 
 Style/RedundantFreeze:
+  Enabled: true
+
+Style/RedundantMinMaxBy:
   Enabled: true
 
 Style/RedundantInterpolation:

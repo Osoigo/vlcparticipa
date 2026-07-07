@@ -88,7 +88,6 @@ en:
         confidence_score: highest rated
         created_at: newest
         hot_score: most active
-        most_commented: most commented
         relevance: relevance
         recommendations: recommendations
       recommendations:
@@ -124,7 +123,6 @@ en:
       recommendations_title: Recommendations for creating a debate
       start_new: Start a debate
     show:
-      author_deleted: User deleted
       comments_title: Comments
       edit_debate_link: Edit
       flag: This debate has been flagged as inappropriate by several users.
@@ -205,6 +203,7 @@ en:
       participation_text: Decide how to shape the city you want to live in.
       participation_title: Participation
       privacy: Privacy Policy
+      source_code: Source code
     header:
       administration_menu: Menu
       administration: Administration
@@ -278,6 +277,14 @@ en:
     info:
       sign_in: "Sign in with:"
       sign_up: "Sign up with:"
+    saml:
+      sign_in: Sign in with SAML
+      sign_up: Sign up with SAML
+      name: SAML
+    oidc:
+      sign_in: Sign in with OIDC
+      sign_up: Sign up with OIDC
+      name: OIDC
     or_fill: "Or fill the following form:"
   proposals:
     create:
@@ -321,6 +328,7 @@ en:
       tags_placeholder: "Enter the tags you would like to use, separated by commas (',')"
       map_location: "Map location"
       map_location_instructions: "Navigate the map to the location and place the marker."
+      map_marker_coordinates: "Latitude: %{latitude}. Longitude: %{longitude}"
       map_remove_marker: "Remove map marker"
     index:
       featured_proposals: Featured
@@ -333,7 +341,7 @@ en:
         archival_date: archived
         recommendations: recommendations
       recommendations:
-        without_results: There are not proposals related to your interests
+        without_results: There are no proposals related to your interests
         without_interests: Follow proposals so we can give you recommendations
         disable: "Recommendations for proposals will stop showing if you dismiss them. You can enable them again in 'My account' page"
         actions:
@@ -402,12 +410,10 @@ en:
         zero: No votes
       supports_necessary: "%{number} supports needed"
       reason_for_supports_necessary: ""
-      total_percent: 100%
       archived: "This proposal has been archived and can't collect supports."
       successful: "This proposal has reached the required supports."
       selected: "Selected proposal"
     show:
-      author_deleted: User deleted
       code: "Proposal code:"
       comments_tab: Comments
       dashboard_proposal_link: Dashboard
@@ -573,6 +579,9 @@ en:
   polls:
     dates: "From %{open_at} to %{closed_at}"
     final_date: "Final recounts/Results"
+    form:
+      vote: "Vote"
+      maximum_exceeded: "you've selected %{given} answers, but the maximum you can select is %{maximum}"
     index:
       filters:
         current: "Open"
@@ -598,6 +607,7 @@ en:
     show:
       already_voted_in_booth: "You have already participated in a physical booth. You can not participate again."
       already_voted_in_web: "You have already participated in this poll. If you vote again it will be overwritten."
+      already_voted_blank_in_web: "You have already participated in this poll by casting a blank vote. If you vote again it will be overwritten."
       back: Back to voting
       cant_answer_not_logged_in: "You must %{signin} or %{signup} to participate."
       comments_tab: Comments
@@ -627,14 +637,13 @@ en:
       results:
         title: "Questions"
         most_voted_answer: "Most voted answer: "
+        open_ended:
+          valid: Valid
+          blank: Blank
     poll_header:
       back_to_proposal: Back to proposal
   poll_questions:
-    show:
-      vote_answer: "Vote %{answer}"
-      voted: "You have voted %{answer}"
     description:
-      unique: "You can select a maximum of 1 answer."
       multiple: "You can select a maximum of %{maximum} answers."
     read_more_about: "Read more about:"
   proposal_notifications:
@@ -646,6 +655,10 @@ en:
     show:
       back: "Go back to my content"
   shared:
+    embedded_video:
+      accept: "Watch video"
+      warning: "This page contains a video from a third-party provider. By accessing its content, you agree that your data may be transferred to third-party providers."
+    warning_for_external_links: "By confirming, you agree to leave the website."
     actions:
       label: "%{action} %{name}"
     edit: "Edit"
@@ -921,8 +934,8 @@ en:
     poll:
       take_part: Take part from %{from} to %{to}
   remote_translations:
-    text: The content of this page is not available in your language
-    all_remote_translations_enqueued_text: In a short period of time refreshing the page you will be able to see all the content in your language.
+    text: The original content of this page is not available in your language. Would you like to translate it?
+    all_remote_translations_enqueued_text: Please wait 5 seconds and refresh the website for translated content to be displayed.
     create:
       enqueue_remote_translation: Translations have been correctly requested.
     button: Translate page
