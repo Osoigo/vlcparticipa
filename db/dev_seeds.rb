@@ -42,9 +42,10 @@ end
 
 def add_image_to(imageable, sample_image_files)
   # imageable should respond to #title & #author
+  title_max = Setting["uploads.images.title.max_length"].to_i
   imageable.image = Image.create!({
     imageable: imageable,
-    title: imageable.title,
+    title: imageable.title.truncate(title_max.positive? ? title_max : imageable.title.length),
     attachment: Rack::Test::UploadedFile.new(sample_image_files.sample),
     user: imageable.author
   })
