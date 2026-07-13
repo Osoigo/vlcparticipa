@@ -36,3 +36,4 @@ es:
       title: "Título"
       ammount: "Presupuesto"
       status: "Fase"
+      download_csv: "Descargar seguimiento"

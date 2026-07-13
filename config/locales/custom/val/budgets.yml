@@ -36,3 +36,4 @@ val:
       title: "Títol"
       ammount: "Pressupost"
       status: "Fase"
+      download_csv: "Descarregar seguiment"

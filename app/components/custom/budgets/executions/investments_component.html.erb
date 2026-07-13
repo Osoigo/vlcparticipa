@@ -11,7 +11,7 @@
   <tbody>
     <% investments_by_heading.each do |heading, investments| %>
       <% investments.each do |investment| %>
-        <tr>
+        <tr class="budget-executions-investment">
           <td><%= investment.id %></td>
           <td><%= heading.name %></td>
           <td>
