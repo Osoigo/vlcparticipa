@@ -30,3 +30,9 @@ en:
     results:
       ballot_negativelines_count: Negative votes
       territorial_rebalance: "Selected by territorial rebalance"
+    executions:
+      investment: "Investement"
+      heading: "Heading"
+      title: "Título"
+      ammount: "Ammount"
+      status: "Status"

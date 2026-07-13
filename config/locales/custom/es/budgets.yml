@@ -30,3 +30,9 @@ es:
     results:
       ballot_negativelines_count: Votos en contra
       territorial_rebalance: "Seleccionada por mecanismo de garantía."
+    executions:
+      investment: "Propuesta"
+      heading: "Distrito"
+      title: "Título"
+      ammount: "Presupuesto"
+      status: "Fase"
