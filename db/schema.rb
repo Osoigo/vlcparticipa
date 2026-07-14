@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_13_100032) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_13_100001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -208,6 +208,24 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_13_100032) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["heading_id"], name: "index_budget_content_blocks_on_heading_id"
+  end
+
+  create_table "budget_extension_translations", force: :cascade do |t|
+    t.integer "budget_extension_id", null: false
+    t.string "locale", null: false
+    t.text "stats_override_content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_extension_id"], name: "index_budget_extension_translations_on_budget_extension_id"
+    t.index ["locale"], name: "index_budget_extension_translations_on_locale"
+  end
+
+  create_table "budget_extensions", force: :cascade do |t|
+    t.integer "budget_id", null: false
+    t.boolean "stats_override", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_budget_extensions_on_budget_id", unique: true
   end
 
   create_table "budget_group_translations", id: :serial, force: :cascade do |t|
