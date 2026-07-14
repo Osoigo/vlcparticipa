@@ -71,3 +71,10 @@
     </p>
   </div>
 </div>
+<% if @budget.results_extension? && @budget.results_extension_content.present? %>
+  <div class="row">
+    <div class="small-12 column">
+      <%= raw @budget.results_extension_content %>
+    </div>
+  </div>
+<% end %>
