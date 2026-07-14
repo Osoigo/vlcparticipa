@@ -21,7 +21,7 @@
           <td><%= investment.formatted_price %></td>
           <td>
             <% status = investment.milestones.published.with_status.order_by_publication_date.last&.status %>
-            <%= status.name %>
+            <%= status&.name %>
           </td>
         </tr>
       <% end %>
