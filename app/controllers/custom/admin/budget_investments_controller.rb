@@ -1,6 +1,8 @@
 load Rails.root.join("app", "controllers", "admin", "budget_investments_controller.rb")
 
 class Admin::BudgetInvestmentsController
+  include HasFilters
+
   has_filters %w[all without_admin
                  without_valuator under_valuation valuation_finished
                  enough_support not_enough_support
@@ -27,13 +29,20 @@ class Admin::BudgetInvestmentsController
 
     def load_investments
       # Override the method to allow xlsx export without pagination
+
+      # repeat HasFilters functionality, overriding has_filters above didn't work
+      @valid_filters = %w[all without_admin
+                          without_valuator under_valuation valuation_finished
+                          enough_support not_enough_support
+                          winners]
+      @current_filter = @valid_filters.include?(params[:filter]) ? params[:filter] : @valid_filters.first
       @investments = Budget::Investment.scoped_filter(params, @current_filter).order_filter(params)
       @investments = Kaminari.paginate_array(@investments) if @investments.is_a?(Array)
       @investments = @investments.page(params[:page]) unless request.format.csv? || request.format.xlsx?
     end
 
     def load_counters
-      @counts = Budget::Investment.scoped_filter(params, @current_filter)
+      @counts = Budget::Investment.scoped_filter(params, "all")
       @counts_total = @counts.count
       @counts_without_admin = @counts.where(administrator_id: nil).count
       @counts_without_val = @counts.where(valuator_assignments_count: 0).count
