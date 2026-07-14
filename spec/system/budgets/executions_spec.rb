@@ -83,7 +83,7 @@ describe "Executions" do
   end
 
   context "Images" do
-    scenario "renders default image if no milestone nor investment images are available" do
+    scenario "renders default image if no milestone nor investment images are available", :consul do
       create(:milestone, milestoneable: investment4)
 
       visit budget_executions_path(budget)
