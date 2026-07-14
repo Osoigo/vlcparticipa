@@ -4,6 +4,8 @@ en:
       edit:
         negative_votes: Negative votes
         negative_vote_value: Negative vote value
+        stats_override: Override stats
+        stats_override_help_text: Enable this option for budgets whose stats page cannot be automatically generated and requires custom HTML content.
       winners:
         csvfile: CSV file
         done: Winner proposals established

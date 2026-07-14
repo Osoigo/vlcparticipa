@@ -101,5 +101,9 @@ CKEDITOR.editorConfig = function( config )
     { name: "insert", items: [ "Image", "Table" ] }
   ]);
 
+  config.toolbar_admin_extended = config.toolbar_admin.concat([
+    { name: "document", items: [ "Source" ] }
+  ]);
+
   config.toolbar = "mini";
 };

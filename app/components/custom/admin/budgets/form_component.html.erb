@@ -62,6 +62,24 @@
                          step: 0.1,
                          label: t("admin.budgets.edit.negative_vote_value") %>
     </div>
+    <%= f.fields_for :extension, budget.extension || budget.build_extension do |extension_form| %>
+      <div class="row expanded">
+        <div class="small-12 column">
+          <p class="form-label"><%= t("admin.budgets.edit.stats_override") %></p>
+          <p class="help-text"><%= t("admin.budgets.edit.stats_override_help_text") %></p>
+          <%= extension_form.check_box :stats_override,
+                                       data: { checkbox_toggle: ".stats-override-fields" } %>
+        </div>
+      </div>
+      <% override_style = extension_form.object.stats_override? ? "" : "display:none" %>
+      <%= extension_form.translatable_fields do |translations_form| %>
+        <div class="stats-override-fields row expanded" style="<%= override_style %>">
+          <div class="small-12 column">
+            <%= translations_form.text_area :stats_override_content, class: "html-area admin-extended" %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </fieldset>
   <fieldset>
     <legend><%= t("admin.budgets.edit.info.staff_settings") %></legend>

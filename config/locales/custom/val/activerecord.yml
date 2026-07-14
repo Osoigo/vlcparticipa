@@ -1,0 +1,7 @@
+val:
+  activerecord:
+    attributes:
+      budget/extension:
+        stats_override: "Sobreescriure estadístiques"
+      budget/extension/translation:
+        stats_override_content: "Contingut HTML d'estadístiques"

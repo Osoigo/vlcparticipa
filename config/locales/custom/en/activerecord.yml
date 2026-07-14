@@ -1,0 +1,7 @@
+en:
+  activerecord:
+    attributes:
+      budget/extension:
+        stats_override: "Override stats"
+      budget/extension/translation:
+        stats_override_content: "Stats HTML content"

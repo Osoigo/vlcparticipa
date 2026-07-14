@@ -5,7 +5,13 @@ class Admin::BudgetsController
 
   def allowed_params
     consul_allowed_params + [
-      :negative_votes, :negative_vote_value
+      :negative_votes,
+      :negative_vote_value,
+      extension_attributes: [
+        :id,
+        :stats_override,
+        translation_params(Budget::Extension)
+      ]
     ]
   end
 

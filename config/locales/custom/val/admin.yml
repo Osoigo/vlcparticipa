@@ -4,6 +4,8 @@ val:
       edit:
         negative_votes: "Vots negatius"
         negative_vote_value: "Valor de cada vot negatiu"
+        stats_override: "Sobreescriure estadístiques"
+        stats_override_help_text: "Activa aquesta opció per als pressupostos la pàgina d'estadístiques dels quals no es pot generar automàticament i necessita contingut HTML personalitzat."
       winners:
         csvfile: Ficher CSV
         done: Propostes guanyadores establides
