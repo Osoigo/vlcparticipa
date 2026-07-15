@@ -10,9 +10,10 @@ class Budget
 
   def extension_for_editing
     ext = extension || build_extension
+    existing_locales = ext.translations.map(&:locale)
 
-    if ext.new_record?
-      locales_not_marked_for_destruction.each { |locale| ext.translations.build(locale: locale) }
+    locales_not_marked_for_destruction.each do |locale|
+      ext.translations.build(locale: locale) unless existing_locales.include?(locale)
     end
 
     ext

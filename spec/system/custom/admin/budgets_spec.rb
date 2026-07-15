@@ -69,4 +69,38 @@ describe "Admin budget stats override", :admin do
       expect(translations[:fr].stats_override_content).to include("Contenu FR")
     end
   end
+
+  context "with an extension already persisted for only one of the budget's locales" do
+    let(:budget) do
+      b = create(:budget)
+      b.update!(name_fr: "Nom en français")
+      b.create_extension!(stats_override: true, stats_override_content: "Contenido EN existente")
+      b
+    end
+
+    before { Setting["locales.enabled"] = "en fr" }
+
+    scenario "saves stats_override_content for a locale the extension didn't have yet" do
+      visit edit_admin_budget_path(budget)
+
+      expect(page).to have_ckeditor("Stats HTML content", with: "Contenido EN existente")
+
+      page.execute_script(<<~JS)
+        var el = document.querySelector('.js-select-language');
+        el.value = 'fr';
+        el.dispatchEvent(new Event('change', { bubbles: true }));
+      JS
+
+      fill_in_ckeditor "Stats HTML content", with: "Contenido FR nuevo"
+      click_button "Update Budget"
+
+      expect(page).to have_content(I18n.t("admin.budgets.update.notice"))
+
+      budget.reload
+      translations = budget.extension.translations.index_by(&:locale)
+
+      expect(translations[:en].stats_override_content).to include("Contenido EN existente")
+      expect(translations[:fr].stats_override_content).to include("Contenido FR nuevo")
+    end
+  end
 end

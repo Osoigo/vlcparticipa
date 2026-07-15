@@ -47,12 +47,25 @@ describe Budget do
       expect(translations.map(&:marked_for_destruction?)).to all(be false)
     end
 
-    it "doesn't pre-build translations again for an already persisted extension" do
+    it "doesn't duplicate a translation the persisted extension already has" do
+      budget = create(:budget)
+      extension = budget.create_extension!(stats_override: true, stats_override_content: "<p>Stats</p>")
+
+      translations = budget.extension_for_editing.translations
+
+      expect(translations).to contain_exactly(extension.translations.sole)
+    end
+
+    it "pre-builds a translation for a locale the budget uses but the persisted extension is missing" do
       budget = create(:budget)
       budget.update!(name_fr: "Nom en français")
-      budget.create_extension!(stats_override: true)
+      budget.create_extension!(stats_override: true, stats_override_content: "<p>Stats</p>")
 
-      expect(budget.extension_for_editing.translations).to be_empty
+      translations = budget.extension_for_editing.translations
+
+      expect(translations.map(&:locale)).to contain_exactly(*budget.locales_not_marked_for_destruction)
+      fr_translation = translations.find { |t| t.locale == :fr }
+      expect(fr_translation).not_to be_marked_for_destruction
     end
   end
 
