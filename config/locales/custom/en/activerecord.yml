@@ -2,6 +2,8 @@ en:
   activerecord:
     attributes:
       budget/extension:
+        results_extension: "Results extension"
         stats_override: "Override stats"
       budget/extension/translation:
+        results_extension_content: "Results extension HTML content"
         stats_override_content: "Stats HTML content"

@@ -10,6 +10,7 @@ class Admin::BudgetsController
       extension_attributes: [
         :id,
         :stats_override,
+        :results_extension,
         translation_params(Budget::Extension)
       ]
     ]
