@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_07_13_100001) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_13_100002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -216,6 +216,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_13_100001) do
     t.text "stats_override_content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "results_extension_content"
     t.index ["budget_extension_id"], name: "index_budget_extension_translations_on_budget_extension_id"
     t.index ["locale"], name: "index_budget_extension_translations_on_locale"
   end
@@ -225,6 +226,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_13_100001) do
     t.boolean "stats_override", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "results_extension", default: false, null: false
     t.index ["budget_id"], name: "index_budget_extensions_on_budget_id", unique: true
   end
 
