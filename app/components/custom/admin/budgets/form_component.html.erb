@@ -62,7 +62,7 @@
                          step: 0.1,
                          label: t("admin.budgets.edit.negative_vote_value") %>
     </div>
-    <%= f.fields_for :extension, budget.extension || budget.build_extension do |extension_form| %>
+    <%= f.fields_for :extension, budget.extension_for_editing do |extension_form| %>
       <div class="row expanded">
         <div class="small-12 column">
           <p class="form-label"><%= t("admin.budgets.edit.stats_override") %></p>

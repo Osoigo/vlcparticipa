@@ -8,6 +8,16 @@ class Budget
            :results_extension?, :results_extension_content,
            to: :extension, allow_nil: true
 
+  def extension_for_editing
+    ext = extension || build_extension
+
+    if ext.new_record?
+      locales_not_marked_for_destruction.each { |locale| ext.translations.build(locale: locale) }
+    end
+
+    ext
+  end
+
   def negative_votes?
     negative_votes > 0
   end
