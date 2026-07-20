@@ -70,6 +70,10 @@ h6,
 /******************************************
 *** MENU
 ******************************************/
+[data-responsive-toggle="responsive_menu"] .menu-icon {
+  color: #000;
+}
+
 .top-links a,
 .account-menu.menu li a {
   color: initial;
@@ -143,6 +147,7 @@ h6,
 //assets/images/custom/header/header_sm_val.png
 .custom-header-card-full-link {
   color: #000;
+  display: block;
   position: relative;
   text-decoration: none;
 
@@ -420,5 +425,76 @@ h6,
     margin-bottom: $line-height * 2;
     min-width: 30%;
     text-decoration: none;
+  }
+}
+/******************************************
+*** OVERRIDE STATS
+******************************************/
+.participation-stats {
+  h2 {
+    border-bottom: 1px solid #dee0e3;
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.1875rem;
+    font-weight: 700;
+  }
+
+  p em {
+    color: #222;
+    font-size: 0.8125rem;
+    font-style: italic;
+    line-height: 1.25rem;
+    margin-top: 0;
+    text-wrap: nowrap;
+  }
+
+  table {
+    display: inherit;
+    max-width: 100dvw;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    tr td {
+      padding: 0.75rem;
+    }
+  }
+
+  table tr td p {
+    margin-bottom: 0;
+
+    strong {
+      font-size: 2.25rem;
+    }
+
+    em {
+      color: #515151;
+      font-size: 0.875rem;
+    }
+  }
+
+  td:has(table.progress) {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  table.progress {
+    border-radius: 1.25rem;
+    display: table;
+    width: 260px !important;
+
+    tr td {
+      border-radius: 1.25rem;
+      line-height: 0.75rem;
+      padding: 0;
+
+      &:nth-child(1) {
+        background-color: #52a4ee;
+      }
+
+      &:nth-child(2) {
+        background-color: #ebf0f4;
+      }
+    }
   }
 }
