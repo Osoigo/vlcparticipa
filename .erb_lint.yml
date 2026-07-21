@@ -20,6 +20,8 @@ linters:
       - app/components/layout/subnavigation_component.html.erb
       - app/components/layout/top_links_component.html.erb
       - app/views/admin/site_customization/content_blocks/index.html.erb
+      - app/views/custom/budgets/results/show.html.erb
+      - app/views/custom/budgets/stats/show.html.erb
       - app/views/layouts/application.html.erb
       - app/views/layouts/dashboard.html.erb
       - app/views/layouts/devise.html.erb

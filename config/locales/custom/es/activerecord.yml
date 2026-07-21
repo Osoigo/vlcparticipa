@@ -1,5 +1,11 @@
 es:
   activerecord:
     attributes:
+      budget/extension:
+        results_extension: "Extensión de resultados"
+        stats_override: "Sobre-escribir estadísticas"
+      budget/extension/translation:
+        results_extension_content: "Contenido HTML de extensión de resultados"
+        stats_override_content: "Contenido HTML de estadísticas"
       budget/heading:
         required_support: "Apoyos necesarios"

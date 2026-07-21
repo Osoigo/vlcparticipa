@@ -4,6 +4,10 @@ es:
       edit:
         negative_votes: "Votos negativos"
         negative_vote_value: "Valor de cada voto negativo"
+        stats_override: "Sobre-escribir estadísticas"
+        stats_override_help_text: "Activa esta opción para presupuestos cuya página de estadístiques no puede generarse automáticamente y necesita contenido HTML personalizado."
+        results_extension: "Mostrar extensión de resultados"
+        results_extension_help_text: "Muestra contenido HTML adicional debajo de la tabla de resultados."
       winners:
         csvfile: Fichero CSV
         done: Propuestas ganadoras establecidas

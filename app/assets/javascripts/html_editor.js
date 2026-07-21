@@ -3,7 +3,9 @@
   App.HTMLEditor = {
     initialize: function() {
       $("textarea.html-area").each(function() {
-        if ($(this).hasClass("admin")) {
+        if ($(this).hasClass("admin-extended")) {
+          CKEDITOR.replace(this.name, { language: $("html").attr("lang"), toolbar: "admin_extended", height: 500 });
+        } else if ($(this).hasClass("admin")) {
           CKEDITOR.replace(this.name, { language: $("html").attr("lang"), toolbar: "admin", height: 500 });
         } else {
           CKEDITOR.replace(this.name, { language: $("html").attr("lang") });
