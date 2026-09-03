@@ -3,7 +3,6 @@ from ..models.old_models.activity import OldActivity
 
 
 async def migrate(id_maps, migration_stats):
-    id_maps["activities"] = {}
     stats = {
         "total": 0,
         "migrated": 0,
@@ -12,23 +11,12 @@ async def migrate(id_maps, migration_stats):
         "missing_users": set(),
         "unsupported_actionable_type": set(),
     }
-    old_activities = await OldActivity.all()
-    new_activities = {
-        (a.user_id, a.action, a.actionable_id, a.actionable_type, a.created_at): a
-        for a in await NewActivity.all()
-    }
-    for old_activity in old_activities:
-        stats["total"] += 1
-        new_activity = new_activities.get(
-            (
-                old_activity.user_id,
-                old_activity.action,
-                old_activity.actionable_id,
-                old_activity.actionable_type,
-                old_activity.created_at,
-            )
-        )
-        if new_activity is None:
+    total_old_activities = await OldActivity.all().count()
+    for i in range(0, total_old_activities, 10000):
+        old_activities = await OldActivity.all().order_by("id")[i : i + 10000]
+
+        for old_activity in old_activities:
+            stats["total"] += 1
             if old_activity.actionable_type == "Budget::Investment":
                 actionable_id = id_maps["budget_investments"].get(
                     str(old_activity.actionable_id)
@@ -65,11 +53,10 @@ async def migrate(id_maps, migration_stats):
                 created_at=old_activity.created_at,
             )
 
-        new_activity.updated_at = old_activity.updated_at
+            new_activity.updated_at = old_activity.updated_at
 
-        await new_activity.save()
-        stats["migrated"] += 1
-        id_maps["activities"][str(old_activity.id)] = new_activity.id
+            await new_activity.save()
+            stats["migrated"] += 1
 
     stats["missing_budget_investments"] = list(stats["missing_budget_investments"])
     stats["missing_newsletters"] = list(stats["missing_newsletters"])
