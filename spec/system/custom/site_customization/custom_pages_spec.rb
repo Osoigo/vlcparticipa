@@ -16,4 +16,20 @@ describe "Custom Pages" do
       end
     end
   end
+
+  context "More information page" do
+    scenario "Lists pages ordered by position" do
+      create(:site_customization_page, :published, :display_in_more_info,
+             slug: "third", title_en: "Third page", position: 2)
+      create(:site_customization_page, :published, :display_in_more_info,
+             slug: "first", title_en: "First page", position: 0)
+      create(:site_customization_page, :published, :display_in_more_info,
+             slug: "second", title_en: "Second page", position: 1)
+
+      visit help_path
+
+      expect("First page").to appear_before("Second page")
+      expect("Second page").to appear_before("Third page")
+    end
+  end
 end

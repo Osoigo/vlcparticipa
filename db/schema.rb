@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_07_13_100002) do
+ActiveRecord::Schema[7.2].define(version: 2026_09_21_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -1556,6 +1556,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_13_100002) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "locale"
+    t.integer "position"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

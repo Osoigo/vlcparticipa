@@ -35,3 +35,8 @@ val:
           negative_ballots: Vots negatius
           total_ballots: Total vots
           created_at: Data de creació
+    site_customization:
+      pages:
+        order:
+          title: "Ordre en la pàgina «Més informació»"
+          hint: "Arrossega les files per a canviar l'ordre."

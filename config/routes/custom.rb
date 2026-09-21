@@ -49,4 +49,8 @@ namespace :admin do
       post :set_winners
     end
   end
+
+  namespace :site_customization do
+    post "/pages/order_pages", to: "pages#order_pages", as: "pages_order_pages"
+  end
 end

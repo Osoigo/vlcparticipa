@@ -2,6 +2,8 @@
   <%= link_to t("admin.site_customization.pages.index.create"), new_admin_site_customization_page_path %>
 <% end %>
 
+<%= render Admin::SiteCustomization::Pages::OrderTableComponent.new(SiteCustomization::Page.with_more_info_flag) %>
+
 <% if pages.any? %>
   <h3><%= page_entries_info pages %></h3>
 
