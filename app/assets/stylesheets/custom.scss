@@ -404,6 +404,7 @@ h6,
     width: 300px;
 
     &::before {
+      flex-shrink: 0;
       font-size: 1.2rem;
       margin-right: $font-icon-margin;
     }
