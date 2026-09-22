@@ -7,3 +7,5 @@ en:
       budget/extension/translation:
         results_extension_content: "Results extension HTML content"
         stats_override_content: "Stats HTML content"
+      site_customization/page:
+        position: "Position"

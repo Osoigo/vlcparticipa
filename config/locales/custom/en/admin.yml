@@ -38,3 +38,8 @@ en:
           created_at: Created at
           negative_ballots: Negative Ballots
           total_ballots: Total Ballots
+    site_customization:
+      pages:
+        order:
+          title: "Order in the \"More information\" page"
+          hint: "Drag the rows to change the order."

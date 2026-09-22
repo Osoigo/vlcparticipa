@@ -38,3 +38,8 @@ es:
           created_at: Fecha de creación
           negative_ballots: Votos negativos
           total_ballots: Total votos
+    site_customization:
+      pages:
+        order:
+          title: "Orden en la página «Más información»"
+          hint: "Arrastra las filas para cambiar el orden."

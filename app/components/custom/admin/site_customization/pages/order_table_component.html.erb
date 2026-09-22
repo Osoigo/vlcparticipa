@@ -1,0 +1,19 @@
+<h3><%= t("admin.site_customization.pages.order.title") %></h3>
+<p class="help-text"><%= t("admin.site_customization.pages.order.hint") %></p>
+
+<table class="more-info-pages-order-table">
+  <thead>
+    <tr>
+      <th><%= t("admin.site_customization.pages.page.title") %></th>
+      <th><%= t("admin.site_customization.pages.page.slug") %></th>
+    </tr>
+  </thead>
+  <tbody data-js-url="<%= admin_site_customization_pages_order_pages_path %>">
+    <% pages.each do |page| %>
+      <tr id="<%= dom_id(page) %>" data-page-id="<%= page.id %>">
+        <td><%= page.title %></td>
+        <td><%= page.slug %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
