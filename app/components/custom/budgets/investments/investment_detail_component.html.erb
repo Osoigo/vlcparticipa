@@ -10,7 +10,7 @@
     <%= t("budgets.investments.show.price_explanation") %>
   </h2>
   <p><%= investment.price_explanation %></p>
-  <hr />
+  <hr>
 <% end %>
 <%= render_image(investment.image, :large, true) if investment.image.present? %>
 <%= auto_link_already_sanitized_html wysiwyg(investment.description) %>
