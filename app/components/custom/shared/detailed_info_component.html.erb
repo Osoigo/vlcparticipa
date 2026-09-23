@@ -1,0 +1,9 @@
+<div class="detailed-info">
+  <%= date %>
+  <%= render Shared::CommentsCountComponent.new(record.comments_count, url: comments_path) %>
+  <%= render Shared::DetailedAuthorInfoComponent.new(record.author) %>
+  <%= content %>
+  <% if can?(:flag, record) && !preview? %>
+    <%= render Shared::FlagActionsComponent.new(record) %>
+  <% end %>
+</div>

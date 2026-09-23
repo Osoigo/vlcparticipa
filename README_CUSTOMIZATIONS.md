@@ -94,6 +94,60 @@ Este apartado es una **página personalizada** del **Administrador** pero para i
 
 Con eliminar `app/views/custom/budgets/_finished.html.erb` sería suficiente, aunque podemos limpiar los `.yml` también, e incluso eliminar la página personalizada.
 
+### Fases con iconos propios
+
+En `app/components/custom/budgets` se ha copiado `phases_component.html.erb` y en él hemos incluido el siguiente código:
+
+```bash
+  <%# CUSTOM phase-icon %>
+    <div class="phase-icon">
+      <%= image_tag(image_path_for("phases/#{phase.kind}_#{I18n.locale}.png")) %>
+    </div>
+  <%# //CUSTOM %>
+```
+
+En `app/assets/images/custom` se ha añadido la carpeta `phases` y las imágenes por idioma:
+
+- accepting_x.png
+- balloting_x.png
+- finished_x.png
+- informing_x.png
+- publishing_prices_x.png
+- reviewing_ballots_x.png
+- selecting_x.png
+- valuating_x.png
+
+Solo debemos sustituir las imágenes si queremos mantener algún tipo de icono.
+
+#### Para recuperar las fases originales de Consul
+
+Con eliminar `app/views/custom/budgets/phases_component.html.erb` sería suficiente.
+
+### Eliminar autor en detalle de proyectos de gastos
+
+En `app/components/custom/shared` hemos traido los siguientes archivos:
+
+- detailed_author_info_component.html.erb
+- detailed_author_info_component.rb
+- detailed_info_component.html.erb
+- detailed_info_component.rb
+
+En `detailed_author_info_component.html.erb` solo dejamos el colectivo. Y en `etailed_info_component.html.erb` cambiamos el orden.
+
+#### Para que vuelva a mostrar el autor del proyecto de gasto de Consul
+
+Con eliminar estos archivos sería suficiente.
+
+### Cambiar orden de "Observaciones a la propuesta de inversión"
+
+En `app/components/custom/budgets/investments` hemos traido los archivos `investment_detail_component.html.erb` y `investment_detail_component.rb`. Hemos cambiado el orden de `investment_code` y `price_explanation`.
+
+Y desde el propio Administrador (`Contenido del sitio > Personalizar textos > Presupuestos participativos`) hemos cambiado el texto de "Informe de coste" por "Observaciones a la propuesta de inversión" en la variable `budgets.investments.show.price_explanation`
+
+#### Para que vuelva a mostrar el orden anterior en Consul
+
+Con eliminar estos archivos sería suficiente. Y en Personalizar textos volver a poner el texto original.
+
 ### Apartado "Más información" con desplegables (help)
 
 Para poder desarrollar una página de **Más información** con desplegables, a modo de faq, hemos adaptado la página de `help`.
