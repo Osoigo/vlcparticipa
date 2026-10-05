@@ -159,3 +159,82 @@ Para ello, en `app/views/custom/pages/help` hemos editado `index.html.erp` para 
 #### Para recuperar el help original de Consul
 
 Al eliminar `app/views/custom/pages/help` volvería a funcionar el original.
+
+### Etiqueta "Seleccionada por mecanismo de garantía."
+
+En `app/views/custom/results/_results_table.html.erb` se ha incluido una etiqueta con el texto `budgets.results.territorial_rebalance` para los proyectos que coincidan con el ID marcado a mano en el propio documento.
+
+```bash
+  <%# Marcar las propuestas seleccionadas por reequibrio territorial %>
+  <% rebalance_2022 = [6046, 6654, 5313, 6261, 6394, 6263, 6411, 6312, 6087, 5435, 6805, 6255, 6575, 6564, 5398]
+      rebalance_2025 = [6046, 6654, 5313, 6261, 6394, 6263, 6411, 6312, 6087, 5435, 6805, 6255, 6575, 6564, 5398]
+      rebalance = rebalance_2022 + rebalance_2025 %>
+  <% if rebalance.include? investment.id %>
+    <abbr title="<%= t("budgets.results.territorial_rebalance") %>" class="adjust-investments-advice-mark"> * </abbr>
+    <div id="<%= dom_id(investment) %>_advice" class="adjust-investments-advice">
+      <span>* <%= t("budgets.results.territorial_rebalance") %></span>
+    </div>
+  <% end %>
+```
+
+## Backend
+
+### Ordernar páginas de help con drag and drop
+
+Ahora que las páginas de `help` se utilizan para el apartado de Más Información en formato acordeón no encontramos con el problema de poder ordenarlos para que no fuera por fecha de creación.
+
+- `db/migrate/20260921000000_add_position_to_site_customization_pages.rb`
+
+### Descarga de excel personalizado con propuestas
+
+En `app/views/custom/admin/budget_investments/index.xlsx.axlsx` tenemos la generación de un archivo excel con las columnas definidas por el ayuntamiento.
+
+### SET WINNERS: poder subir CSV con los ganadores seleccionados manualmente
+
+Una vez finalizadas las votaciones, además de poner calcular los ganadores automáticamente con Consul, hemos incluido un botón en la pestaña de ganadores para "Indicar manualmente" los ganadores. Subiendo un CSV con los IDs de estos.
+
+En `app/controllers/custom/admin/budgets_controller.rb` se ha definido `set_winners`.
+
+```bash
+  def set_winners
+```
+
+### Votos en contra: Cantidad y valor
+
+Ahora crear/editar un Presupuesto Participativo, podremos indicar la cantidad de votos negativos que puede dar el usuario y el valor de este.
+
+Estos son los archivos modificados:
+
+- `app/controllers/custom/admin/budgets_controller.rb`
+- `app/controllers/custom/budgets/ballot/negativelines_controller.rb`
+- `app/controllers/custom/management/budgets/ballot/negativelines_controller.rb`
+- `app/models/custom/abilities/common.rb`
+- `app/models/custom/budget/ballot/negativeline.rb`
+- `app/models/custom/budget/ballot.rb`
+- `app/models/custom/budget/investment.rb`
+- `app/views/custom/admin/budget_investments/_investments.html.erb`
+- `app/views/custom/admin/budgets/_form.html.erb`
+- `app/views/custom/budgets/ballot/negativelines/_refresh_ballots.js.erb`
+- `app/views/custom/budgets/ballot/negativelines/create.js.erb`
+- `app/views/custom/budgets/ballot/negativelines/destroy.js.erb`
+- `app/views/custom/budgets/ballot/_ballot.html.erb`
+- `app/views/custom/budgets/ballot/_negativeinvestment.html.erb`
+- `app/views/custom/budgets/ballot/_negativeinvestment_for_sidebar.html.erb`
+- `app/views/custom/budgets/investments/_ballot.html.erb`
+- `app/views/custom/budgets/investments/_header.html.erb`
+- `app/views/custom/budgets/investments/_investment_sidebar.html.erb`
+- `app/views/custom/budgets/investments/_sidebar.html.erb`
+- `app/views/custom/budgets/investments/index.html.erb`
+- `app/views/custom/budgets/results/_results_table.html.erb`
+- `app/views/custom/management/budgets/ballot/negativelines/_refresh_ballots.js.erb`
+- `app/views/custom/management/budgets/ballot/negativelines/create.js.erb`
+- `app/views/custom/management/budgets/ballot/negativelines/destroy.js.erb`
+- `app/views/custom/management/budgets/ballot/negativelines/new.js.erb`
+- `config/routes/custom.rb`
+- `db/migrate/20260413100032_add_budget_negative_votes.rb`
+
+### Filtros personalizados en Proyectos de gastos
+
+En los proyectos de gasto tenemos a modo de filtro las siguientes pestañas: **Sin administrador, Sin evaluador, En evaluación, Evaluación finalizada, Apoyos suficientes, Apoyos insuficientes y Ganadores**
+
+- `app/models/custom/budget/investment.rb`
