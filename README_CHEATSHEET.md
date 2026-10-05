@@ -86,4 +86,4 @@ En **Presupuestos participativos > "Presupuesto X" > Proyectos de gasto** para l
 
 Al hacer la mayoría de los cálculos fuera de Consul, hemos añadido el botón de *Indicar manualmente* en el que cargaremos un CSV con los ID-s de los proyectos ganadores.
 
-Para ello debemos estar en la fase de *Votación finalizada*. En **Presupuestos participativos > "Presupuesto X" > Proyectos de gasto > Pestaña: Ganadores** encontraremos el botón para esto.  
+Para ello debemos estar en la fase de *Votación finalizada*. En **Presupuestos participativos > "Presupuesto X" > Proyectos de gasto > Pestaña: Ganadores** encontraremos el botón para esto.
