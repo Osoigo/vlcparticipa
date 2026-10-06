@@ -37,6 +37,12 @@ val:
       ammount: "Pressupost"
       status: "Fase"
       download_csv: "Descarregar seguiment"
+      phases_title: "DESCRIPCIÓ DE LES FASES DELS PROJECTES (*)"
+      phases_intro: "Els projectes aprovats passen per diferents fases en la seua execució des de la redacció tècnica de la proposta fins a la seua finalització. Les fases són:"
+      phases_25: "**25% Redacció:** L’àrea municipal responsable de l’execució del projecte està fent l’estudi dedetall o el projecte tècnic corresponent."
+      phases_50: "**50% Tramitació:** El projecte tècnic es troba en fase de gestió administrativa. Si és un contracte menor ho tramita la unitat que executa el projecte, sinó es troba en el Servici de Contratació."
+      phases_75: "**75% Execució:** El projecte es troba en fase d’execució."
+      phases_100: "**100% Executat:** El projecte ha sigut executat i s’ha finalitzat."
     finished_budgets:
       2015_2016_title: "Pressupostos Participatius 2015/2016"
       2015_2016_link: "/budget-2015-2016"

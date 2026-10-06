@@ -37,6 +37,12 @@ en:
       ammount: "Ammount"
       status: "Status"
       download_csv: "Download executions"
+      phases_title: "PROJECT PHASE DESCRIPTIONS (*)"
+      phases_intro: "Approved projects go through several stages during implementation, from the technical drafting of the proposal to its completion. These stages are:"
+      phases_25: "**25% Drafting:** The municipal department responsible for delivering the project is carrying out a detailed study or preparing the corresponding technical project."
+      phases_50: "**50% Administrative processing:** The technical project is undergoing administrative processing. Minor contracts are handled by the unit responsible for carrying out the project; other contracts are handled by the central procurement service."
+      phases_75: "**75% Implementation:** The project is being carried out."
+      phases_100: "**100% Completed:** The project has been completed."
     finished_budgets:
       2015_2016_title: "Budgets 2015/2016"
       2015_2016_link: "/budget-2015-2016"
