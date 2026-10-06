@@ -37,6 +37,12 @@ es:
       ammount: "Presupuesto"
       status: "Fase"
       download_csv: "Descargar seguimiento"
+      phases_title: "DESCRIPCIÓN DE LAS FASES DE LOS PROYECTOS (*)"
+      phases_intro: "Los proyectos aprobados pasan por distintas fases en su ejecución desde la redacción técnica de la propuesta hasta su finalización. Las fases son:"
+      phases_25: "**25% Redacción:** El área municipal responsable de la ejecución del proyecto está realizando el estudio de detalle o realizando el proyecto técnico correspondiente."
+      phases_50: "**50% Tramitación:** El proyecto técnico se encuentra en fase de gestión administrativa. Si es un contrato menor lo tramita la unidad que ejecuta el proyecto, sino se encuentra en el servicio transversal de contratación"
+      phases_75: "**75% Ejecución:** El proyecto se encuentra en fase de ejecución."
+      phases_100: "**100% Ejecutado:** El proyecto ha sido ejecutado y se ha finalizado."
     finished_budgets:
       2015_2016_title: "Presupuestos Participativos 2015/2016"
       2015_2016_link: "/budget-2015-2016"
