@@ -28,8 +28,23 @@
     <% end %>
   </tbody>
 </table>
-<%= button_tag t("budgets.executions.download_csv"), type: "submit", name: "format", value: "csv", form: "budget-executions-filters", class: "button float-right" %>
-
+<div class="text-right">
+  <%= button_tag t("budgets.executions.download_csv"), type: "submit", name: "format", value: "csv", form: "budget-executions-filters", class: "button" %>
+</div>
+<div class="card">
+  <div class="card-divider">
+    <p><strong><%= t("budgets.executions.phases_title") %></strong></p>
+  </div>
+  <div class="card-section">
+    <p><%= t("budgets.executions.phases_intro") %></p>
+    <ul>
+      <li><%= markdown(t("budgets.executions.phases_25")) %></li>
+      <li><%= markdown(t("budgets.executions.phases_50")) %></li>
+      <li><%= markdown(t("budgets.executions.phases_75")) %></li>
+      <li><%= markdown(t("budgets.executions.phases_100")) %></li>
+    </ul>
+  </div>
+</div>
 <link href="//cdn.datatables.net/2.3.8/css/dataTables.dataTables.min.css" rel="stylesheet">
 <script src="//cdn.datatables.net/2.3.8/js/dataTables.min.js"></script>
 <script>
