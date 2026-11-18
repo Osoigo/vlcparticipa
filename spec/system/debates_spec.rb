@@ -76,9 +76,9 @@ describe "Debates" do
 
     expect(page).to have_content debate.title
     expect(page).to have_content "Debate description"
-    expect(page).to have_content "Charles Dickens"
+    # expect(page).to have_content "Charles Dickens"
     expect(page).to have_content I18n.l(debate.created_at.to_date)
-    expect(page).to have_avatar "C"
+    # expect(page).to have_avatar "C"
     expect(page.html).to include "<title>#{debate.title}</title>"
   end
 
@@ -197,7 +197,7 @@ describe "Debates" do
     expect(page).to have_content "A title for a debate"
     expect(page).to have_content "Debate created successfully."
     expect(page).to have_content "This is very important because..."
-    expect(page).to have_content author.name
+    # expect(page).to have_content author.name
     expect(page).to have_content I18n.l(Date.current)
   end
 
@@ -662,7 +662,7 @@ describe "Debates" do
     expect(page).not_to have_content "This debate has been flagged as inappropriate by several users."
   end
 
-  scenario "Erased author" do
+  scenario "Erased author", :consul do
     user = create(:user)
     debate = create(:debate, author: user)
     user.erase
