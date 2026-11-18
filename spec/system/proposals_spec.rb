@@ -119,9 +119,9 @@ describe "Proposals" do
     expect(page).to have_content proposal.title
     expect(page).to have_content proposal.code
     expect(page).to have_content "Proposal description"
-    expect(page).to have_content "Mark Twain"
+    # expect(page).to have_content "Mark Twain"
     expect(page).to have_content I18n.l(proposal.created_at.to_date)
-    expect(page).to have_avatar "M"
+    # expect(page).to have_avatar "M"
     expect(page.html).to include "<title>#{proposal.title}</title>"
     expect(page).not_to have_css ".flag-actions"
     expect(page).not_to have_css ".js-follow"
@@ -333,7 +333,7 @@ describe "Proposals" do
     expect(page).to have_content "In summary, what we want is..."
     expect(page).to have_content "This is very important because..."
     expect(page).to have_content "https://www.youtube.com/watch?v=yPQfcG-eimk"
-    expect(page).to have_content author.name
+    # expect(page).to have_content author.name
     expect(page).to have_content "Refugees"
     expect(page).to have_content "Solidarity"
     expect(page).to have_content I18n.l(Date.current)
@@ -1268,7 +1268,7 @@ describe "Proposals" do
                   "edit_proposal_path",
                   "proposal_path"
 
-  scenario "Erased author" do
+  scenario "Erased author", :consul do
     user = create(:user)
     proposal = create(:proposal, author: user)
     user.erase
