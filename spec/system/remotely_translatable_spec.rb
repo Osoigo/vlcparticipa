@@ -57,7 +57,7 @@ describe "Remotely translatable" do
 
       expect(page).not_to have_button "Translate page"
 
-      select "Español", from: "Language:"
+      select "Castellano", from: "Language:"
 
       expect(page).to have_select "Idioma:"
       expect(page).not_to have_button "Traducir página"
@@ -75,7 +75,7 @@ describe "Remotely translatable" do
 
           expect(page).not_to have_button "Translate page"
 
-          select "Español", from: "Language:"
+          select "Castellano", from: "Language:"
 
           expect(page).to have_button "Traducir página"
         end
@@ -87,7 +87,7 @@ describe "Remotely translatable" do
 
           expect(page).not_to have_button "Translate page"
 
-          select "Español", from: "Language:"
+          select "Castellano", from: "Language:"
 
           expect(page).to have_select "Idioma:"
           expect(page).not_to have_button "Traducir página"
@@ -115,7 +115,7 @@ describe "Remotely translatable" do
 
           expect(page).not_to have_button "Translate page"
 
-          select "Español", from: "Language:"
+          select "Castellano", from: "Language:"
 
           expect(page).to have_select "Idioma:"
           expect(page).not_to have_button "Traducir página"
@@ -133,7 +133,7 @@ describe "Remotely translatable" do
 
           expect(page).not_to have_button "Translate page"
 
-          select "Español", from: "Language:"
+          select "Castellano", from: "Language:"
 
           expect(page).to have_button "Traducir página"
         end

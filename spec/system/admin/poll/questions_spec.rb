@@ -217,7 +217,7 @@ describe "Admin poll questions", :admin do
 
   context "Poll select box" do
     scenario "translates the poll name in options" do
-      poll = create(:poll, :future, name_en: "Name in English", name_es: "Nombre en Español")
+      poll = create(:poll, :future, name_en: "Name in English", name_es: "Nombre en Castellano")
       proposal = create(:proposal)
 
       visit admin_proposal_path(proposal)
@@ -225,7 +225,7 @@ describe "Admin poll questions", :admin do
 
       expect(page).to have_select("poll_question_poll_id", options: ["Select Poll", poll.name_en])
 
-      select "Español", from: "Language:"
+      select "Castellano", from: "Language:"
 
       expect(page).to have_select("poll_question_poll_id",
                                   options: ["Seleccionar votación", poll.name_es])
@@ -233,7 +233,7 @@ describe "Admin poll questions", :admin do
 
     scenario "uses fallback if name is not translated to current locale",
              if: Globalize.fallbacks(:fr).reject { |locale| locale.match(/fr/) }.first == :es do
-      poll = create(:poll, :future, name_en: "Name in English", name_es: "Nombre en Español")
+      poll = create(:poll, :future, name_en: "Name in English", name_es: "Nombre en Castellano")
       proposal = create(:proposal)
 
       visit admin_proposal_path(proposal)

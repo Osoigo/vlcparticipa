@@ -22,7 +22,7 @@ describe "Admin Budgets", :admin do
                       name_es: "Presupuesto por el cambio climático")
 
       visit admin_budget_path(budget)
-      select "Español", from: "Language:"
+      select "Castellano", from: "Language:"
 
       accept_confirm { click_button "Crear urnas" }
 
