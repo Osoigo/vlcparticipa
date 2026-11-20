@@ -1,4 +1,4 @@
-Castellano "rails_helper"
+require "rails_helper"
 
 describe Budget::Heading do
   let(:budget) { create(:budget) }
