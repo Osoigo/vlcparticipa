@@ -146,7 +146,7 @@ describe "Admin legislation questions", :admin do
 
     context "Special translation behaviour" do
       before do
-        question.update!(title_en: "Title in English", title_es: "Título en Español")
+        question.update!(title_en: "Title in English", title_es: "Título en Castellano")
       end
 
       scenario "Add translation for question option" do
@@ -156,7 +156,7 @@ describe "Admin legislation questions", :admin do
 
         fill_in "Add a closed answer", with: "Option 1"
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         fill_in "Add a closed answer", with: "Opción 1"
 
@@ -168,7 +168,7 @@ describe "Admin legislation questions", :admin do
 
         expect(page).to have_field(field_en[:id], with: "Option 1")
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         expect(page).to have_field(field_es[:id], with: "Opción 1")
       end
@@ -176,7 +176,7 @@ describe "Admin legislation questions", :admin do
       scenario "Add new question option after changing active locale" do
         visit edit_question_url
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         click_link "Add option"
 
@@ -194,7 +194,7 @@ describe "Admin legislation questions", :admin do
 
         expect(page).to have_field(field_en[:id], with: "Option 1")
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         expect(page).to have_field(field_es[:id], with: "Opción 1")
       end

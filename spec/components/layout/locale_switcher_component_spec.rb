@@ -24,7 +24,7 @@ describe Layout::LocaleSwitcherComponent do
       render_inline component
 
       expect(page).to have_css "form"
-      expect(page).to have_select "Language:", options: %w[Deutsch English Español Français Nederlands]
+      expect(page).to have_select "Language:", options: %w[Deutsch English Castellano Français Nederlands]
       expect(page).not_to have_css "ul"
     end
 
@@ -59,7 +59,7 @@ describe Layout::LocaleSwitcherComponent do
 
       expect(page).to have_css "ul"
       expect(page).to have_link "English", href: "/?locale=en"
-      expect(page).to have_link "Español", href: "/?locale=es"
+      expect(page).to have_link "Castellano", href: "/?locale=es"
       expect(page).to have_link "Français", href: "/?locale=fr"
       expect(page).not_to have_css "form"
     end
@@ -106,7 +106,7 @@ describe Layout::LocaleSwitcherComponent do
       render_inline component
 
       expect(page).to have_link count: 2
-      expect(page).to have_link "Español"
+      expect(page).to have_link "Castellano"
       expect(page).to have_link "Français"
       expect(page).not_to have_link "English"
     end

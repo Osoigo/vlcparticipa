@@ -14,7 +14,7 @@ describe "Locales management", :admin do
       expect(page).to have_link "English"
       expect(page).to have_link "Deutsch"
       expect(page).not_to have_link "Français"
-      expect(page).not_to have_link "Español"
+      expect(page).not_to have_link "Castellano"
     end
 
     within "#admin_menu" do
@@ -30,7 +30,7 @@ describe "Locales management", :admin do
     within_fieldset "Default language" do
       expect(page).to have_checked_field "English"
 
-      choose "Español"
+      choose "Castellano"
     end
 
     within_fieldset "Enabled languages" do
@@ -43,10 +43,10 @@ describe "Locales management", :admin do
     expect(page).to have_content "Languages updated successfully"
 
     within ".locale" do
-      expect(page).to have_css "[aria-current]", exact_text: "Español"
+      expect(page).to have_css "[aria-current]", exact_text: "Castellano"
 
       expect(page).to have_link "Français"
-      expect(page).to have_link "Español"
+      expect(page).to have_link "Castellano"
       expect(page).to have_link "Deutsch"
       expect(page).not_to have_link "English"
     end

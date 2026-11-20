@@ -114,7 +114,7 @@ describe "Admin custom information texts", :admin do
 
       visit admin_site_customization_information_texts_path(tab: "debates")
 
-      select "Español", from: "Current language"
+      select "Castellano", from: "Current language"
 
       expect(page).to have_field "debates.index.featured_debates", with: "Destacar personalizado"
       expect(page).to have_field "debates.new.start_new", with: "Empezar un nuevo debate personalizado"
@@ -131,7 +131,7 @@ describe "Admin custom information texts", :admin do
       expect(page).to have_field "debates.index.featured_debates", with: "Custom featured"
       expect(page).to have_field "debates.new.start_new", with: "Start a new custom debate"
 
-      select "Español", from: "Add language"
+      select "Castellano", from: "Add language"
 
       expect(page).to have_field "debates.index.featured_debates", with: "Destacar"
       expect(page).to have_field "debates.new.start_new", with: "Empezar un debate"

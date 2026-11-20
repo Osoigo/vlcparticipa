@@ -32,7 +32,7 @@ describe "Admin edit translatable records", :admin do
 
         expect(page).to have_field "Heading name", with: "Heading name in English"
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         expect(page).to have_field "Heading name", with: "Nombre de la partida en español"
 
@@ -61,7 +61,7 @@ describe "Admin edit translatable records", :admin do
 
         expect(page).to have_ckeditor "Content", with: "Content in English"
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         expect(page).to have_ckeditor "Content", with: "Contenido en español"
 
@@ -92,7 +92,7 @@ describe "Admin edit translatable records", :admin do
         expect(page).to have_field "Text", with: "Text in English"
 
         click_link class: "fullscreen-toggle"
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
         click_link class: "fullscreen-toggle"
 
         expect(page).to have_field "Text", with: "Texto en español"
@@ -198,7 +198,7 @@ describe "Admin edit translatable records", :admin do
       scenario "Changes the existing translation" do
         visit path
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         within(".translatable-fields") do
           fill_in "Title", with: "Título corregido"
@@ -215,7 +215,7 @@ describe "Admin edit translatable records", :admin do
 
         expect(page).to have_field "Title", with: "Title in English"
 
-        select "Español", from: "Language:"
+        select "Castellano", from: "Language:"
 
         expect(page).to have_field "Título", with: "Título corregido"
         expect(page).to have_field "Descripción", with: "Descripción corregida"
@@ -231,7 +231,7 @@ describe "Admin edit translatable records", :admin do
       scenario "Changes the existing translation" do
         visit path
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         within(".translatable-fields") do
           fill_in "Answer", with: "Respuesta corregida"
@@ -246,7 +246,7 @@ describe "Admin edit translatable records", :admin do
 
         expect(page).to have_field "Answer", with: "Answer in English"
 
-        select "Español", from: "Language:"
+        select "Castellano", from: "Language:"
 
         expect(page).to have_field "Respuesta", with: "Respuesta corregida"
         expect(page).to have_ckeditor "Descripción", with: "Descripción corregida"
@@ -280,7 +280,7 @@ describe "Admin edit translatable records", :admin do
 
       scenario "Show validation errors" do
         visit edit_admin_banner_path(translatable)
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         expect(page).to have_field "Title", with: "Title en español"
 
@@ -289,7 +289,7 @@ describe "Admin edit translatable records", :admin do
 
         expect(page).to have_css "#error_explanation"
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
 
         expect(page).to have_field "Title", with: "", class: "is-invalid-input"
       end
@@ -301,7 +301,7 @@ describe "Admin edit translatable records", :admin do
       scenario "Shows validation errors" do
         visit edit_admin_legislation_process_draft_version_path(translatable.process, translatable)
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
         click_link class: "fullscreen-toggle"
 
         expect(page).to have_field "Text", with: "Texto en español"
@@ -312,7 +312,7 @@ describe "Admin edit translatable records", :admin do
 
         expect(page).to have_css "#error_explanation"
 
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
         click_link class: "fullscreen-toggle"
 
         expect(page).to have_field "Text", with: ""
@@ -350,10 +350,10 @@ describe "Admin edit translatable records", :admin do
     scenario "Keeps the other languages" do
       visit path
 
-      select "Español", from: "Current language"
+      select "Castellano", from: "Current language"
       click_link "Remove language"
 
-      expect(page).not_to have_select "Current language", with_options: ["Español"]
+      expect(page).not_to have_select "Current language", with_options: ["Castellano"]
 
       click_button "Save group"
 
@@ -362,7 +362,7 @@ describe "Admin edit translatable records", :admin do
       visit path
 
       expect(page).to have_select "Current language", with_options: ["English"]
-      expect(page).not_to have_select "Current language", with_options: ["Español"]
+      expect(page).not_to have_select "Current language", with_options: ["Castellano"]
     end
   end
 
@@ -376,7 +376,7 @@ describe "Admin edit translatable records", :admin do
       expect_to_have_language_selected "English"
 
       click_link "Remove language"
-      expect_to_have_language_selected "Español"
+      expect_to_have_language_selected "Castellano"
       click_link "Remove language"
       expect_to_have_language_selected nil
 
@@ -392,7 +392,7 @@ describe "Admin edit translatable records", :admin do
       expect_to_have_language_selected "English"
 
       click_link "Remove language"
-      expect_to_have_language_selected "Español"
+      expect_to_have_language_selected "Castellano"
       click_link "Remove language"
       expect_to_have_language_selected nil
 
@@ -409,7 +409,7 @@ describe "Admin edit translatable records", :admin do
     scenario "Doesn't remove the translation" do
       visit path
 
-      select "Español", from: "Current language"
+      select "Castellano", from: "Current language"
       click_link "Remove language"
 
       select "English", from: "Current language"
@@ -419,10 +419,10 @@ describe "Admin edit translatable records", :admin do
       expect(page).to have_css "#error_explanation"
       expect(page).to have_field "Question", with: "", class: "is-invalid-input"
       expect_to_have_language_selected "English"
-      expect_not_to_have_language "Español"
+      expect_not_to_have_language "Castellano"
 
       visit path
-      select "Español", from: "Current language"
+      select "Castellano", from: "Current language"
 
       expect(page).to have_field "Question", with: "Pregunta en español"
     end
@@ -439,7 +439,7 @@ describe "Admin edit translatable records", :admin do
 
         select "English", from: "Current language"
         click_link "Remove language"
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
         click_link "Remove language"
 
         click_button "Update notification"
@@ -458,7 +458,7 @@ describe "Admin edit translatable records", :admin do
 
         select "English", from: "Current language"
         click_link "Remove language"
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
         click_link "Remove language"
 
         click_button "Save changes"
@@ -482,7 +482,7 @@ describe "Admin edit translatable records", :admin do
 
         select "English", from: "Current language"
         click_link "Remove language"
-        select "Español", from: "Current language"
+        select "Castellano", from: "Current language"
         click_link "Remove language"
         expect_to_have_language_selected "Français"
 
@@ -507,16 +507,16 @@ describe "Admin edit translatable records", :admin do
 
       expect_to_have_language_selected "English"
 
-      select "Español", from: "Language:"
+      select "Castellano", from: "Language:"
 
-      expect_to_have_language_selected "Español"
+      expect_to_have_language_selected "Castellano"
     end
 
     scenario "Select first locale of existing translations when current locale translation does not exists" do
       content.translations.where(locale: :en).destroy_all
       visit path
 
-      expect_to_have_language_selected "Español"
+      expect_to_have_language_selected "Castellano"
     end
 
     scenario "Show selected locale form" do
@@ -524,7 +524,7 @@ describe "Admin edit translatable records", :admin do
 
       expect(page).to have_field content.key, with: "Value in English"
 
-      select "Español", from: "Current language"
+      select "Castellano", from: "Current language"
 
       expect(page).to have_field content.key, with: "Value en español"
     end

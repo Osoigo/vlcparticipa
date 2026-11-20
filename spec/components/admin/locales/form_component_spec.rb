@@ -14,7 +14,7 @@ describe Admin::Locales::FormComponent do
       page.find(:fieldset, "Default language") do |fieldset|
         expect(fieldset).to have_checked_field "Nederlands", type: :radio
         expect(fieldset).to have_unchecked_field "English", type: :radio
-        expect(fieldset).to have_unchecked_field "Español", type: :radio
+        expect(fieldset).to have_unchecked_field "Castellano", type: :radio
         expect(fieldset).to have_unchecked_field "Deutsch", type: :radio
       end
 
@@ -29,7 +29,7 @@ describe Admin::Locales::FormComponent do
       expect(page).not_to have_field type: :radio
 
       expect(page).to have_select "Default language",
-                                  options: %w[English Español Deutsch Nederlands],
+                                  options: %w[English Castellano Deutsch Nederlands],
                                   selected: "Nederlands"
     end
   end
