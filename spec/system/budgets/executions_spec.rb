@@ -38,10 +38,10 @@ describe "Executions" do
 
     click_link "Milestones"
 
-    expect(page).not_to have_content(investment2.title)
-    expect(page).not_to have_content(investment3.title)
-    expect(page).not_to have_content(investment4.title)
-    expect(page).to have_content(investment1.title)
+    expect(page).not_to have_content(investment2.title.downcase)
+    expect(page).not_to have_content(investment3.title.downcase)
+    expect(page).not_to have_content(investment4.title.downcase)
+    expect(page).to have_content(investment1.title.downcase)
   end
 
   scenario "Do not display headings with no winning investments for selected status" do
@@ -120,26 +120,26 @@ describe "Executions" do
 
       visit budget_executions_path(budget)
 
-      expect(page).to have_content(investment1.title)
-      expect(page).to have_content(investment2.title)
+      expect(page).to have_content(investment1.title.downcase)
+      expect(page).to have_content(investment2.title.downcase)
 
       select "Studying the project (1)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).not_to have_content(investment2.title)
-      expect(page).to have_content(investment1.title)
+      expect(page).not_to have_content(investment2.title.downcase)
+      expect(page).to have_content(investment1.title.downcase)
 
       select "Bidding (1)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).to have_content(investment2.title)
-      expect(page).not_to have_content(investment1.title)
+      expect(page).to have_content(investment2.title.downcase)
+      expect(page).not_to have_content(investment1.title.downcase)
 
       select "Executing the project (0)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).not_to have_content(investment2.title)
-      expect(page).not_to have_content(investment1.title)
+      expect(page).not_to have_content(investment2.title.downcase)
+      expect(page).not_to have_content(investment1.title.downcase)
     end
 
     scenario "are based on latest milestone status" do
@@ -153,17 +153,17 @@ describe "Executions" do
 
       visit budget_executions_path(budget)
 
-      expect(page).to have_content investment1.title
+      expect(page).to have_content investment1.title.downcase
 
       select "Studying the project (0)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).not_to have_content investment1.title
+      expect(page).not_to have_content investment1.title.downcase
 
       select "Bidding (1)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).to have_content investment1.title
+      expect(page).to have_content investment1.title.downcase
     end
 
     scenario "milestones with future dates are not shown" do
@@ -177,17 +177,17 @@ describe "Executions" do
 
       visit budget_executions_path(budget)
 
-      expect(page).to have_content investment1.title
+      expect(page).to have_content investment1.title.downcase
 
       select "Bidding (0)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).not_to have_content investment1.title
+      expect(page).not_to have_content investment1.title.downcase
 
       select "Studying the project (1)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).to have_content investment1.title
+      expect(page).to have_content investment1.title.downcase
     end
 
     scenario "by milestone tag, only display tags for winner investments" do
@@ -203,33 +203,33 @@ describe "Executions" do
 
       visit budget_executions_path(budget)
 
-      expect(page).to have_content(investment1.title)
-      expect(page).to have_content(investment2.title)
+      expect(page).to have_content(investment1.title.downcase)
+      expect(page).to have_content(investment2.title.downcase)
 
       select "tag2 (2)", from: "Milestone tag"
       select "Studying the project (1)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).not_to have_content(investment2.title)
-      expect(page).to have_content(investment1.title)
+      expect(page).not_to have_content(investment2.title.downcase)
+      expect(page).to have_content(investment1.title.downcase)
 
       select "Bidding (1)", from: "Project's current state"
       click_button "Filter"
 
-      expect(page).to have_content(investment2.title)
-      expect(page).not_to have_content(investment1.title)
+      expect(page).to have_content(investment2.title.downcase)
+      expect(page).not_to have_content(investment1.title.downcase)
 
       select "tag1 (1)", from: "Milestone tag"
       click_button "Filter"
 
-      expect(page).not_to have_content(investment2.title)
-      expect(page).not_to have_content(investment1.title)
+      expect(page).not_to have_content(investment2.title.downcase)
+      expect(page).not_to have_content(investment1.title.downcase)
 
       select "All (2)", from: "Milestone tag"
       click_button "Filter"
 
-      expect(page).to have_content(investment2.title)
-      expect(page).not_to have_content(investment1.title)
+      expect(page).to have_content(investment2.title.downcase)
+      expect(page).not_to have_content(investment1.title.downcase)
     end
   end
 

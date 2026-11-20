@@ -503,3 +503,15 @@ h6,
 tbody tr:nth-child(even) {
   border-bottom: #dee0e3;
 }
+
+table .budget-executions-investment {
+  td:nth-child(3) {
+    a {
+      text-transform: lowercase;
+
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
