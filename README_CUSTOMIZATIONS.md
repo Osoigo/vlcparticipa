@@ -177,6 +177,48 @@ En `app/views/custom/results/_results_table.html.erb` se ha incluido una etiquet
   <% end %>
 ```
 
+### custom.scss
+
+#### Ocultar segunda columna del footer
+
+```bash
+  footer .footer-sections.small-12.large-8.column {
+    display: none;
+  }
+```
+
+#### Ocultar en Presupuestos Participativos
+
+- En el encabezado pre título y enlace a ayuda.
+- Pestañas con información de las fases.
+- Y apartado de ayuda.
+
+```bash
+  .budget-header .budget-title {
+    display: none;
+  }
+
+  .budget-header {
+    p:has(a[href="#section_help"]) {
+      display: none;
+    }
+  }
+
+  .budgets-index {
+    div[id="section_help"] {
+      display: none;
+    }
+  }
+
+  .phases-list + div[data-tabs-content="budget_phases_tabs"] {
+    display: none;
+  }
+
+  footer .footer-sections.small-12.large-8.column {
+    display: none;
+  }
+```
+
 ## Backend
 
 ### Ordernar páginas de help con drag and drop

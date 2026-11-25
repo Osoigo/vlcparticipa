@@ -283,7 +283,7 @@ h6,
 
 .budget-header {
   margin-top: -1.5rem;
-  min-height: 24rem;
+  min-height: 20rem;
   padding-bottom: 1.5rem;
   padding-top: 4rem;
 }
@@ -514,4 +514,29 @@ table .budget-executions-investment {
       }
     }
   }
+}
+
+// Ocultar secciones
+.budget-header .budget-title {
+  display: none;
+}
+
+.budget-header {
+  p:has(a[href="#section_help"]) {
+    display: none;
+  }
+}
+
+.budgets-index {
+  div[id="section_help"] {
+    display: none;
+  }
+}
+
+.phases-list + div[data-tabs-content="budget_phases_tabs"] {
+  display: none;
+}
+
+footer .footer-sections.small-12.large-8.column {
+  display: none;
 }
